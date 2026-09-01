@@ -2,7 +2,7 @@
 
 @section('content')
     <x-front-breadcrumbs>
-        <li>دسته‌بندی‌ها</li>
+        <li>Kategorie</li>
     </x-front-breadcrumbs>
 
     <section class="block-wrapper">

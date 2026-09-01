@@ -2,7 +2,7 @@
 
 @section('content')
     <x-front-breadcrumbs>
-        <li>درباره ما</li>
+        <li>O nas</li>
     </x-front-breadcrumbs>
 
     <section class="block-wrapper">

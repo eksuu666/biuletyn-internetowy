@@ -3,7 +3,7 @@
     @if($contact->address)
         <div class="contact-info-box">
             <div class="contact-info-box-content">
-                <h4>آدرس ما</h4>
+                <h4>Adres redakcji</h4>
                 <p>{{ $contact->address }}</p>
             </div>
         </div>
@@ -12,7 +12,7 @@
     @if($contact->email)
         <div class="contact-info-box">
             <div class="contact-info-box-content">
-                <h4>به ما ایمیل بزنید</h4>
+                <h4>Napisz do nas</h4>
                 <p>{{ $contact->email }}</p>
             </div>
         </div>
@@ -21,7 +21,7 @@
     @if($contact->phone)
         <div class="contact-info-box">
             <div class="contact-info-box-content">
-                <h4>با ما تماس بگیرید</h4>
+                <h4>Zadzwoń do nas</h4>
                 <p><span class="ltr_text">{{ $contact->phone }}</span></p>
             </div>
         </div>

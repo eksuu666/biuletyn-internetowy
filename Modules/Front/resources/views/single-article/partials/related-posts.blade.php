@@ -1,5 +1,5 @@
 <div class="related-posts block">
-    <h3 class="block-title"><span>مطالب مرتبط</span></h3>
+    <h3 class="block-title"><span>Powiązane materiały</span></h3>
 
     <div id="latest-news-slide" class="owl-carousel owl-theme latest-news-slide">
         @foreach($related_articles as $related_article)
@@ -17,7 +17,7 @@
                         </h2>
                         <div class="post-meta">
                             <span class="post-author"><a href="{{ route('author.index', $related_article->user->username) }}">{{ $related_article->user->full_name }}</a></span>
-                            <span class="post-date">{{ jalalian()->forge($related_article->created_at)->format(config('common.front_date_format')) }}</span>
+                            <span class="post-date">{{ front_date_format($related_article->created_at) }}</span>
                         </div>
                     </div><!-- Post content end -->
                 </div><!-- Post Block style end -->

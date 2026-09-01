@@ -2,7 +2,7 @@
 
 @section('content')
     <x-front-breadcrumbs>
-        <li>تگ‌ها</li>
+        <li>Tagi</li>
         <li>{{ $tag->name }}</li>
     </x-front-breadcrumbs>
 

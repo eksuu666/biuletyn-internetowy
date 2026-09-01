@@ -16,7 +16,7 @@
                         </h2>
                         <div class="post-meta">
                             <span class="post-author"><a href="{{ route('author.index', $author->username) }}">{{ $author->full_name }}</a></span>
-                            <span class="post-date">{{ jalalian()->forge($article->created_at)->format(config('common.front_date_format')) }}</span>
+                            <span class="post-date">{{ front_date_format($article->created_at) }}</span>
                             <span class="post-comment pull-right">
                             <span class="post-hits"><i class="fa fa-eye"></i> {{ visits($article)->count() }}</span>
                                 <i class="fa fa-comments-o"></i>

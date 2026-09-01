@@ -4,7 +4,7 @@
             <div class="col-sm-12">
                 <ol class="breadcrumb">
                     @if(!$noprefix)
-                        <li><a href="{{ route('home.index') }}">خانه</a></li>
+                        <li><a href="{{ route('home.index') }}">Start</a></li>
                     @endif
                     {{ $slot }}
                 </ol>

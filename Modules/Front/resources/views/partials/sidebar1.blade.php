@@ -1,7 +1,8 @@
 <div class="{{ $sidebar_classes ?? 'col-xs-12' }}" style="{{ $side_styles ?? 'margin-bottom: 3rem;' }}">
     <div class="sidebar sidebar-right first-sidebar">
+        @if($first_sidebar['articles_with_most_visits']['first'])
         <div class="widget color-default m-bottom-0">
-            <h3 class="block-title"><span>اخبار پربازدید</span></h3>
+            <h3 class="block-title"><span>Najczęściej czytane</span></h3>
             <div class="post-overlay-style clearfix">
                 <div class="post-thumb">
                     <a
@@ -53,5 +54,6 @@
                 </ul><!-- List post end -->
             </div><!-- List post block end -->
         </div><!-- Popular news widget end -->
+        @endif
     </div><!-- Sidebar right end -->
 </div><!-- Sidebar Col end -->

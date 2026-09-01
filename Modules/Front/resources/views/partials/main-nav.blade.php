@@ -4,7 +4,7 @@
             <nav class="site-navigation navigation">
                 <div class="site-nav-inner pull-left">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">تغییر وضعیت ناوبری</span>
+                        <span class="sr-only">Otwórz lub zamknij nawigację</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -17,7 +17,7 @@
                                 <li class="dropdown mega-dropdown {{ front_active_menu(route('categories.index')) }} hidden-xs hidden-sm">
                                     <a href="{{ route('categories.index') }}" class="dropdown-toggle" data-toggle="dropdown">
                                         <i class="fa fa-list"></i>
-                                        دسته‌بندی‌ها
+                                        Kategorie
                                         <i class="fa fa-angle-down"></i></a>
                                     <div class="dropdown-menu mega-menu-content hidden-xs hidden-sm clearfix">
                                         <div class="mega-menu-content-inner">
@@ -51,7 +51,7 @@
                             @endif
 
                             <li class="{{ front_active_menu(route('home.index')) }}">
-                                <a href="{{ route('home.index') }}">خانه</a>
+                                <a href="{{ route('home.index') }}">Start</a>
                             </li>
 
                             @foreach($main_nav['menus'] as $menu)
@@ -137,7 +137,7 @@
                                                                     <div class="col-md-3">
                                                                         <div class="post-block-style clearfix">
                                                                             <div class="post-thumb">
-                                                                                <a href="{{ $article->getUrl() }}l">
+                                                                                <a href="{{ $article->getUrl() }}">
                                                                                     <img class="img-responsive nav-parent-cat-post-img"
                                                                                          src="{{ asset('storage/' . $article->image->file_path) }}"
                                                                                          alt="{{ $article->image->alt_text }}">
@@ -164,7 +164,7 @@
 
                             {{-- Link to categories for mobile view --}}
                             <li class="visible-xs visible-sm {{ front_active_menu(route('categories.index')) }}">
-                                <a href="{{ route('categories.index') }}">دسته‌بندی‌ها</a>
+                                <a href="{{ route('categories.index') }}">Kategorie</a>
                             </li>
                         </ul><!--/ Nav ul end -->
                     </div><!--/ Collapse end -->
@@ -174,31 +174,31 @@
 
             @guest
                 <div class="nav-login">
-                    <a href="{{ route('login') }}" id="login"><i class="fa fa-sign-in" title="ورود به حساب کاربری"></i></a>
+                    <a href="{{ route('login') }}" id="login"><i class="fa fa-sign-in" title="Zaloguj się"></i></a>
                 </div>
                 <div class="nav-register">
-                    <a href="{{ route('register') }}" id="register"><i class="fa fa-user-plus" title="ثبت نام"></i></a>
+                    <a href="{{ route('register') }}" id="register"><i class="fa fa-user-plus" title="Załóż konto"></i></a>
                 </div>
             @endguest
 
             @auth
                 <form action="{{ route('logout') }}" method="post" id="logout-form">@csrf</form>
                 <div class="nav-logout">
-                    <a onclick="document.getElementById('logout-form').submit()" title="خروج از حساب کاربری"><i
+                    <a onclick="document.getElementById('logout-form').submit()" title="Wyloguj się"><i
                             class="fa
                     fa-sign-out"></i></a>
                 </div>
                 <div class="nav-user-panel">
-                    <a href="{{ route(config('app.panel_prefix', 'panel') . '.index') }}"><i class="fa fa-user" title="پنل کاربری"></i></a>
+                    <a href="{{ route(config('app.panel_prefix', 'panel') . '.index') }}"><i class="fa fa-user" title="Panel redakcyjny"></i></a>
                 </div>
             @endauth
 
             <div class="nav-search">
-                <span id="search"><i class="fa fa-search" title="جستجو"></i></span>
+                <span id="search"><i class="fa fa-search" title="Szukaj"></i></span>
             </div><!-- Search end -->
 
             <form class="search-block" style="display: none;" action="{{ route('search.index') }}">
-                <input name="text" type="text" class="form-control" placeholder="عبارتی را وارد نموده و اینتر بزنید">
+                <input name="text" type="text" class="form-control" placeholder="Wpisz szukaną frazę i naciśnij Enter">
                 <span class="search-close">×</span>
             </form><!-- Site search end -->
 

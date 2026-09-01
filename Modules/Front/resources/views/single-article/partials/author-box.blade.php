@@ -11,7 +11,7 @@
         <p>{{ $article->user->bio }}</p>
         @if(!empty($article->user?->socialNetworks) && $article->user?->socialNetworks->count() > 0)
             <div class="authors-social">
-                <span>مرا دنبال کنید: </span>
+                <span>Obserwuj autora: </span>
                 @foreach($article->user->socialNetworks as $socialNetwork)
                     <a href="{{ $socialNetwork->url }}" title="{{ $socialNetwork->name }}"><i class="fa fa-{{ $socialNetwork->name }}"></i></a>
                 @endforeach

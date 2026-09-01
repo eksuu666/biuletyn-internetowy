@@ -1,5 +1,5 @@
 <div class="block category-listing categories-list">
-    <h3 class="block-title"><span>دسته‌بندی‌ها</span></h3>
+    <h3 class="block-title"><span>Kategorie</span></h3>
 
     <div class="row">
         @foreach($categories as $category)
@@ -18,7 +18,7 @@
                             <a href="{{ route('categories.show', $category->slug) }}">{{ $category->name }}</a>
                         </h2>
                         <div class="post-meta">
-                            <span class="post-date">تعداد مقالات: {{ $category->articles_count }}</span>
+                            <span class="post-date">Liczba materiałów: {{ $category->articles_count }}</span>
                         </div>
                     </div><!-- Post content end -->
                 </div><!-- Post Block style end -->

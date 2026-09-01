@@ -3,7 +3,7 @@
         <ul class="pagination">
             <!-- Previous Page Link -->
             @if ($paginator->currentPage() > 1)
-                <li><a href="{{ $paginator->previousPageUrl() }}">قبلی</a></li>
+                <li><a href="{{ $paginator->previousPageUrl() }}">Poprzednia</a></li>
             @endif
 
             <!-- First Page Link -->
@@ -38,12 +38,12 @@
 
             <!-- Next Page Link -->
             @if ($paginator->hasMorePages())
-                <li><a href="{{ $paginator->nextPageUrl() }}">بعدی</a></li>
+                <li><a href="{{ $paginator->nextPageUrl() }}">Następna</a></li>
             @endif
 
             <!-- Page Numbers -->
             <li>
-                <span class="page-numbers">صفحه {{ $paginator->currentPage() }} از {{ $paginator->lastPage() }}</span>
+                <span class="page-numbers">Strona {{ $paginator->currentPage() }} z {{ $paginator->lastPage() }}</span>
             </li>
         </ul>
     </div><!-- Paging end -->

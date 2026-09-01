@@ -30,14 +30,14 @@ class BaseSEOService
         string $url,
         string $type,
         ?string $imageUrl = null,
-        string $locale = 'fa-ir'
+        ?string $locale = null
     ): void {
         SEOTools::opengraph()->setUrl($url);
         if ($imageUrl) {
             SEOTools::opengraph()->addImage($imageUrl, ['width' => 300]);
         }
         SEOTools::opengraph()->addProperty('type', $type);
-        SEOTools::opengraph()->addProperty('locale', $locale);
+        SEOTools::opengraph()->addProperty('locale', $locale ?? str_replace('-', '_', app()->getLocale()));
     }
 
     protected function setTwitterSEO(?string $title = null, ?string $imageUrl = null): void

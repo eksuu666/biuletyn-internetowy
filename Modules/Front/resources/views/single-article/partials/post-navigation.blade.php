@@ -2,7 +2,7 @@
     <div class="post-previous">
         @if($previous_article)
             <a href="{{ $previous_article->getUrl() }}">
-                <span><i class="fa fa-angle-right"></i>مطلب قبلی</span>
+                <span><i class="fa fa-angle-right"></i>Poprzedni materiał</span>
                 <h3>
                     {{ $previous_article->title }}
                 </h3>
@@ -12,7 +12,7 @@
     <div class="post-next">
         @if($next_article)
             <a href="{{ $next_article->getUrl() }}">
-                <span>مطلب بعدی <i class="fa fa-angle-left"></i></span>
+                <span>Następny materiał <i class="fa fa-angle-left"></i></span>
                 <h3>
                     {{ $next_article->title }}
                 </h3>

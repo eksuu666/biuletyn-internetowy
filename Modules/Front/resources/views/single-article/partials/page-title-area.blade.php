@@ -18,7 +18,7 @@
         {{--        </span>--}}
 
         @if(!$article->liked())
-            <span class="post-like" title="لایک کردن">
+            <span class="post-like" title="Polub">
                 <form action="{{ route('news.like', $article->slug) }}" method="post" class="like-form">
                     @csrf
                     @method('patch')
@@ -30,7 +30,7 @@
         @endif
 
         @if($article->liked())
-            <span class="post-unlike" title="برداشتن لایک">
+            <span class="post-unlike" title="Cofnij polubienie">
                 <form action="{{ route('news.unlike', $article->slug) }}" method="post" class="unlike-form">
                     @csrf
                     @method('patch')

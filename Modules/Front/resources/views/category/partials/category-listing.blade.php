@@ -21,7 +21,7 @@
 
     @if($articles->count() < 1)
         <h3 class="alert-warning" style="padding: 3rem; margin: 0 1rem; text-align: center; border-radius: 5px;">
-            مطلبی برای دسته‌بندی موردنظر یافت نشد!
+            W tej kategorii nie ma jeszcze opublikowanych materiałów.
         </h3>
     @endif
 
@@ -41,7 +41,7 @@
                         </h2>
                         <div class="post-meta">
                             <span class="post-author"><a href="{{ route('author.index', $article->user->username) }}">{{ $article->user->full_name }}</a></span>
-                            <span class="post-date">{{ jalalian()->forge($article->created_at)->format(config('common.front_date_format')) }}</span>
+                            <span class="post-date">{{ front_date_format($article->created_at) }}</span>
                             <span class="post-comment pull-right">
                             <span class="post-hits"><i class="fa fa-eye"></i> {{ visits($article)->count() }}</span>
                                 <i class="fa fa-comments-o"></i>

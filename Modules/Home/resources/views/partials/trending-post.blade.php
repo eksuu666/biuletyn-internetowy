@@ -1,3 +1,4 @@
+@if($trending_posts['latest_articles']->isNotEmpty() && $trending_posts['first_editor_choice'])
 <section class="featured-post-area no-padding">
     <div class="container">
         <div class="row">
@@ -30,7 +31,7 @@
                             <div class="post-thumb">
                                 <a href="{{ $trending_posts['first_editor_choice']->getUrl() }}">
                                     <img class="img-responsive" src="{{ asset('storage/' . $trending_posts['first_editor_choice']->image->file_path) }}"
-                                         alt="{{ asset('storage/' . $trending_posts['first_editor_choice']->image->alt_text) }}">
+                                         alt="{{ $trending_posts['first_editor_choice']->image->alt_text }}">
                                 </a>
                             </div>
                             <div class="post-content">
@@ -39,7 +40,7 @@
                                 <h2 class="post-title title-large">
                                     <a href="{{ $trending_posts['first_editor_choice']->getUrl() }}">{{ $trending_posts['first_editor_choice']->title }}</a>
                                 </h2>
-                                <span class="post-date">{{ jalalian()->forge($trending_posts['first_editor_choice']->created_at)->format(config('common.front_date_format')) }}</span>
+                                <span class="post-date">{{ front_date_format($trending_posts['first_editor_choice']->created_at) }}</span>
                             </div><!-- Post content end -->
                         </div><!-- Post overlay end -->
                     </div><!-- Col end -->
@@ -51,7 +52,7 @@
                                 <div class="post-thumb">
                                     <a href="{{ $editor_choice->getUrl() }}">
                                         <img class="img-responsive" src="{{ asset('storage/' . $editor_choice->image->file_path) }}"
-                                             alt="{{ asset('storage/' . $editor_choice->image->alt_text) }}">
+                                             alt="{{ $editor_choice->image->alt_text }}">
                                     </a>
                                 </div>
                                 <div class="post-content">
@@ -70,3 +71,12 @@
         </div><!-- Row end -->
     </div><!-- Container end -->
 </section><!-- Trending post end -->
+@else
+    <section class="slodziak-empty-state">
+        <div class="container">
+            <p class="slodziak-kicker">sŁodziak</p>
+            <h1>Biuletyn blisko Łodzi</h1>
+            <p>Pierwsze materiały są właśnie przygotowywane. Zajrzyj ponownie już wkrótce.</p>
+        </div>
+    </section>
+@endif

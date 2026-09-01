@@ -2,7 +2,7 @@
 
 @section('content')
     <x-front-breadcrumbs>
-        <li><a href="{{ route('categories.index') }}">دسته‌بندی‌ها</a></li>
+        <li><a href="{{ route('categories.index') }}">Kategorie</a></li>
         <li>{{ $category->name }}</li>
     </x-front-breadcrumbs>
 

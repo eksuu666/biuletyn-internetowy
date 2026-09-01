@@ -4,12 +4,11 @@
             <div class="col-md-8 col-sm-8 col-xs-12">
                 <div class="ts-date">
                     <i class="fa fa-calendar-check-o"></i>
-                    {{ jalalian()->now()->format(config('common.front_date_format')) }}
+                    {{ front_date_format(now()) }}
                 </div>
                 <ul class="unstyled top-nav">
-                    <li><a href="{{ route('about-us.index') }}">درباره ما</a></li>
-                    <li><a href="{{ route('contact-us.index') }}">تماس با ما</a></li>
-                </ul>
+                    <li><a href="{{ route('about-us.index') }}">O nas</a></li>
+                    <li><a href="{{ route('contact-us.index') }}">Kontakt</a></li>
                 </ul>
             </div><!--/ Top bar left end -->
 

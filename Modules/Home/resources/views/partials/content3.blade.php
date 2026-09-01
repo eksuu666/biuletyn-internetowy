@@ -14,7 +14,7 @@
 
                             <div class="post-content">
                                 <h2 class="post-title">
-                                    <a href="{{ route('categories.show', $category->slug) }}">دسته‌بندی {{ $category->name }}</a>
+                                    <a href="{{ route('categories.show', $category->slug) }}">Kategoria {{ $category->name }}</a>
                                 </h2>
                             </div><!-- Post content end -->
                         </div><!-- Post overlay Article end -->
@@ -35,7 +35,7 @@
                                                     <a href="{{ $article->getUrl() }}">{{ $article->title }}</a>
                                                 </h2>
                                                 <div class="post-meta">
-                                                    <span class="post-date">{{ jalalian()->forge($article->created_at)->format(config('common.front_date_format')) }}</span>
+                                                    <span class="post-date">{{ front_date_format($article->created_at) }}</span>
                                                 </div>
                                             </div><!-- Post content end -->
                                         </div><!-- Post block style end -->

@@ -1,4 +1,11 @@
-# News Portal
+# sŁodziak
+
+Serwis lokalnego biuletynu sŁodziak, rozwijany na bazie modułowego portalu Laravel. Wariant produkcyjny obejmuje aplikację, Nginx, MariaDB, Redis, kolejkę, scheduler i trwały storage.
+
+- [Instrukcja wdrożenia](docs/DEPLOYMENT.md)
+- [Audyt startowy i plan dalszych prac](docs/AUDIT.md)
+
+> Oryginalna dokumentacja projektu bazowego pozostaje poniżej jako opis dostępnych modułów.
 
 Welcome to the News Portal, a comprehensive and modular news website built with Laravel. This project is designed to offer a wide range of features, providing a robust and flexible platform for managing news content. The application is organized into several modules, each responsible for a specific functionality.
 

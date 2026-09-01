@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Carbon;
 use Modules\Common\App\Helpers\JalalianHelper;
 
 function active_menu($menu, $class = 'current'): string
@@ -42,7 +43,9 @@ function nullable_value($value): string
 
 function front_date_format($date): string
 {
-    return jalalian()->forge($date)->format(config('common.front_date_format'));
+    return Carbon::parse($date)
+        ->locale(app()->getLocale())
+        ->translatedFormat(config('common.front_date_format'));
 }
 
 function front_active_menu($url, $class = 'active'): string

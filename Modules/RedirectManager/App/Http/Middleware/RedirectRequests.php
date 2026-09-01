@@ -14,6 +14,10 @@ class RedirectRequests
      */
     public function handle(Request $request, Closure $next)
     {
+        if ($request->is('up')) {
+            return $next($request);
+        }
+
         $currentUrl = $request->fullUrl();
         $cacheMethod = config('redirect-manager.cache_method', 'full_list');
 

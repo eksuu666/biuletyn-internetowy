@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="latest-news block color-red">
-                        <h3 class="block-title"><span>تبلیغات</span></h3>
+                        <h3 class="block-title"><span>Reklama</span></h3>
 
                         <div class="ads-list">
                             @foreach($ads['second_section'] as $ad)

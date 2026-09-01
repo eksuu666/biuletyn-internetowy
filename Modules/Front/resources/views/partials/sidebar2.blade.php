@@ -1,7 +1,7 @@
 <div class="{{ $sidebar_classes ?? 'col-xs-12' }}" style="{{ $sidebar_style ?? '' }}">
     <div class="sidebar sidebar-right second-sidebar">
         <div class="widget widget-tags">
-            <h3 class="block-title"><span>آخرین برچسب‌ها</span></h3>
+            <h3 class="block-title"><span>Najnowsze tagi</span></h3>
             <ul class="unstyled clearfix">
                 @foreach($second_sidebar['latest_tags'] as $tag)
                     <li><a href="{{ route('tags.show', $tag->slug) }}">{{ $tag->name }}</a></li>
@@ -10,7 +10,7 @@
         </div><!-- Tags end -->
 
         <div class="widget">
-            <h3 class="block-title"><span>ما را دنبال کنید</span></h3>
+            <h3 class="block-title"><span>Obserwuj nas</span></h3>
             <ul class="social-icon" style="display: flex; flex-wrap: wrap; justify-content: center; gap: .3rem">
                 @foreach($social_networks as $name => $url)
                     <li>
@@ -23,11 +23,11 @@
         </div><!-- Widget Social end -->
 
         <div class="widget m-bottom-0">
-            <h3 class="block-title"><span>خبرنامه</span></h3>
+            <h3 class="block-title"><span>Newsletter</span></h3>
             <div class="ts-newsletter">
                 <div class="newsletter-introtext">
-                    <h4>به روز باشید</h4>
-                    <p>با عضویت در خبرنامه جدیدترین اخبار را در ایمیل خود دریافت کنید!</p>
+                    <h4>Bądź na bieżąco</h4>
+                    <p>Zapisz się i otrzymuj najważniejsze wiadomości prosto na swoją skrzynkę.</p>
                 </div>
 
                 <div class="newsletter-form">
@@ -36,8 +36,8 @@
                         @honeypot
 
                         <div class="form-group">
-                            <input type="email" name="email" id="newsletter-form-email" class="form-control form-control-lg" placeholder="ایمیل" autocomplete="off">
-                            <button class="btn btn-primary">عضویت</button>
+                            <input type="email" name="email" id="newsletter-form-email" class="form-control form-control-lg" placeholder="E-mail" autocomplete="off">
+                            <button class="btn btn-primary">Zapisz się</button>
                         </div>
                     </form>
                 </div>

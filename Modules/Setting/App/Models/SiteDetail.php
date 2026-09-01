@@ -17,6 +17,9 @@ class SiteDetail extends Model
         'description',
         'keywords',
         'footer_text',
+        'main_logo_id',
+        'second_logo_id',
+        'favicon_id',
     ];
 
     protected static function newFactory(): SiteDetailFactory

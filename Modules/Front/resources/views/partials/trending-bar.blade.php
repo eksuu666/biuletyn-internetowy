@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h3 class="trending-title">خبرهای داغ</h3>
+                <h3 class="trending-title">Na czasie</h3>
                 <div id="trending-slide" class="owl-carousel owl-theme trending-slide">
                     @foreach($trending_bar['hot_articles'] as $article)
                         <div class="item">

@@ -3,15 +3,15 @@
         <div class="row">
             <div class="col-xs-12 col-sm-6">
                 <div class="copyright-info">
-                    <span>تمامی حقوق برای این وب سایت محفوظ است</span>
+                    <span>Wszelkie prawa zastrzeżone.</span>
                 </div>
             </div>
 
             <div class="col-xs-12 col-sm-6">
                 <div class="footer-menu">
                     <ul class="nav unstyled">
-                        <li><a href="{{ route('about-us.index') }}">درباره ما</a></li>
-                        <li><a href="{{ route('contact-us.index') }}">تماس با ما</a></li>
+                        <li><a href="{{ route('about-us.index') }}">O nas</a></li>
+                        <li><a href="{{ route('contact-us.index') }}">Kontakt</a></li>
                     </ul>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
     <div class="latest-news block color-red">
-        <h3 class="block-title"><span>جدیدترین خبرها</span></h3>
+        <h3 class="block-title"><span>Najnowsze wiadomości</span></h3>
 
         <div id="latest-news-slide" class="owl-carousel owl-theme latest-news-slide">
             @foreach ($first_content['latest_articles']->chunk(2) as $articles)
@@ -21,7 +21,7 @@
                                         </h2>
                                         <div class="post-meta">
                                             <span class="post-author"><a href="{{ route('author.index', $article->user->username) }}">{{ $article->user->full_name }}</a></span>
-                                            <span class="post-date">{{ jalalian()->forge($article->created_at)->format(config('common.front_date_format')) }}</span>
+                                            <span class="post-date">{{ front_date_format($article->created_at) }}</span>
                                         </div>
                                     </div><!-- Post content end -->
                                 </div><!-- Post Block style end -->

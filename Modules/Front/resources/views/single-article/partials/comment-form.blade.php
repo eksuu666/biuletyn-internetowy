@@ -1,10 +1,10 @@
 <div class="comments-form">
-    <h3 class="title-normal">دیدگاه خود را بیان کنید</h3>
+    <h3 class="title-normal">Dodaj komentarz</h3>
 
     <form role="form" action="{{ route('comments.store') }}" method="POST">
         @if(session()->has('errors'))
             <div class="alert alert-danger">
-                <strong>خطا!</strong>
+                <strong>Błąd!</strong>
                 @foreach($errors->all() as $error)
                     <p>{{ $error }}</p>
                 @endforeach

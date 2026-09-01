@@ -2,7 +2,7 @@
 
 @section('content')
     <x-front-breadcrumbs>
-        <li>نویسندگان</li>
+        <li>Autorzy</li>
         <li>{{ $author->full_name }}</li>
     </x-front-breadcrumbs>
 
