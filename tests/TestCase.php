@@ -15,6 +15,6 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
 
         $this->withoutMiddleware([ThrottleRequests::class, VerifyCsrfToken::class]);
-        $this->artisan('db:seed --env="testing"');
+        $this->artisan('db:seed');
     }
 }

@@ -43,8 +43,7 @@ if [ "${RUN_BOOTSTRAP_SEED:-false}" = "true" ]; then
 fi
 
 if [ "${CACHE_CONFIGURATION:-true}" = "true" ]; then
-    php artisan config:cache --no-interaction
-    php artisan view:cache --no-interaction
+    php artisan optimize --no-interaction
 fi
 
 exec "$@"

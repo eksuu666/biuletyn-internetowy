@@ -35,7 +35,7 @@
                         </div>
                     @endif
 
-                    <form id="main-form" role="form" action="{{ route(config('app.panel_prefix', 'panel') . '.profile.password.change') }}" method="post">
+                    <form id="main-form" role="form" action="{{ route(config('app.panel_prefix', 'panel') . '.profile.password.update') }}" method="post">
                         @csrf
                         @method('PATCH')
                         <x-common-error-messages/>

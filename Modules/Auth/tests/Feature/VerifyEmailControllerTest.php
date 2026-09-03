@@ -12,8 +12,7 @@ class VerifyEmailControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function user_can_view_email_verification_page(): void
+    public function test_user_can_view_email_verification_page(): void
     {
         $user = User::factory()->active()->unverified()->create();
         $response = $this->actingAs($user)->get(route('verification.notice'));
@@ -21,8 +20,7 @@ class VerifyEmailControllerTest extends TestCase
             ->assertViewIs('auth::verify-email');
     }
 
-    /** @test */
-    public function user_can_verify_email(): void
+    public function test_user_can_verify_email(): void
     {
         $user = User::factory()->active()->unverified()->create();
         $url = URL::temporarySignedRoute(
@@ -38,8 +36,7 @@ class VerifyEmailControllerTest extends TestCase
         $this->assertNotNull($user->fresh()->email_verified_at);
     }
 
-    /** @test */
-    public function user_can_resend_email_verification(): void
+    public function test_user_can_resend_email_verification(): void
     {
         Mail::fake();
         $user = User::factory()->active()->unverified()->create();

@@ -69,10 +69,10 @@ Welcome to the News Portal, a comprehensive and modular news website built with 
 
 ## Requirements
 
-- PHP >= 8.1
+- PHP >= 8.4
 - Composer
 - MySQL
-- Laravel >= 10.x
+- Laravel >= 13.x
 
 ## Installation
 

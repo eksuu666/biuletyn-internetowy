@@ -1,8 +1,6 @@
 # Wdrożenie sŁodziaka
 
-Repozytorium zawiera kompletny wariant kontenerowy: aplikację Laravel/PHP-FPM, Nginx, MariaDB, Redis, proces kolejki i scheduler. Dane bazy oraz pliki redakcyjne są przechowywane w trwałych wolumenach Dockera.
-
-> Ważne: kod bazowy nadal używa Laravel 10, którego [wsparcie bezpieczeństwa zakończyło się 4 lutego 2025 r.](https://laravel.com/framework/docs/10.x/releases#support-policy) Stosu wdrożeniowego można używać do integracji i testów, ale publiczne uruchomienie powinno nastąpić dopiero po aktualizacji frameworka i pakietów do wspieranej wersji.
+Repozytorium zawiera kompletny wariant kontenerowy: aplikację Laravel 13/PHP-FPM, Nginx, MariaDB, Redis, proces kolejki i scheduler. Dane bazy oraz pliki redakcyjne są przechowywane w trwałych wolumenach Dockera.
 
 ## Wymagania serwera
 
@@ -23,7 +21,7 @@ Repozytorium zawiera kompletny wariant kontenerowy: aplikację Laravel/PHP-FPM, 
 2. Uzupełnij domenę, hasła bazy, SMTP, konto administratora i dane kontaktowe. Wygeneruj klucz aplikacji:
 
    ```bash
-   docker run --rm php:8.3-cli php -r "echo 'base64:'.base64_encode(random_bytes(32)).PHP_EOL;"
+   docker run --rm php:8.4-cli php -r "echo 'base64:'.base64_encode(random_bytes(32)).PHP_EOL;"
    ```
 
    Wklej wynik jako `APP_KEY`. Żadna wartość `CHANGE_ME_*` nie może pozostać w pliku.

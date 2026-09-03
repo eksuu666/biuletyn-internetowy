@@ -15,8 +15,7 @@ class RegisterServiceTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function it_can_create_user(): void
+    public function test_it_can_create_user(): void
     {
         $requestData = [
             'full_name' => 'test',
@@ -36,8 +35,7 @@ class RegisterServiceTest extends TestCase
         $this->assertTrue(Hash::check('password', $user->password));
     }
 
-    /** @test */
-    public function it_can_register_user(): void
+    public function test_it_can_register_user(): void
     {
         Event::fake();
 

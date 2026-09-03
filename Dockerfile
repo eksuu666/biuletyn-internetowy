@@ -7,7 +7,7 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM php:8.3-fpm-bookworm AS php-base
+FROM php:8.4-fpm-bookworm AS php-base
 
 ARG APP_UID=1000
 ARG APP_GID=1000
@@ -66,4 +66,3 @@ COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY --from=frontend /app/public ./public
 RUN rm -rf /var/www/html/public/storage \
     && ln -s /var/www/html/storage/app/public /var/www/html/public/storage
-

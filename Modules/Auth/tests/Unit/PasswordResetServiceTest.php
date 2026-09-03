@@ -16,8 +16,7 @@ class PasswordResetServiceTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function it_can_reset_user_password(): void
+    public function test_it_can_reset_user_password(): void
     {
         Event::fake();
 

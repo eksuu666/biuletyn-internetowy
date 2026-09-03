@@ -1,6 +1,6 @@
 # Audyt startowy repozytorium
 
-Stan bazowy: Laravel 10, PHP 8.1+, modułowa architektura `nwidart/laravel-modules`, Blade, Vite i MySQL.
+Stan bazowy przed pracami: Laravel 10, PHP 8.1+, modułowa architektura `nwidart/laravel-modules`, Blade, Vite i MySQL.
 
 ## Co można zachować
 
@@ -34,13 +34,14 @@ Stan bazowy: Laravel 10, PHP 8.1+, modułowa architektura `nwidart/laravel-modul
 - idempotentny seed startowy bez fikcyjnych treści,
 - naprawy wykrytych błędów migracji i widoków,
 - endpoint `/up` oraz bazowe nagłówki bezpieczeństwa.
+- aktualizacja do Laravel 13 i PHP 8.4 oraz odświeżenie zależności bez znanych alertów bezpieczeństwa,
+- przeniesienie `nwidart/laravel-modules` do zależności produkcyjnych, aby instalacja `--no-dev` zawierała kod modułów.
 
 ## Następne etapy
 
-1. Aktualizacja niewspieranego Laravel 10 do Laravel 13 wraz z pakietami i pełnym zestawem testów regresji.
-2. Pełna polonizacja i przebudowa panelu redakcyjnego z RTL na LTR.
-3. Docelowa identyfikacja wizualna: logo, favicon, typografia, kolory i grafika social preview.
-4. Nowy układ strony głównej oraz stron artykułu, kategorii, wyszukiwania i autora.
-5. Prywatność: polityka prywatności, cookies/zgody, retencja danych i eksport/usuwanie danych.
-6. Testy publikacji, uprawnień, uploadów, kolejek, maili, SEO i odtwarzania backupu.
-7. Automatyczne wdrożenie z właściwego repozytorium oraz monitoring błędów i dostępności.
+1. Pełna polonizacja i przebudowa panelu redakcyjnego z RTL na LTR.
+2. Docelowa identyfikacja wizualna: logo, favicon, typografia, kolory i grafika social preview.
+3. Nowy układ strony głównej oraz stron artykułu, kategorii, wyszukiwania i autora.
+4. Prywatność: polityka prywatności, cookies/zgody, retencja danych i eksport/usuwanie danych.
+5. Testy publikacji, uprawnień, uploadów, kolejek, maili, SEO i odtwarzania backupu.
+6. Automatyczne wdrożenie z właściwego repozytorium oraz monitoring błędów i dostępności.

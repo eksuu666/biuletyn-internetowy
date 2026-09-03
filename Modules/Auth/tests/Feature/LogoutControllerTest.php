@@ -10,8 +10,7 @@ class LogoutControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function user_can_logout(): void
+    public function test_user_can_logout(): void
     {
         $user = User::factory()->active()->create([
             'password' => 'password',

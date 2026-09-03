@@ -35,7 +35,7 @@
                         </div>
                     @endif
 
-                    <form id="main-form" role="form" action="{{ route(config('app.panel_prefix', 'panel') . '.profile.social-networks.edit') }}" method="post">
+                    <form id="main-form" role="form" action="{{ route(config('app.panel_prefix', 'panel') . '.profile.social-networks.update') }}" method="post">
                         @csrf
                         @method('PUT')
                         <x-common-error-messages/>

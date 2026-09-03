@@ -16,8 +16,7 @@ class PasswordResetControllerTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    /** @test */
-    public function user_can_view_reset_forgot_form(): void
+    public function test_user_can_view_reset_forgot_form(): void
     {
         $response = $this->get(route('password.request'));
         $response->assertStatus(200)
@@ -25,8 +24,7 @@ class PasswordResetControllerTest extends TestCase
             ->assertSee('بازیابی');
     }
 
-    /** @test */
-    public function user_can_request_password_reset_link(): void
+    public function test_user_can_request_password_reset_link(): void
     {
         $user = User::factory()->active()->create();
         Password::shouldReceive('sendResetLink')
@@ -41,8 +39,7 @@ class PasswordResetControllerTest extends TestCase
             ->assertSessionHas('success', __('auth::messages.password_link_sent_success'));
     }
 
-    /** @test */
-    public function user_can_view_reset_password_form_with_valid_token_and_email(): void
+    public function test_user_can_view_reset_password_form_with_valid_token_and_email(): void
     {
         $user = User::factory()->active()->create();
         $token = Password::broker()->createToken($user);
@@ -51,8 +48,7 @@ class PasswordResetControllerTest extends TestCase
             ->assertViewIs('auth::password.reset');
     }
 
-    /** @test */
-    public function user_cannot_view_reset_password_form_with_invalid_token_or_email(): void
+    public function test_user_cannot_view_reset_password_form_with_invalid_token_or_email(): void
     {
         $token = $this->faker->uuid;
         $response = $this->get(route('password.reset', ['token' => $token]));
@@ -60,8 +56,7 @@ class PasswordResetControllerTest extends TestCase
             ->assertSessionHasErrors();
     }
 
-    /** @test */
-    public function password_reset_service_works(): void
+    public function test_password_reset_service_works(): void
     {
         $user = User::factory()->active()->create();
         $this->instance(
@@ -84,8 +79,7 @@ class PasswordResetControllerTest extends TestCase
             ->assertSessionHas('success', __('auth::messages.password_changed_successfully'));
     }
 
-    /** @test */
-    public function user_can_reset_password(): void
+    public function test_user_can_reset_password(): void
     {
         $user = User::factory()->active()->create();
         $token = Password::broker()->createToken($user);

@@ -10,8 +10,7 @@ class LoginControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function user_can_view_login_form(): void
+    public function test_user_can_view_login_form(): void
     {
         $response = $this->get(route('login'));
         $response->assertStatus(200)
@@ -19,8 +18,7 @@ class LoginControllerTest extends TestCase
             ->assertSee('ورود');
     }
 
-    /** @test */
-    public function user_can_login_with_valid_credentials(): void
+    public function test_user_can_login_with_valid_credentials(): void
     {
         $user = User::factory()->active()->create([
             'password' => 'password',
@@ -37,8 +35,7 @@ class LoginControllerTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    /** @test */
-    public function user_cannot_login_with_invalid_credentials(): void
+    public function test_user_cannot_login_with_invalid_credentials(): void
     {
         $user = User::factory()->active()->create([
             'password' => 'password',

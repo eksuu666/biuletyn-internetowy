@@ -13,8 +13,7 @@ class RegisterControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function user_can_show_register_form(): void
+    public function test_user_can_show_register_form(): void
     {
         $response = $this->get(route('register'));
         $response->assertStatus(200)
@@ -22,8 +21,7 @@ class RegisterControllerTest extends TestCase
             ->assertSee('ثبت نام');
     }
 
-    /** @test */
-    public function register_service_works(): void
+    public function test_register_service_works(): void
     {
         $this->instance(
             RegisterService::class,
@@ -47,8 +45,7 @@ class RegisterControllerTest extends TestCase
             ->assertSessionHas('success', __('auth::messages.user_created'));
     }
 
-    /** @test */
-    public function user_can_register_with_valid_data(): void
+    public function test_user_can_register_with_valid_data(): void
     {
         Mail::fake();
 
