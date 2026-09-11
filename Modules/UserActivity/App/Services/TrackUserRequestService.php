@@ -51,7 +51,7 @@ class TrackUserRequestService
     {
         $userId = $this->user?->id;
         $currentIp = $this->request->ip();
-        $deviceInfo = $this->getDeviceInfo($this->request->userAgent());
+        $deviceInfo = $this->getDeviceInfo($this->request->userAgent() ?? '');
         $deviceInfo['referer'] = $this->request->header('referer');
 
         $this->userTrack = $this->getOrCreateUserTrack($userId, $currentIp, $deviceInfo);

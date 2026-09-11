@@ -17,7 +17,8 @@ class ProductionSeeder extends Seeder
 {
     public function run(): void
     {
-        if (str_starts_with((string) config('user.admin_password'), 'CHANGE_ME')) {
+        $password = (string) config('user.admin_password');
+        if (! User::getFirstAdmin() && (strlen($password) < 16 || str_starts_with($password, 'CHANGE_ME'))) {
             throw new RuntimeException('Set a strong ADMIN_PASSWORD before running the production seed.');
         }
 
@@ -44,14 +45,16 @@ class ProductionSeeder extends Seeder
             ]);
         }
 
-        $siteDetails->fill([
-            'title' => 'sŁodziak — biuletyn blisko Łodzi',
-            'description' => 'Lokalne wiadomości, sprawy mieszkańców, kultura i wydarzenia z Łodzi oraz regionu.',
-            'keywords' => 'Łódź, wiadomości lokalne, biuletyn, wydarzenia, kultura, mieszkańcy',
-            'footer_text' => 'sŁodziak to niezależny biuletyn tworzony blisko spraw Łodzi i jej mieszkańców.',
-        ])->save();
+        if (! $siteDetails->exists) {
+            $siteDetails->fill([
+                'title' => 'sŁodziak — biuletyn blisko Łodzi',
+                'description' => 'Lokalne wiadomości, sprawy mieszkańców, kultura i wydarzenia z Łodzi oraz regionu.',
+                'keywords' => 'Łódź, wiadomości lokalne, biuletyn, wydarzenia, kultura, mieszkańcy',
+                'footer_text' => 'sŁodziak to niezależny biuletyn tworzony blisko spraw Łodzi i jej mieszkańców.',
+            ])->save();
+        }
 
-        ContactInfo::query()->updateOrCreate(['id' => 1], [
+        ContactInfo::query()->firstOrCreate(['id' => 1], [
             'title' => 'Kontakt z redakcją',
             'content' => 'Masz temat, sprostowanie albo informację dla redakcji? Napisz do nas.',
             'address' => env('CONTACT_ADDRESS', 'Łódź, Polska'),
@@ -59,7 +62,7 @@ class ProductionSeeder extends Seeder
             'phone' => env('CONTACT_PHONE'),
         ]);
 
-        AboutUs::query()->updateOrCreate(['id' => 1], [
+        AboutUs::query()->firstOrCreate(['id' => 1], [
             'title' => 'O sŁodziaku',
             'content' => 'sŁodziak jest lokalnym biuletynem poświęconym Łodzi, jej mieszkańcom i sprawom, które wpływają na codzienne życie miasta.',
         ]);
