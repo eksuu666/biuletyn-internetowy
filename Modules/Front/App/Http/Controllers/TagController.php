@@ -13,8 +13,9 @@ class TagController extends Controller
 
     public function show(Tag $tag): View
     {
+        abort_unless($tag->status, 404);
         $this->SEOService->setTagPageSEO($tag);
-        $articles = $tag->articles()->with(['category', 'image', 'approvedComments', 'user'])->paginate(10);
+        $articles = $tag->articles()->publiclyVisible()->with(['category', 'image', 'approvedComments', 'user'])->latest('published_at')->paginate(10);
 
         return view(
             'front::tag.index',

@@ -15,11 +15,12 @@ class SearchController extends Controller
 
     public function __invoke(Request $request): View
     {
-        $searchText = $request->get('query', $request->get('text'));
+        $request->validate(['query' => 'nullable|string|max:200', 'text' => 'nullable|string|max:200']);
+        $searchText = trim((string) $request->get('query', $request->get('text', '')));
         $this->SEOService->setSearchPageSEO($searchText);
         $articles = Article::search($searchText)
-            ->query(fn (Builder $query) => $query->with(['category', 'image', 'approvedComments', 'user']))
-            ->paginate(10);
+            ->query(fn (Builder $query) => $query->publiclyVisible()->with(['category', 'image', 'approvedComments', 'user'])->latest('published_at'))
+            ->paginate(10)->withQueryString();
         if (! $searchText) {
             $searchText = __('all');
         }

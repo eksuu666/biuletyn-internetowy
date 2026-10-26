@@ -4,6 +4,8 @@ namespace Modules\Comment\App\Http\Requests\Front;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+use Modules\Article\App\Models\Article;
 
 class CommentRequest extends FormRequest
 {
@@ -20,8 +22,8 @@ class CommentRequest extends FormRequest
         }
 
         $rules = [
-            'commentable_type' => 'required|string',
-            'commentable_id' => 'required|string|min:1',
+            'commentable_type' => ['required', Rule::in([Article::class])],
+            'commentable_id' => 'required|integer|min:1',
             'comment' => 'required|string|max:700',
         ];
 

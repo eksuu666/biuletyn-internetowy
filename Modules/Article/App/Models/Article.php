@@ -61,7 +61,7 @@ class Article extends Model implements Feedable
 
     public static function getFeedItems(): Collection
     {
-        return Article::latest()->limit(50)->get();
+        return Article::publiclyVisible()->with(['user', 'seoSetting'])->latest('published_at')->limit(50)->get();
     }
 
     protected static function newFactory(): ArticleFactory
@@ -79,8 +79,7 @@ class Article extends Model implements Feedable
             ->summary($summary)
             ->updated($this->updated_at)
             ->link($this->getUrl())
-            ->authorName($this->user->full_name)
-            ->authorEmail($this->user->email);
+            ->authorName($this->user->full_name);
     }
 
     public function bodyText(int $limit = 120): Stringable
@@ -124,6 +123,16 @@ class Article extends Model implements Feedable
         $query->where('published_at', '<=', now());
     }
 
+    public function scopePubliclyVisible(Builder $query): void
+    {
+        $query->active()->published()->whereHas('category', fn (Builder $category) => $category->active());
+    }
+
+    public function isPubliclyVisible(): bool
+    {
+        return self::publiclyVisible()->whereKey($this->getKey())->exists();
+    }
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
@@ -158,14 +167,14 @@ class Article extends Model implements Feedable
 
     public function previousArticle()
     {
-        return $this->where('created_at', '<', $this->created_at)
+        return self::publiclyVisible()->where('created_at', '<', $this->created_at)
             ->orderBy('created_at', 'desc')
             ->first();
     }
 
     public function nextArticle()
     {
-        return $this->where('created_at', '>', $this->created_at)
+        return self::publiclyVisible()->where('created_at', '>', $this->created_at)
             ->orderBy('created_at')
             ->first();
     }
@@ -173,6 +182,7 @@ class Article extends Model implements Feedable
     public function relatedArticles($limit = 6)
     {
         $relatedArticles = $this->category->articles()
+            ->publiclyVisible()
             ->with(['image', 'category', 'user'])
             ->where('id', '!=', $this->id)
             ->latest()
@@ -180,6 +190,7 @@ class Article extends Model implements Feedable
             ->get();
         if ($relatedArticles->count() < 3) {
             $relatedArticles = self::with(['image', 'category', 'user'])
+                ->publiclyVisible()
                 ->where('id', '!=', $this->id)
                 ->latest()
                 ->limit($limit)

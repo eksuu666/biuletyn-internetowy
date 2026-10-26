@@ -71,7 +71,7 @@ class GenerateSitemap extends Command
     {
         $sitemap = Sitemap::create();
 
-        $articles = Article::all();
+        $articles = Article::publiclyVisible()->cursor();
         foreach ($articles as $article) {
             $sitemap->add(Url::create($article->getUrl())
                 ->setLastModificationDate($article->updated_at)
@@ -86,7 +86,7 @@ class GenerateSitemap extends Command
     {
         $sitemap = Sitemap::create();
 
-        $categories = Category::all();
+        $categories = Category::active()->cursor();
         foreach ($categories as $category) {
             $sitemap->add(Url::create(route('categories.show', $category->slug))
                 ->setLastModificationDate($category->updated_at)
@@ -101,7 +101,7 @@ class GenerateSitemap extends Command
     {
         $sitemap = Sitemap::create();
 
-        $tags = Tag::all();
+        $tags = Tag::active()->cursor();
         foreach ($tags as $tag) {
             $sitemap->add(Url::create(route('tags.show', $tag->slug))
                 ->setLastModificationDate($tag->updated_at)
@@ -116,7 +116,7 @@ class GenerateSitemap extends Command
     {
         $sitemap = Sitemap::create();
 
-        $authors = User::with('articles')->whereHas('articles')->get();
+        $authors = User::whereHas('articles', fn ($query) => $query->publiclyVisible())->cursor();
         foreach ($authors as $author) {
             $sitemap->add(Url::create(route('author.index', $author->username))
                 ->setLastModificationDate($author->updated_at)

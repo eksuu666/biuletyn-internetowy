@@ -21,7 +21,7 @@ class HomeService
 
     public function baseQuery(): Builder
     {
-        return Article::with(['hotness', 'image', 'category', 'tags'])->latest()->active()->published();
+        return Article::with(['hotness', 'image', 'category', 'tags', 'user'])->latest('published_at')->publiclyVisible();
     }
 
     public function getLatestArticles($articlesIdsIgnore): Collection
@@ -47,6 +47,7 @@ class HomeService
     public function getParentCategories(): Collection
     {
         $categories = Category::with(['categories' => function ($query) {
+            $query->active();
             $query->whereHas('articles', function ($query) {
                 $query->published()->active();
             });
@@ -58,7 +59,7 @@ class HomeService
         $categories->each(function ($category) {
             $category->setRelation('categories', $category->categories->take(6));
             $category->categories->each(function ($childCategory) {
-                $childCategory->setRelation('articles', $childCategory->articles->take(4));
+                $childCategory->setRelation('articles', $childCategory->articles()->publiclyVisible()->latest('published_at')->limit(4)->get());
             });
         });
 

@@ -33,7 +33,7 @@ services:
     image: slodziak/web:${APP_IMAGE_TAG:-latest}
     restart: unless-stopped
     ports:
-      - "${HTTP_PORT:-8080}:80"
+      - "${HTTP_BIND_ADDRESS:-127.0.0.1}:${HTTP_PORT:-8080}:80"
     volumes:
       - app_storage:/var/www/html/storage:ro
     depends_on:
@@ -49,6 +49,9 @@ services:
 
   worker:
     <<: *app
+    depends_on:
+      web:
+        condition: service_healthy
     command: php artisan queue:work redis --sleep=2 --tries=3 --timeout=120 --max-time=3600
     environment:
       RUN_MIGRATIONS: "false"
@@ -58,6 +61,9 @@ services:
 
   scheduler:
     <<: *app
+    depends_on:
+      web:
+        condition: service_healthy
     command: php artisan schedule:work
     environment:
       RUN_MIGRATIONS: "false"

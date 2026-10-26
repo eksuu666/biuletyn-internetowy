@@ -18,8 +18,8 @@ class ArticleController extends Controller
         private readonly ArticleService $articleService,
     ) {
         $this->middleware('can:'.config('permissions_list.ARTICLE_INDEX', false))->only('index');
-        $this->middleware('can:'.config('permissions_list.ARTICLE_STORE', false))->only('store');
-        $this->middleware('can:'.config('permissions_list.ARTICLE_UPDATE', false))->only('update');
+        $this->middleware('can:'.config('permissions_list.ARTICLE_STORE', false))->only(['create', 'store']);
+        $this->middleware('can:'.config('permissions_list.ARTICLE_UPDATE', false))->only(['edit', 'update', 'SEOSettings']);
         $this->middleware('can:'.config('permissions_list.ARTICLE_DESTROY', false))->only('destroy');
     }
 
@@ -70,7 +70,7 @@ class ArticleController extends Controller
         return back()->with('success', __('entity_deleted', ['entity' => __('article')]));
     }
 
-    public function SEOSettings(Article $article): view
+    public function SEOSettings(Article $article): View
     {
         $nextUrl = config('app.panel_prefix', 'panel').'.articles.index';
         $title = $article->title;

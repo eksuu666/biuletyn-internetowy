@@ -31,7 +31,7 @@ class CommentController extends Controller
     public function update(CommentRequest $request, Comment $comment): RedirectResponse
     {
         //        $comment->update(['comment' => $request->comment, 'status' => Comment::PENDING]);
-        $comment->update(['comment' => $request->comment]);
+        $comment->update(['comment' => $request->comment, 'status' => Comment::PENDING]);
 
         return redirect(URL::previous().'#comments')->with(['success' => __('comment::messages.comment_updated_successfully')]);
     }

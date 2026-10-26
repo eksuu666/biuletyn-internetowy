@@ -14,8 +14,8 @@ class AuthorController extends Controller
     public function __invoke(User $user): View
     {
         $this->SEOService->setAuthorPageSEO($user);
-        $articlesCount = $user->articles()->count();
-        $articles = $user->articles()->with(['category', 'image', 'approvedComments'])->paginate(10);
+        $articlesCount = $user->articles()->publiclyVisible()->count();
+        $articles = $user->articles()->publiclyVisible()->with(['category', 'image', 'approvedComments'])->latest('published_at')->paginate(10);
         $commentsCount = $user->approvedComments()->count();
 
         return view(

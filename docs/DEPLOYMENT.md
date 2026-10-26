@@ -41,7 +41,13 @@ Repozytorium zawiera kompletny wariant kontenerowy: aplikację Laravel 13/PHP-FP
    curl --fail http://127.0.0.1:${HTTP_PORT:-8080}/up
    ```
 
-5. Skieruj reverse proxy na port `HTTP_PORT` (domyślnie `8080`) i ustaw certyfikat TLS. Sam kontener aplikacji nie powinien być wystawiany bezpośrednio do Internetu.
+5. Skieruj reverse proxy na port `HTTP_PORT` (domyślnie `8080`) i ustaw certyfikat TLS. Port jest domyślnie dostępny na `127.0.0.1`; do zmiany interfejsu służy `HTTP_BIND_ADDRESS`. Proxy powinno przekazywać `Host` i `X-Forwarded-Proto`. Sam kontener aplikacji nie powinien być wystawiany bezpośrednio do Internetu.
+
+6. Panel redakcji znajduje się pod `/<PANEL_PREFIX>` (domyślnie `/redakcja`).
+   Logowanie używa `ADMIN_EMAIL` i `ADMIN_PASSWORD`. Utwórz kategorię, a następnie
+   wiadomość ze zdjęciem. Wyłączony status publikacji oznacza szkic; przyszła data
+   z włączonym statusem oznacza publikację zaplanowaną. Strona `/sitemap.xml`
+   i kanał `/feed` zawierają wyłącznie publiczne materiały.
 
 ## Aktualizacja
 

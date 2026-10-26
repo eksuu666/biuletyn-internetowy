@@ -10,9 +10,16 @@ public/build
 public/hot
 public/storage
 storage/logs/*
+storage/app/*
+database/*.sqlite*
 storage/framework/cache/*
 storage/framework/sessions/*
 storage/framework/views/*
+storage/framework/testing/*
+.phpunit.cache
+public/sitemap.xml
+public/sitemap_index.xml
+public/sitemaps
 tests
 work
 

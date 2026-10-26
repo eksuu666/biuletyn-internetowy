@@ -14,16 +14,17 @@ class CategoryController extends Controller
     public function index(): View
     {
         $this->SEOService->setCategoriesPageSEO();
-        $categories = Category::with('image')->withCount('articles')->latest('articles_count')->paginate(10);
+        $categories = Category::active()->with('image')->withCount(['articles' => fn ($query) => $query->publiclyVisible()])->latest('articles_count')->paginate(10);
 
         return view('front::category.index', compact('categories'));
     }
 
     public function show(Category $category): View
     {
+        abort_unless($category->status, 404);
         $this->SEOService->setCategoryPageSEO($category);
-        $subCategories = $category->categories()->latest()->get();
-        $articles = $category->articles()->with(['category', 'image', 'approvedComments', 'user'])->paginate(10);
+        $subCategories = $category->categories()->active()->latest()->get();
+        $articles = $category->articles()->publiclyVisible()->with(['category', 'image', 'approvedComments', 'user'])->latest('published_at')->paginate(10);
 
         return view(
             'front::category.show',

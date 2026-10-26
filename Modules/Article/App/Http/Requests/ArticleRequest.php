@@ -3,6 +3,7 @@
 namespace Modules\Article\App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 use Modules\Article\App\Models\Article;
 
 class ArticleRequest extends FormRequest
@@ -24,7 +25,7 @@ class ArticleRequest extends FormRequest
             'status' => 'required|boolean',
         ];
 
-        if (strtolower($this->method()) === 'put') {
+        if ($this->isMethod('put') || $this->isMethod('patch')) {
             $rules['image'] = 'nullable'.$imageRules;
             $rules['slug'] .= ','.$this->route('article')->id;
         } else {
@@ -52,9 +53,10 @@ class ArticleRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'editor_choice' => (bool) $this->editor_choice,
-            'hotness' => (bool) $this->hotness,
-            'status' => (bool) $this->status,
+            'slug' => Str::slug($this->input('slug') ?: $this->input('title', '')),
+            'editor_choice' => $this->boolean('editor_choice'),
+            'hotness' => $this->boolean('hotness'),
+            'status' => $this->boolean('status'),
         ]);
     }
 }

@@ -5,7 +5,12 @@ use Modules\Front\App\Http\Controllers\AboutUsController;
 use Modules\Front\App\Http\Controllers\AuthorController;
 use Modules\Front\App\Http\Controllers\CategoryController;
 use Modules\Front\App\Http\Controllers\SearchController;
+use Modules\Front\App\Http\Controllers\SitemapController;
 use Modules\Front\App\Http\Controllers\TagController;
+
+Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');
+Route::get('sitemaps/pages.xml', [SitemapController::class, 'pages'])->name('sitemap.pages');
+Route::get('sitemaps/articles-{page}.xml', [SitemapController::class, 'articles'])->whereNumber('page')->name('sitemap.articles');
 
 Route::get('author/{user:username}', AuthorController::class)->name('author.index');
 

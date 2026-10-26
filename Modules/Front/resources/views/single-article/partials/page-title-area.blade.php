@@ -7,7 +7,7 @@
         <span class="post-author">
             <a href="{{ route('author.index', $article->user->username) }}">{{ $article->user->full_name }}</a>
         </span>
-        <span class="post-date"><i class="fa fa-clock-o"></i> {{ front_date_format($article->created_at) }}</span>
+        <span class="post-date"><i class="fa fa-clock-o"></i> {{ front_date_format($article->published_at) }}</span>
         <span class="post-hits"><i class="fa fa-eye"></i> {{ visits($article)->count() }}</span>
         {{--        <span class="post-like">--}}
         {{--            <form action="{{ route('news.like', $article) }}" method="post">--}}

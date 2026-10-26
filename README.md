@@ -4,6 +4,7 @@ Serwis lokalnego biuletynu sŁodziak, rozwijany na bazie modułowego portalu Lar
 
 - [Instrukcja wdrożenia](docs/DEPLOYMENT.md)
 - [Audyt startowy i plan dalszych prac](docs/AUDIT.md)
+- [Aktualny stan funkcji i weryfikacja stosu z bazą danych](docs/PORTAL_STATUS.md)
 
 > Oryginalna dokumentacja projektu bazowego pozostaje poniżej jako opis dostępnych modułów.
 

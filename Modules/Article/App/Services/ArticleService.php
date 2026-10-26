@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Modules\Article\App\Http\Requests\ArticleRequest;
 use Modules\Article\App\Models\Article;
 use Modules\FileManager\App\Services\Image\ImageService;
@@ -56,33 +57,35 @@ class ArticleService
 
     public function store(ArticleRequest $request): Model
     {
-        $data = $request->validated();
-        $data['user_id'] = auth()->id();
-        $article = Article::query()->create($data);
-        $article->tags()->sync($request->get('tag_ids', []));
-        $image = $this->imageService->store($request, altText: $article->title);
-        $article->image()->save($image);
-        $article->hotness()->create(['is_hot' => $request->hotness]);
+        return DB::transaction(function () use ($request) {
+            $data = $this->setEditorChoice($request->validated());
+            $data['user_id'] = auth()->id();
+            $article = Article::query()->create($data);
+            $article->tags()->sync($request->get('tag_ids', []));
+            $image = $this->imageService->store($request, altText: $article->title);
+            $article->image()->save($image);
+            $this->setHotness($article, $request);
 
-        return $article;
+            return $article;
+        });
     }
 
     public function update(ArticleRequest $request, Article $article): bool
     {
-        $data = $request->validated();
-        $data['user_id'] = auth()->id();
-        $data = $this->setEditorChoice($data);
-        $result = $article->update($data);
-        $this->imageService->uploadImageDuringUpdate($request, $article, $article->title);
-        $article->tags()->sync($request->get('tag_ids', []));
-        $this->setHotness($article, $request, 'update');
+        return DB::transaction(function () use ($request, $article) {
+            $data = $this->setEditorChoice($request->validated());
+            $result = $article->update($data);
+            $this->imageService->uploadImageDuringUpdate($request, $article, $article->title);
+            $article->tags()->sync($request->get('tag_ids', []));
+            $this->setHotness($article, $request);
 
-        return $result;
+            return $result;
+        });
     }
 
     private function setEditorChoice(array $data): array
     {
-        if (! Auth::user()->can(config('permissions_list.ARTICLE_HOTNESS', false))) {
+        if (! Auth::user()->can(config('permissions_list.ARTICLE_EDITOR_CHOICE', false))) {
             unset($data['editor_choice']);
 
             return $data;
@@ -91,10 +94,10 @@ class ArticleService
         return $data;
     }
 
-    private function setHotness(Article $article, ArticleRequest $request, string $method): void
+    private function setHotness(Article $article, ArticleRequest $request): void
     {
         if (Auth::user()->can(config('permissions_list.ARTICLE_HOTNESS', false))) {
-            $article->hotness()->{$method}(['is_hot' => $request->hotness]);
+            $article->hotness()->updateOrCreate([], ['is_hot' => $request->boolean('hotness')]);
         }
     }
 

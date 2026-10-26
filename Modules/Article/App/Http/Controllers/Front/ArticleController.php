@@ -17,12 +17,15 @@ class ArticleController extends Controller
     // For news
     public function showNews(Request $request, string $date, Article $article): View
     {
+        abort_unless($article->type === Article::NEWS && $date === $article->published_at->format('Y/m/d'), 404);
+
         return $this->show($article, $request);
     }
 
     // For article
     public function show(Article $article, Request $request): View
     {
+        abort_unless($article->isPubliclyVisible(), 404);
         $this->seoService->setArticlePageSEO($article);
         $shared_links = $this->shareService->generateSharedLinks($request->url(), $article->title);
         $previous_article = $article->previousArticle();
@@ -35,6 +38,7 @@ class ArticleController extends Controller
 
     public function like(Article $article): RedirectResponse
     {
+        abort_unless($article->isPubliclyVisible(), 404);
         $article->like();
 
         return redirect()->back()->with('success', __('article::messages.liked'));
@@ -42,6 +46,7 @@ class ArticleController extends Controller
 
     public function unlike(Article $article): RedirectResponse
     {
+        abort_unless($article->isPubliclyVisible(), 404);
         $article->unlike();
 
         return redirect()->back()->with('success', __('article::messages.unliked'));

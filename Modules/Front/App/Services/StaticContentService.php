@@ -4,7 +4,6 @@ namespace Modules\Front\App\Services;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Cache;
 use Modules\Article\App\Models\Article;
 use Modules\Category\App\Models\Category;
 use Modules\MenuBuilder\App\Models\Menu;
@@ -12,7 +11,11 @@ use Modules\Tag\App\Models\Tag;
 
 class StaticContentService
 {
-    private const CACHE_TTL = 60 * 60 * 3;
+    // Read publication-sensitive lists afresh so embargoes and withdrawals apply immediately.
+    private function fresh(\Closure $query): mixed
+    {
+        return $query();
+    }
 
     public function composeViewData(): array
     {
@@ -44,7 +47,7 @@ class StaticContentService
 
     public function getHotArticles(): Collection
     {
-        return Cache::remember('hot_articles', self::CACHE_TTL, function () {
+        return $this->fresh(function () {
             $articles = $this->baseQuery()
                 ->whereHas('hotness', function ($query) {
                     $query->where('is_hot', true);
@@ -62,12 +65,12 @@ class StaticContentService
 
     private function baseQuery(): Builder
     {
-        return Article::with(['hotness', 'image', 'category', 'tags', 'user'])->latest()->active()->published();
+        return Article::with(['hotness', 'image', 'category', 'tags', 'user'])->latest('published_at')->publiclyVisible();
     }
 
     public function getMenus(): Collection
     {
-        return Cache::remember('menus', self::CACHE_TTL, static function () {
+        return $this->fresh(static function () {
             $mainMenus = Menu::mainMenus()->active()->get()->pluck('id')->toArray();
             $mainMenusWithChildren = Menu::mainMenusWithChildren()->active()->get()->pluck('id')->toArray();
             $categoryMenus = Menu::categoryMenus()->active()->get()->pluck('id')->toArray();
@@ -83,11 +86,11 @@ class StaticContentService
             // Set limit for each category articles
             $menus->each(function ($menu) {
                 if ($menu?->category !== null) {
-                    $menu->category->setRelation('articles', $menu->category->articles->take(4));
+                    $menu->category->setRelation('articles', $menu->category->articles()->publiclyVisible()->latest('published_at')->limit(4)->get());
 
-                    $menu->category->setRelation('categories', $menu->category->categories->take(5));
+                    $menu->category->setRelation('categories', $menu->category->categories()->active()->limit(5)->get());
                     $menu->category->categories->each(function ($childCategory) {
-                        $childCategory->setRelation('articles', $childCategory->articles->take(4));
+                        $childCategory->setRelation('articles', $childCategory->articles()->publiclyVisible()->latest('published_at')->limit(4)->get());
                     });
                 }
             });
@@ -98,7 +101,7 @@ class StaticContentService
 
     public function getCategories(): Collection
     {
-        return Cache::remember('categories', self::CACHE_TTL, function () {
+        return $this->fresh(function () {
             return Category::query()
                 ->whereHas('articles', function (Builder $query) {
                     $query->active()->published();
@@ -113,8 +116,8 @@ class StaticContentService
 
     public function getArticlesWithMostVisit(): array
     {
-        return Cache::remember('articles_with_most_visits', self::CACHE_TTL, function () {
-            $mostVisits = visits(Article::class)->top(4);
+        return $this->fresh(function () {
+            $mostVisits = visits(Article::class)->top(20)->filter(fn (Article $article) => $article->isPubliclyVisible())->take(4);
             if ($mostVisits->count() === 0) {
                 $mostVisits = $this->baseQuery()->limit(4)->get();
             }
@@ -129,27 +132,27 @@ class StaticContentService
 
     public function getLatestTags(): Collection
     {
-        return Cache::remember('latest_tags', self::CACHE_TTL, function () {
-            return Tag::query()->latest()->limit(30)->get();
+        return $this->fresh(function () {
+            return Tag::active()->whereHas('articles', fn ($query) => $query->publiclyVisible())->latest()->limit(30)->get();
         });
     }
 
     public function getEditorChoices(): Collection
     {
-        return Cache::remember('editor_choices', self::CACHE_TTL, function () {
+        return $this->fresh(function () {
             return $this->baseQuery()->editorChoice()->limit(3)->get();
         });
     }
 
     public function getHotTopics(): Collection
     {
-        return Cache::remember('hot_topics', self::CACHE_TTL, function () {
-            return Tag::with('hotness')
+        return $this->fresh(function () {
+            return Tag::active()->with('hotness')
                 ->whereHas('hotness', function ($query) {
                     $query->where('is_hot', true);
                 })
                 ->withCount('articles')
-                ->whereHas('articles')
+                ->whereHas('articles', fn ($query) => $query->publiclyVisible())
                 ->latest()
                 ->limit(7)
                 ->get();
@@ -158,8 +161,8 @@ class StaticContentService
 
     public function getArticleWithMostComments(): Collection
     {
-        return Cache::remember('articles_with_most_comments', self::CACHE_TTL, function () {
-            return Article::with(['hotness', 'image', 'category', 'tags', 'user'])->active()->published()
+        return $this->fresh(function () {
+            return Article::with(['hotness', 'image', 'category', 'tags', 'user'])->publiclyVisible()
                 ->withCount('approvedComments')
                 ->orderBy('approved_comments_count', 'desc')
                 ->limit(3)

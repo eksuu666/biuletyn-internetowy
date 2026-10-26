@@ -20,9 +20,9 @@ return [
              */
             'url' => '/feed',
 
-            'title' => 'All articles',
-            'description' => 'The latest articles from our site.',
-            'language' => 'fa-IR',
+            'title' => 'sŁodziak — najnowsze wiadomości',
+            'description' => 'Najnowsze wiadomości z Łodzi i regionu.',
+            'language' => 'pl-PL',
 
             /*
              * The image to display for the feed. For Atom feeds, this is displayed as
