@@ -1,8 +1,8 @@
-@extends('panel::layouts.master', ['title' => 'پنل کاربری'])
+@extends('panel::layouts.master', ['title' => 'Kokpit redakcyjny'])
 
 @section('content')
     <x-common-breadcrumbs :noprefix="true">
-        <li><a>پیشخوان</a></li>
+        <li><a>Kokpit</a></li>
     </x-common-breadcrumbs>
 
     {{-- Header Stats --}}
@@ -44,9 +44,9 @@
         Morris.Donut({
             element: 'site-visits-yearly',
             data: [
-                {value: {{ $visitsCount['yearly'] }}, label: 'سال', formatted: '{{ $visitsCount['yearly'] }} نفر'},
-                {value: {{ $visitsCount['monthly'] }}, label: 'ماه', formatted: '{{ $visitsCount['monthly'] }} نفر'},
-                {value: {{ $visitsCount['weekly'] }}, label: 'هفته', formatted: '{{ $visitsCount['weekly'] }} نفر'},
+                {value: {{ $visitsCount['yearly'] }}, label: 'Rok', formatted: '{{ $visitsCount['yearly'] }} odsłon'},
+                {value: {{ $visitsCount['monthly'] }}, label: 'Miesiąc', formatted: '{{ $visitsCount['monthly'] }} odsłon'},
+                {value: {{ $visitsCount['weekly'] }}, label: 'Tydzień', formatted: '{{ $visitsCount['weekly'] }} odsłon'},
             ],
             colors: [
                 '#1e4572',
@@ -62,9 +62,9 @@
         Morris.Donut({
             element: 'site-visits-daily',
             data: [
-                {value: {{ $visitsCount['daily'] }}, label: 'روز', formatted: '{{ $visitsCount['daily'] }} نفر'},
-                {value: {{ $visitsCount['ten_hours'] }}, label: 'ده ساعت', formatted: '{{ $visitsCount['ten_hours'] }} نفر'},
-                {value: {{ $visitsCount['hourly'] }}, label: 'یک ساعت', formatted: '{{ $visitsCount['hourly'] }} نفر'},
+                {value: {{ $visitsCount['daily'] }}, label: 'Dziś', formatted: '{{ $visitsCount['daily'] }} odsłon'},
+                {value: {{ $visitsCount['ten_hours'] }}, label: '10 godz.', formatted: '{{ $visitsCount['ten_hours'] }} odsłon'},
+                {value: {{ $visitsCount['hourly'] }}, label: '1 godz.', formatted: '{{ $visitsCount['hourly'] }} odsłon'},
             ],
             colors: [
                 '#ffc107',
@@ -81,9 +81,9 @@
         Morris.Donut({
             element: 'articles-visits-yearly',
             data: [
-                {value: {{ $articlesVisitsCount['year'] }}, label: 'سال', formatted: '{{ $articlesVisitsCount['year'] }} نفر'},
-                {value: {{ $articlesVisitsCount['month'] }}, label: 'ماه', formatted: '{{ $articlesVisitsCount['month'] }} نفر'},
-                {value: {{ $articlesVisitsCount['week'] }}, label: 'هفته', formatted: '{{ $articlesVisitsCount['week'] }} نفر'},
+                {value: {{ $articlesVisitsCount['year'] }}, label: 'Rok', formatted: '{{ $articlesVisitsCount['year'] }} odsłon'},
+                {value: {{ $articlesVisitsCount['month'] }}, label: 'Miesiąc', formatted: '{{ $articlesVisitsCount['month'] }} odsłon'},
+                {value: {{ $articlesVisitsCount['week'] }}, label: 'Tydzień', formatted: '{{ $articlesVisitsCount['week'] }} odsłon'},
             ],
             colors: [
                 '#1e4572',
@@ -99,9 +99,9 @@
         Morris.Donut({
             element: 'articles-visits-daily',
             data: [
-                {value: {{ $articlesVisitsCount['day'] }}, label: 'روز', formatted: '{{ $articlesVisitsCount['day'] }} نفر'},
-                {value: {{ $articlesVisitsCount['10hours'] }}, label: 'ده ساعت', formatted: '{{ $articlesVisitsCount['10hours'] }} نفر'},
-                {value: {{ $articlesVisitsCount['hour'] }}, label: 'یک ساعت', formatted: '{{ $articlesVisitsCount['hour'] }} نفر'},
+                {value: {{ $articlesVisitsCount['day'] }}, label: 'Dziś', formatted: '{{ $articlesVisitsCount['day'] }} odsłon'},
+                {value: {{ $articlesVisitsCount['10hours'] }}, label: '10 godz.', formatted: '{{ $articlesVisitsCount['10hours'] }} odsłon'},
+                {value: {{ $articlesVisitsCount['hour'] }}, label: '1 godz.', formatted: '{{ $articlesVisitsCount['hour'] }} odsłon'},
             ],
             colors: [
                 '#ffc107',
@@ -115,4 +115,3 @@
         });
     </script>
 @endpush
-

@@ -6,12 +6,12 @@
                 <div class="portlet-title">
                     <h3 class="title">
                         <i class="icon-grid"></i>
-                        دسته‌بندی‌ها
+                        Kategorie
                     </h3>
                 </div><!-- /.portlet-title -->
                 <div class="buttons-box">
                     <a class="btn btn-sm btn-default btn-round btn-fullscreen" rel="tooltip"
-                       aria-label="تمام صفحه" data-bs-original-title="تمام صفحه">
+                       aria-label="Pełny ekran" data-bs-original-title="Pełny ekran">
                         <i class="icon-size-fullscreen"></i>
                         <div class="paper-ripple">
                             <div class="paper-ripple__background"></div>
@@ -19,7 +19,7 @@
                         </div>
                     </a>
                     <a class="btn btn-sm btn-default btn-round btn-close" rel="tooltip"
-                       aria-label="بستن" data-bs-original-title="بستن">
+                       aria-label="Zamknij" data-bs-original-title="Zamknij">
                         <i class="icon-trash"></i>
                         <div class="paper-ripple">
                             <div class="paper-ripple__background"></div>
@@ -34,14 +34,14 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>تصویر شاخص</th>
-                            <th>نام</th>
-                            <th>slug</th>
-                            <th>دسته‌بندی والد</th>
-                            <th>تاریخ ایجاد</th>
-                            <th>وضعیت</th>
+                            <th>Miniaturka</th>
+                            <th>Nazwa</th>
+                            <th>Slug</th>
+                            <th>Kategoria nadrzędna</th>
+                            <th>Data utworzenia</th>
+                            <th>Status</th>
                             @canany([config('permissions_list.CATEGORY_UPDATE'), config('permissions_list.CATEGORY_DESTROY')])
-                                <th>عملیات</th>
+                                <th>Akcje</th>
                             @endcanany
                         </tr>
                         </thead>
@@ -55,7 +55,7 @@
                                 <td>{{ $category->name }}</td>
                                 <td>{{ $category->slug }}</td>
                                 <td>{{ $category->parentCategoryTitle() }}</td>
-                                <td class="ltr text-right nowrap">{{ jalalian()->forge($category->created_at)->format(config('common.datetime_format')) }}</td>
+                                <td class="nowrap">{{ jalalian()->forge($category->created_at)->format(config('common.datetime_format')) }}</td>
                                 <td class="{{ status_class($category->status) }}">{{ status_message($category->status) }}</td>
                                 @canany([
                                     config('permissions_list.CATEGORY_UPDATE'),
@@ -66,9 +66,9 @@
                                         <div class="d-flex gap-2">
                                             @can(config('permissions_list.CATEGORY_UPDATE', false))
                                                 <a class="btn btn-sm btn-info btn-icon round d-flex justify-content-center align-items-center"
-                                                   rel="tooltip" aria-label="ویرایش" data-bs-original-title="ویرایش"
+                                                   rel="tooltip" aria-label="Edytuj" data-bs-original-title="Edytuj"
                                                    href="{{ route(config('app.panel_prefix', 'panel') . '.categories.edit', $category->id) }}">
-                                                    <i class="icon-pencil fa-flip-horizontal"></i>
+                                                    <i class="icon-pencil"></i>
                                                 </a>
                                             @endcan
 

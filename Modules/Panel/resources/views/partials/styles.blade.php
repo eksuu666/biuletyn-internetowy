@@ -1,5 +1,5 @@
 <!-- BEGIN CSS -->
-<link href="{{ asset('admin/assets/plugins/bootstrap/bootstrap5/css/bootstrap.rtl.min.css') }}" rel="stylesheet">
+<link href="{{ asset('admin/assets/plugins/bootstrap/bootstrap5/css/bootstrap.min.css') }}" rel="stylesheet">
 <link href="{{ asset('admin/assets/plugins/metisMenu/dist/metisMenu.min.css') }}" rel="stylesheet">
 <link href="{{ asset('admin/assets/plugins/simple-line-icons/css/simple-line-icons.min.css') }}" rel="stylesheet">
 <link href="{{ asset('admin/assets/plugins/font-awesome/css/all.min.css') }}" rel="stylesheet">

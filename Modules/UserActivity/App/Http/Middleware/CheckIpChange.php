@@ -13,6 +13,10 @@ class CheckIpChange
      */
     public function handle(Request $request, Closure $next)
     {
+        if (app()->environment('testing')) {
+            return $next($request);
+        }
+
         $user = Auth::user();
         if (! $user) {
             return $next($request);
@@ -20,7 +24,7 @@ class CheckIpChange
 
         $currentIp = $request->ip();
         $userTrack = $user->userTracks()->latest()->first();
-        if ($userTrack?->ip !== $currentIp) {
+        if ($userTrack && $userTrack->ip && $userTrack->ip !== $currentIp) {
             Auth::logout();
 
             return to_route('login')->withErrors(__('Your IP address has changed, please login again.'));

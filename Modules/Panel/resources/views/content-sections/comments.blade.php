@@ -6,12 +6,12 @@
                 <div class="portlet-title">
                     <h3 class="title">
                         <i class="icon-bubbles"></i>
-                        نظرات
+                        Ostatnie komentarze
                     </h3>
                 </div><!-- /.portlet-title -->
                 <div class="buttons-box">
                     <a class="btn btn-sm btn-default btn-round btn-fullscreen" rel="tooltip"
-                       aria-label="تمام صفحه" data-bs-original-title="تمام صفحه">
+                       aria-label="Pełny ekran" data-bs-original-title="Pełny ekran">
                         <i class="icon-size-fullscreen"></i>
                         <div class="paper-ripple">
                             <div class="paper-ripple__background"></div>
@@ -19,7 +19,7 @@
                         </div>
                     </a>
                     <a class="btn btn-sm btn-default btn-round btn-close" rel="tooltip"
-                       aria-label="بستن" data-bs-original-title="بستن">
+                       aria-label="Zamknij" data-bs-original-title="Zamknij">
                         <i class="icon-trash"></i>
                         <div class="paper-ripple">
                             <div class="paper-ripple__background"></div>
@@ -34,20 +34,20 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>متن کامنت</th>
-                            <th>کامنت دهنده</th>
-                            <th>مهمان</th>
-                            <th>وضعیت نظر</th>
-                            <th>پاسخ</th>
-                            <th>مدل</th>
-                            <th>تاریخ ایجاد</th>
+                            <th>Treść</th>
+                            <th>Autor</th>
+                            <th>Konto gościa</th>
+                            <th>Status</th>
+                            <th>Odpowiedź na</th>
+                            <th>Obiekt</th>
+                            <th>Data dodania</th>
                             @canany([
                                 config('permissions_list.COMMENT_APPROVE', false),
                                 config('permissions_list.COMMENT_REJECT', false),
                                 config('permissions_list.COMMENT_SHOW', false),
                                 config('permissions_list.COMMENT_DESTROY', false)
                             ])
-                                <th>عملیات</th>
+                                <th>Akcje</th>
                             @endcanany
                         </tr>
                         </thead>
@@ -57,11 +57,11 @@
                                 <td>{{ $comment->id }}</td>
                                 <td>{{ str($comment->comment)->limit(20) }}</td>
                                 <td>{{ $comment->commenterName() }}</td>
-                                <td class="{{ status_class(!$comment->isGuest()) }}">{{ $comment->isGuest() ? 'هست' : 'نیست' }}</td>
+                                <td class="{{ status_class(!$comment->isGuest()) }}">{{ $comment->isGuest() ? 'Tak' : 'Nie' }}</td>
                                 <td class="{{ $comment->setStatusClass() }} status">{{ $comment->getStatus() }}</td>
-                                <td class="reply">{{ $comment->parent ? "{$comment->parent->commenterName()} (id: {$comment->parent->id})" : 'نیست' }}</td>
-                                <td>{{ $comment->commentable_type }}</td>
-                                <td class="ltr text-right nowrap">{{ jalalian()->forge($comment->created_at)->format(config('common.datetime_format')) }}</td>
+                                <td class="reply">{{ $comment->parent ? "{$comment->parent->commenterName()} (id: {$comment->parent->id})" : 'Brak' }}</td>
+                                <td>{{ class_basename($comment->commentable_type) }}</td>
+                                <td class="nowrap">{{ jalalian()->forge($comment->created_at)->format(config('common.datetime_format')) }}</td>
                                 @canany([
                                     config('permissions_list.COMMENT_APPROVE', false),
                                     config('permissions_list.COMMENT_REJECT', false),
@@ -76,7 +76,7 @@
                                                         @csrf
                                                         @method('patch')
                                                         <button class="btn btn-sm btn-success btn-icon round d-flex justify-content-center align-items-center"
-                                                                rel="tooltip" aria-label="تایید نظر" data-bs-original-title="تایید نظر">
+                                                                rel="tooltip" aria-label="Zatwierdź komentarz" data-bs-original-title="Zatwierdź komentarz">
                                                             <i class="icon-check"></i>
                                                         </button>
                                                     </form>
@@ -88,7 +88,7 @@
                                                         @csrf
                                                         @method('patch')
                                                         <button class="btn btn-sm btn-warning btn-icon round d-flex justify-content-center align-items-center"
-                                                                rel="tooltip" aria-label="رد نظر" data-bs-original-title="رد نظر">
+                                                                rel="tooltip" aria-label="Odrzuć komentarz" data-bs-original-title="Odrzuć komentarz">
                                                             <i class="icon-close"></i>
                                                         </button>
                                                     </form>
@@ -96,7 +96,7 @@
                                             @endcan
                                             @can(config('permissions_list.COMMENT_SHOW', false))
                                                 <a class="btn btn-sm btn-info btn-icon round d-flex justify-content-center align-items-center"
-                                                   rel="tooltip" aria-label="مشاهده نظر" data-bs-original-title="مشاهده نظر"
+                                                   rel="tooltip" aria-label="Podgląd komentarza" data-bs-original-title="Podgląd komentarza"
                                                    href="{{ route(config('app.panel_prefix', 'panel') . '.comments.show', $comment->id) }}">
                                                     <i class="icon-eye"></i>
                                                 </a>

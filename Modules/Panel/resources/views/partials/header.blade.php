@@ -45,12 +45,12 @@
                                     <form action="{{ $markAllAsSeenUserMessagesRoute }}" method="POST" style="display: inline;">
                                         @csrf
                                         @if($unseenUserMessagesCount > 0)
-                                            <button type="submit" rel="tooltip" title="خواندن همه" data-placement="left" style="padding: 0; border: none; background: none;">
+                                            <button type="submit" rel="tooltip" title="Oznacz wszystkie jako przeczytane" data-placement="left" style="padding: 0; border: none; background: none;">
                                             <i class="icon-eye"></i>
                                         </button>
                                         @endif
                                     </form>
-                                    شما {{ $unseenUserMessagesCount }} پیام تازه دارید.
+                                    Masz {{ $unseenUserMessagesCount }} nowych wiadomości.
                                 </span>
                             </li>
                             <li class="dropdown-body">
@@ -61,7 +61,7 @@
                                                 <p class="clearfix">
                                                     <small class="float-end text-muted d-flex align-items-center gap-1">
                                                         <i class="icon-clock"></i>
-                                                        <span>{{ jalalian()->forge($unseenUserMessage->created_at)->ago() }}</span>
+                                                        <span>{{ $unseenUserMessage->created_at->diffForHumans() }}</span>
                                                     </small>
                                                 </p>
                                                 <p>{{ str($unseenUserMessage->message)->limit(30) }}</p>
@@ -74,7 +74,7 @@
                                 <li class="dropdown-footer clearfix">
                                     <a href="{{ $unseenUserMessagesRoute }}">
                                         <i class="icon-list fa-flip-horizontal"></i>
-                                        مشاهده همه
+                                        Zobacz wszystkie
                                     </a>
                                 </li>
                             @endif
@@ -96,12 +96,12 @@
                                     <form action="{{ $approveAllCommentsRoute }}" method="POST" style="display: inline;">
                                         @csrf
                                         @if($pendingCommentsCount > 0)
-                                            <button type="submit" rel="tooltip" title="تایید همه" data-placement="left" style="padding: 0; border: none; background: none;">
+                                            <button type="submit" rel="tooltip" title="Zatwierdź wszystkie" data-placement="left" style="padding: 0; border: none; background: none;">
                                                 <i class="icon-eye"></i>
                                             </button>
                                         @endif
                                     </form>
-                                    شما {{ $pendingCommentsCount }} نظر تازه دارید.
+                                    Masz {{ $pendingCommentsCount }} nowych komentarzy.
                                 </span>
                             </li>
                             <li class="dropdown-body">
@@ -117,7 +117,7 @@
                                                     </strong>
                                                     <small class="float-end text-muted d-flex align-items-center gap-1">
                                                         <i class="icon-clock"></i>
-                                                        <span>{{ jalalian()->forge($comment->created_at)->ago() }}</span>
+                                                        <span>{{ $comment->created_at->diffForHumans() }}</span>
                                                     </small>
                                                 </p>
                                                 <p>{{ str($comment->comment)->limit(30) }}</p>
@@ -130,7 +130,7 @@
                                 <li class="dropdown-footer clearfix">
                                     <a href="{{ $pendingCommentsRoute }}">
                                         <i class="icon-list fa-flip-horizontal"></i>
-                                        مشاهده همه
+                                        Zobacz wszystkie
                                     </a>
                                 </li>
                             @endif
@@ -150,7 +150,7 @@
                             <li>
                                 <a href="{{ route(config('app.panel_prefix', 'panel') . '.profile.edit') }}">
                                     <i class="icon-note"></i>
-                                    ویرایش پروفایل
+                                    Edytuj profil
                                 </a>
                             </li>
                         @endcan
@@ -159,7 +159,7 @@
                             <li>
                                 <a href="{{ route(config('app.panel_prefix', 'panel') . '.profile.password.change') }}">
                                     <i class="icon-key"></i>
-                                    تغییر رمز عبور
+                                    Zmień hasło
                                 </a>
                             </li>
                         @endcan
@@ -168,7 +168,7 @@
                             <li>
                                 <a href="{{ route(config('app.panel_prefix', 'panel') . '.profile.email.change') }}">
                                     <i class="icon-envelope-letter"></i>
-                                    تغییر ایمیل
+                                    Zmień e-mail
                                 </a>
                             </li>
                         @endcan
@@ -177,7 +177,7 @@
                         <li>
                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); $('#headerLogout').submit()">
                                 <i class="icon-power"></i>
-                                <span>خروج</span>
+                                <span>Wyloguj</span>
                                 <form id="headerLogout" action="{{ route('logout') }}" method="post">@csrf</form>
                             </a>
                         </li>

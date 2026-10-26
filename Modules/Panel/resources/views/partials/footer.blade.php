@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="copyright">
             <p class="float-start">
-                پنل ادمین سایت خبری {{ config('app.name') }}
+                Panel redakcyjny biuletynu {{ config('app.name') }}
             </p>
             <p class="float-end ltr tahoma">
                 <span>©</span>

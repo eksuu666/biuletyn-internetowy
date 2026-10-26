@@ -6,12 +6,12 @@
                 <div class="portlet-title">
                     <h3 class="title">
                         <i class="icon-tag"></i>
-                        تگ‌ها
+                        Tagi
                     </h3>
                 </div><!-- /.portlet-title -->
                 <div class="buttons-box">
                     <a class="btn btn-sm btn-default btn-round btn-fullscreen" rel="tooltip"
-                       aria-label="تمام صفحه" data-bs-original-title="تمام صفحه">
+                       aria-label="Pełny ekran" data-bs-original-title="Pełny ekran">
                         <i class="icon-size-fullscreen"></i>
                         <div class="paper-ripple">
                             <div class="paper-ripple__background"></div>
@@ -19,7 +19,7 @@
                         </div>
                     </a>
                     <a class="btn btn-sm btn-default btn-round btn-close" rel="tooltip"
-                       aria-label="بستن" data-bs-original-title="بستن">
+                       aria-label="Zamknij" data-bs-original-title="Zamknij">
                         <i class="icon-trash"></i>
                         <div class="paper-ripple">
                             <div class="paper-ripple__background"></div>
@@ -34,13 +34,13 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>نام</th>
-                            <th>slug</th>
-                            <th>تاریخ ایجاد</th>
-                            <th>موضوع داغ</th>
-                            <th>وضعیت</th>
+                            <th>Nazwa</th>
+                            <th>Slug</th>
+                            <th>Data utworzenia</th>
+                            <th>Gorący temat</th>
+                            <th>Status</th>
                             @canany([config('permissions_list.TAG_UPDATE'), config('permissions_list.TAG_DESTROY')])
-                                <th>عملیات</th>
+                                <th>Akcje</th>
                             @endcanany
                         </tr>
                         </thead>
@@ -50,7 +50,7 @@
                                 <td>{{ $tag->id }}</td>
                                 <td>{{ $tag->name }}</td>
                                 <td>{{ $tag->slug }}</td>
-                                <td class="ltr text-right nowrap">{{ jalalian()->forge($tag->created_at)->format(config('common.datetime_format')) }}</td>
+                                <td class="nowrap">{{ jalalian()->forge($tag->created_at)->format(config('common.datetime_format')) }}</td>
                                 <td class="{{ status_class($tag->isHot()) }}">{{ status_message($tag->isHot()) }}</td>
                                 <td class="{{ status_class($tag->status) }}">{{ status_message($tag->status) }}</td>
                                 @canany([
@@ -62,9 +62,9 @@
                                         <div class="d-flex gap-2">
                                             @can(config('permissions_list.TAG_UPDATE', false))
                                                 <a class="btn btn-sm btn-info btn-icon round d-flex justify-content-center align-items-center"
-                                                   rel="tooltip" aria-label="ویرایش" data-bs-original-title="ویرایش"
+                                                   rel="tooltip" aria-label="Edytuj" data-bs-original-title="Edytuj"
                                                    href="{{ route(config('app.panel_prefix', 'panel') . '.tags.edit', $tag->id) }}">
-                                                    <i class="icon-pencil fa-flip-horizontal"></i>
+                                                    <i class="icon-pencil"></i>
                                                 </a>
                                             @endcan
 

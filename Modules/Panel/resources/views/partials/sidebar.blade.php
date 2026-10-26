@@ -48,7 +48,7 @@
             <li>
                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); $('#sideBarLogout').submit()">
                     <i class="icon-power"></i>
-                    <span>خروج</span>
+                    <span>Wyloguj</span>
                     <form id="sideBarLogout" action="{{ route('logout') }}" method="post">@csrf</form>
                 </a>
             </li>

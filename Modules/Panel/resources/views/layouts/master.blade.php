@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl" class="rtl">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="ltr">
 
 <head>
     <title>{{ !empty($title) ? $title . ' | ' . config('app.name') : config('app.name') }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="fontiran.com:license" content="NE29X">
     <link rel="shortcut icon" href="{{ $siteDetails->faviconLink() }}">
 
     @include('panel::partials.styles')
