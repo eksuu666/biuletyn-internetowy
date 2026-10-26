@@ -19,4 +19,4 @@
 <!-- Custom -->
 <link rel="stylesheet" href="{{ asset('home/css/custom-style.css') }}">
 <!-- sŁodziak brand and LTR layout -->
-<link rel="stylesheet" href="{{ asset('home/css/slodziak.css') }}">
+<link rel="stylesheet" href="{{ asset('home/css/slodziak.css') }}?v={{ filemtime(public_path('home/css/slodziak.css')) }}">

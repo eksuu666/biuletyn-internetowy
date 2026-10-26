@@ -5,7 +5,7 @@
         </a>
     </div>
     <div class="entry-content">
-        {!! $article->body !!}
+        {!! app(\Modules\Article\App\Services\ContentSanitizer::class)->sanitize($article->body) !!}
     </div><!-- Entry content end -->
     @include('front::single-article.partials.tags-area')
 

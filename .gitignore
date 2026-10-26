@@ -8,6 +8,7 @@
 /public/sitemaps
 /storage/*.key
 /vendor
+/backups/
 .env
 .env.backup
 .env.testing

@@ -21,7 +21,7 @@ class PasswordResetControllerTest extends TestCase
         $response = $this->get(route('password.request'));
         $response->assertStatus(200)
             ->assertViewIs('auth::password.forgot')
-            ->assertSee('بازیابی');
+            ->assertSee('Odzyskiwanie hasła');
     }
 
     public function test_user_can_request_password_reset_link(): void

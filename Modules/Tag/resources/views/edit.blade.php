@@ -1,9 +1,9 @@
-@extends('panel::layouts.master', ['title' => 'ویرایش تگ'])
+@extends('panel::layouts.master', ['title' => 'Edytuj tag'])
 
 @section('content')
     <x-common-breadcrumbs>
-        <li><a href="{{ route(config('app.panel_prefix', 'panel') . '.tags.index') }}">لیست تگ‌ها</a></li>
-        <li><a>ویرایش تگ</a></li>
+        <li><a href="{{ route(config('app.panel_prefix', 'panel') . '.tags.index') }}">Tagi</a></li>
+        <li><a>Edytuj tag</a></li>
     </x-common-breadcrumbs>
 
     <div class="row pe-0">
@@ -13,12 +13,12 @@
                     <div class="portlet-title">
                         <h3 class="title">
                             <i class="icon-user-follow"></i>
-                            ویرایش تگ
+                            Edytuj tag
                         </h3>
                     </div><!-- /.portlet-title -->
                     <div class="buttons-box">
                         <a class="btn btn-sm btn-default btn-round btn-fullscreen" rel="tooltip"
-                           aria-label="تمام صفحه" data-bs-original-title="تمام صفحه">
+                           aria-label="Pełny ekran" data-bs-original-title="Pełny ekran">
                             <i class="icon-size-fullscreen d-flex justify-content-center align-items-center"></i>
                             <div class="paper-ripple">
                                 <div class="paper-ripple__background"></div>
@@ -35,11 +35,11 @@
 
                         <fieldset class="row justify-content-center">
                             <div class="form-group col-lg-6">
-                                <label for="name">نام <small>(ضروری)</small></label>
+                                <label for="name">Nazwa <small>(wymagane)</small></label>
                                 <input id="name" class="form-control" name="name" type="text" required value="{{ old('name', $tag->name) }}">
                             </div>
                             <div class="form-group col-lg-6">
-                                <label for="slug">slug <small>(ضروری)</small> </label>
+                                <label for="slug">slug <small>(wymagane)</small> </label>
                                 <input id="slug" class="form-control" name="slug" type="text" required value="{{ old('slug', $tag->slug) }}">
                             </div>
                             <div class="col-12 row form-group justify-content-center">
@@ -47,12 +47,12 @@
                                     @can(config('permissions_list.TAG_HOTNESS', false))
                                         <div class="text-center col-6">
                                             <input id="hotness" class="form-control" name="hotness" type="checkbox" @if(old('hotness') || (!old('name') && $tag->isHot()) ) checked @endif>
-                                            <label for="hotness">موضوع داغ</label>
+                                            <label for="hotness">Gorący temat</label>
                                         </div>
                                     @endcan
                                     <div class="text-center col-6">
                                         <input id="status" class="form-control" name="status" type="checkbox" @if(old('status') || (!old('name') && $tag->status) ) checked @endif>
-                                        <label for="status">وضعیت</label>
+                                        <label for="status">Status</label>
                                     </div>
                                 </div>
                             </div>
@@ -60,7 +60,7 @@
                                 <div class="col-sm-6 col-sm-offset-4 mx-auto">
                                     <button class="btn btn-success btn-block">
                                         <i class="icon-check"></i>
-                                        ویرایش تگ
+                                        Edytuj tag
                                     </button>
                                 </div>
                             </div>

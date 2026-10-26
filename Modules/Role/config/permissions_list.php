@@ -41,6 +41,7 @@ return [
     'PAGE_DESTROY' => 'page::destroy',
 
     'NEWSLETTER_INDEX' => 'newsletter::index',
+    'NEWSLETTER_SEND' => 'newsletter::send',
     'NEWSLETTER_DESTROY' => 'newsletter::destroy',
 
     'USER_INDEX' => 'user::index',
@@ -71,6 +72,8 @@ return [
     'ARTICLE_DESTROY' => 'article::destroy',
     'ARTICLE_EDITOR_CHOICE' => 'article::editor_choice',
     'ARTICLE_HOTNESS' => 'article::hotness',
+    'ARTICLE_CORRECT' => 'article::correct',
+    'ARTICLE_PUBLISH' => 'article::publish',
 
     'IMAGE_INDEX_ALL' => 'image::index_all',
     'IMAGE_INDEX_OWN' => 'image::index_own',

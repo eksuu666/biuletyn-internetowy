@@ -13,7 +13,7 @@ class RoleSeeder extends Seeder
         TransactionHelper::beginTransaction('Failed to seed roles: ', static function () {
             foreach (config('roles_list') as $roleData) {
                 $roleData = collect($roleData);
-                $role = Role::query()->firstOrCreate($roleData->except('permissions')->toArray());
+                $role = Role::query()->updateOrCreate(['name' => $roleData['name'], 'guard_name' => 'web'], ['local_name' => $roleData['local_name']]);
                 $role->syncPermissions($roleData['permissions']);
             }
         });

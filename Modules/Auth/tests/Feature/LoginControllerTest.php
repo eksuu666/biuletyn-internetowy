@@ -15,7 +15,7 @@ class LoginControllerTest extends TestCase
         $response = $this->get(route('login'));
         $response->assertStatus(200)
             ->assertViewIs('auth::login')
-            ->assertSee('ورود');
+            ->assertSee('Zaloguj się');
     }
 
     public function test_user_can_login_with_valid_credentials(): void

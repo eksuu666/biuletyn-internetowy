@@ -3,12 +3,12 @@
     <div class="sidebar-top">
         <div class="user-box">
             <a href="{{ route(config('app.panel_prefix', 'panel') . '.profile.edit') }}">
-                <img src="{{ asset('storage/' . $currentUser->image->file_path) }}" alt="{{ $currentUser->image->alt_text }}"
+                <img src="{{ $currentUser->avatarUrl() }}" alt="{{ $currentUser->full_name }}"
                      class="object-fit-cover img-circle" style="width: 70px; height: 70px">
             </a>
             <div class="user-details">
                 <h4>{{ $currentUser->full_name }}</h4>
-                <p class="role">{{ __($currentUser->role()->name) }}</p>
+                <p class="role">{{ $currentUser->publicRoleName() }}</p>
             </div><!-- /.user-details -->
         </div><!-- /.user-box -->
     </div><!-- /.sidebar-top -->
@@ -45,6 +45,9 @@
                     @endif
                 @endif
             @endforeach
+            @can('newsletter::send')
+                <li><a href="{{ route(config('app.panel_prefix').'.campaigns.index') }}">Wysyłka newslettera</a></li>
+            @endcan
             <li>
                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); $('#sideBarLogout').submit()">
                     <i class="icon-power"></i>

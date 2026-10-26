@@ -32,6 +32,7 @@
                           enctype="multipart/form-data">
                         @csrf
                         @method('put')
+                        <input type="hidden" name="workflow_version" value="{{ $article->workflow_version }}">
                         <x-common-error-messages/>
 
                         <fieldset class="row justify-content-center">
@@ -46,7 +47,7 @@
                             <div class="form-group col-lg-6">
                                 <label for="published_at">Data publikacji <small>(wymagane)</small></label>
                                 <input id="published_at" name="published_at" type="datetime-local" class="form-control" required value="{{ old('published_at', $article->published_at->format('Y-m-d\TH:i')) }}">
-                                <small>Publikacja nastąpi o wskazanej godzinie (Europe/Warsaw), jeśli zaznaczysz „Opublikuj / zaplanuj”. Bez zaznaczenia materiał pozostaje szkicem.</small>
+                                <small>Termin publikacji (Europe/Warsaw) obowiązuje po korekcie i zatwierdzeniu materiału przez redaktora naczelnego.</small>
                             </div>
                             <div class="form-group col-lg-6">
                                 <label for="category_id">Kategoria <small>(wymagane)</small></label>
@@ -114,8 +115,8 @@
                                     </div>
                                 @endcan
                                 <div class="text-center col-4">
-                                    <input id="status" class="form-control" name="status" type="checkbox" @if(old('status') || (!old('title') && $article->status) ) checked @endif>
-                                    <label for="status">Opublikuj / zaplanuj</label>
+                                    <p>{{ \Modules\Article\App\Models\Article::WORKFLOW_LABELS[$article->workflow_state] }}</p>
+                                    <a href="{{ route(config('app.panel_prefix').'.articles.review', $article) }}">Podgląd, akceptacja i historia zmian</a>
                                 </div>
                             </div>
                             <div class="form-group">

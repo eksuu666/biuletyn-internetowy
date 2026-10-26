@@ -39,6 +39,7 @@
                             <input type="email" name="email" id="newsletter-form-email" class="form-control form-control-lg" placeholder="E-mail" autocomplete="off">
                             <button class="btn btn-primary">Zapisz się</button>
                         </div>
+                        <label><input type="checkbox" name="consent" value="1" required> Zgadzam się na otrzymywanie newslettera. Zapis potwierdzę e-mailem; mogę go wycofać w każdej chwili.</label>
                     </form>
                 </div>
             </div><!-- Newsletter end -->

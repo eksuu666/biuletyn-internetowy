@@ -305,6 +305,9 @@ a:focus {
 }
 
 @media (max-width: 767px) {
+    .author-box .author-counter { float: none !important; clear: both; display: flex; flex-wrap: wrap; gap: 4px; margin: 8px 0; }
+    .author-box .author-img img { width: 80px; height: 80px; margin: 0 16px 12px 0; object-fit: cover; }
+    .author-box .author-info p { overflow-wrap: anywhere; }
     .navbar-nav,
     .navbar-nav > li,
     .site-nav-inner.pull-left {

@@ -2,12 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Article\App\Http\Controllers\ArticleController;
+use Modules\Article\App\Http\Controllers\EditorialController;
 use Modules\Article\App\Http\Controllers\Front\ArticleController as FrontArticleController;
 use Spatie\Honeypot\ProtectAgainstSpam;
 
 Route::prefix(config('app.panel_prefix', 'panel'))
     ->name(config('app.panel_prefix', 'panel').'.')
     ->group(function () {
+        Route::get('articles/{article}/review', [EditorialController::class, 'show'])->middleware(['auth', 'verified'])->name('articles.review');
+        Route::post('articles/{article}/workflow', [EditorialController::class, 'transition'])->middleware(['auth', 'verified'])->name('articles.workflow');
+        Route::post('articles/{article}/restore', [EditorialController::class, 'restore'])->middleware(['auth', 'verified'])->name('articles.restore');
         Route::resource('articles', ArticleController::class)->except('show')->names('articles')->middleware('auth');
         Route::get('articles/seo-settings/{article}', [ArticleController::class, 'SEOSettings'])->name('articles.seo-settings');
     });

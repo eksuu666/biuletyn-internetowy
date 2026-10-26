@@ -4,7 +4,7 @@ Repozytorium zawiera kompletny wariant kontenerowy: aplikację Laravel 13/PHP-FP
 
 ## Wymagania serwera
 
-- Linux x86_64 lub arm64 z Docker Engine i Docker Compose,
+- Linux x86_64 lub arm64 z Docker Engine i Docker Compose (PHP w obrazie: co najmniej 8.4.27),
 - minimum 2 GB RAM (zalecane 4 GB),
 - domena skierowana na serwer,
 - reverse proxy lub load balancer kończący HTTPS,
@@ -45,8 +45,9 @@ Repozytorium zawiera kompletny wariant kontenerowy: aplikację Laravel 13/PHP-FP
 
 6. Panel redakcji znajduje się pod `/<PANEL_PREFIX>` (domyślnie `/redakcja`).
    Logowanie używa `ADMIN_EMAIL` i `ADMIN_PASSWORD`. Utwórz kategorię, a następnie
-   wiadomość ze zdjęciem. Wyłączony status publikacji oznacza szkic; przyszła data
-   z włączonym statusem oznacza publikację zaplanowaną. Strona `/sitemap.xml`
+   wiadomość ze zdjęciem. Materiał wymaga przekazania do sekretarza, oznaczenia
+   korekty i akceptacji naczelnego. Zobacz [obieg redakcyjny](EDITORIAL_WORKFLOW.md).
+   Przyszła data zatwierdzonego materiału oznacza embargo. Strona `/sitemap.xml`
    i kanał `/feed` zawierają wyłącznie publiczne materiały.
 
 ## Aktualizacja
@@ -58,16 +59,29 @@ docker compose --env-file .env.production -f compose.production.yml up -d --buil
 
 Migracje są wykonywane automatycznie przez główny kontener aplikacji. Worker i scheduler startują dopiero po gotowości MariaDB i Redis.
 
-## Kopia bazy danych
+## Kopia bazy i plików
 
 ```bash
-mkdir -p backups
-docker compose --env-file .env.production -f compose.production.yml exec -T db \
-  sh -c 'mariadb-dump --single-transaction --quick -u"$MARIADB_USER" -p"$MARIADB_PASSWORD" "$MARIADB_DATABASE"' \
-  | gzip > "backups/slodziak-$(date +%F-%H%M%S).sql.gz"
+sh scripts/backup.sh .env.production
 ```
 
-Osobno należy archiwizować wolumen `slodziak_app_storage`, bo zawiera obrazy i filmy wgrane przez redakcję. Kopię bazy i storage trzeba wykonywać razem, szyfrować i okresowo testować odtwarzanie.
+Skrypt włącza na czas kopii tryb serwisowy i zapisuje dump bazy, pliki `storage/app`
+oraz sumy SHA-256. Przy błędzie przywraca wcześniejszy stan trybu serwisowego.
+Wykonuj kopie poza okresem wysyłki kampanii i przetwarzania mediów: tryb serwisowy
+nie zatrzymuje workera. Harmonogram kopii ustaw na serwerze, np. codziennie w nocy.
+Przenoś zaszyfrowane kopie poza serwer. Osobno przechowuj bezpiecznie `APP_KEY`
+i konfigurację środowiska — repozytorium ani archiwum ich nie zawiera.
+
+Próba odtworzenia do **nowego** projektu (nigdy do działającej bazy):
+
+```bash
+sh scripts/restore-new-stack.sh backups/NAZWA_KOPII .env.production slodziak-restore-check
+```
+
+Skrypt sprawdza sumy, importuje bazę i pliki do osobnych wolumenów, uruchamia tylko
+bazę i Redis. Odmawia użycia istniejącego projektu. Przed uruchomieniem web ustaw
+osobny port, zgodny `APP_KEY` i sprawdź dane. Przećwicz procedurę przed wdrożeniem
+i po istotnych zmianach; wolumeny usuwaj wyłącznie po sprawdzeniu nazwy projektu.
 
 ## Ważne operacje
 
@@ -90,4 +104,28 @@ docker compose --env-file .env.production -f compose.production.yml restart work
 - `app_storage`: obrazy, wideo, pliki publiczne i logi aplikacji.
 - SMTP: wiadomości systemowe, reset hasła i newsletter.
 
-Endpoint `/up` zwraca powodzenie dopiero wtedy, gdy Laravel ma działające połączenie z bazą danych.
+Endpoint `/up` sprawdza bazę oraz cache. Dodatkowa kontrola:
+
+```bash
+docker compose --env-file .env.production -f compose.production.yml exec app php artisan portal:check
+docker compose --env-file .env.production -f compose.production.yml exec app php artisan queue:failed
+```
+
+`portal:check` sprawdza również zapis i odczyt plików oraz zaległości kolejki;
+zwraca kod błędu przy nieudanych zadaniach lub ponad 100 oczekujących.
+Podłącz `/up`, logi i kod wyjścia polecenia do monitoringu serwera. Scheduler
+sprawdza rozmiar kolejki co 5 minut i zapisuje ostrzeżenia w logu.
+
+## Poczta i retencja
+
+SMTP musi mieć poprawne `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD`,
+`MAIL_FROM_ADDRESS` oraz ustawienie szyfrowania zgodne z dostawcą.
+Bez działającego workera nie ruszą potwierdzenia newslettera i kampanie.
+Przed startem sprawdź prawdziwą skrzynkę, reset hasła, SPF/DKIM/DMARC oraz
+adresy linków wygenerowane na podstawie `APP_URL` z HTTPS.
+
+`ANALYTICS_RETENTION_DAYS` (domyślnie 90) określa retencję historii żądań i IP.
+Scheduler usuwa stare dane codziennie. Próbę bez kasowania wykonasz poleceniem
+`php artisan portal:prune-analytics --pretend`. Konta, artykuły i historia
+redakcyjna nie podlegają temu poleceniu. Właściciel musi uzupełnić dokumenty
+prywatności, dane wydawcy i zasady retencji odpowiednie do swojego wdrożenia.

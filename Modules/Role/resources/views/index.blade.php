@@ -1,9 +1,9 @@
-@extends('panel::layouts.master', ['title' => 'لیست نقش‌ها'])
+@extends('panel::layouts.master', ['title' => 'Role i uprawnienia'])
 
 @section('content')
 
     <x-common-breadcrumbs>
-        <li><a>لیست نقش‌ها</a></li>
+        <li><a>Role i uprawnienia</a></li>
     </x-common-breadcrumbs>
 
     <div class="row pe-0">
@@ -13,12 +13,12 @@
                     <div class="portlet-title">
                         <h3 class="title">
                             <i class="icon-people"></i>
-                            لیست نقش‌ها
+                            Role i uprawnienia
                         </h3>
                     </div><!-- /.portlet-title -->
                     <div class="buttons-box ltr">
                         <a class="btn btn-sm btn-default btn-round btn-fullscreen" rel="tooltip"
-                           aria-label="تمام صفحه" data-bs-original-title="تمام صفحه">
+                           aria-label="Pełny ekran" data-bs-original-title="Pełny ekran">
                             <i class="icon-size-fullscreen d-flex justify-content-center align-items-center"></i>
                             <div class="paper-ripple">
                                 <div class="paper-ripple__background"></div>
@@ -28,7 +28,7 @@
                         @can(config('permissions_list.ROLE_STORE', false))
                             <a class="btn btn-sm btn-default btn-round bg-green text-white" rel="tooltip"
                                href="{{ route(config('app.panel_prefix', 'panel') . '.roles.create') }}"
-                               aria-label="ایجاد نقش جدید" data-bs-original-title="ایجاد نقش جدید">
+                               aria-label="Dodaj rolę" data-bs-original-title="Dodaj rolę">
                                 <i class="icon-plus d-flex justify-content-center align-items-center"></i>
                                 <div class="paper-ripple">
                                     <div class="paper-ripple__background"></div>
@@ -44,12 +44,12 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>نام</th>
-                                <th>نام نمایشی</th>
-                                <th>دسترسی‌های نقش</th>
-                                <th>تاریخ ایجاد</th>
+                                <th>Nazwa</th>
+                                <th>Nazwa wyświetlana</th>
+                                <th>Uprawnienia roli</th>
+                                <th>Data utworzenia</th>
                                 @canany([config('permissions_list.ROLE_UPDATE'), config('permissions_list.ROLE_DESTROY')])
-                                    <th>عملیات</th>
+                                    <th>Działania</th>
                                 @endcanany
                             </tr>
                             </thead>
@@ -68,7 +68,7 @@
                                             <div class="d-flex gap-2">
                                                 @can(config('permissions_list.ROLE_UPDATE', false))
                                                     <a class="btn btn-sm btn-info btn-icon round d-flex justify-content-center align-items-center"
-                                                       rel="tooltip" aria-label="ویرایش" data-bs-original-title="ویرایش"
+                                                       rel="tooltip" aria-label="Edytuj" data-bs-original-title="Edytuj"
                                                        href="{{ route(config('app.panel_prefix', 'panel') . '.roles.edit', $role->id) }}">
                                                         <i class="icon-pencil fa-flip-horizontal"></i>
                                                     </a>

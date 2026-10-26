@@ -89,7 +89,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function Articles(): HasMany
     {
-        return $this->hasMany(Article::class, 'user_id')->active()->published();
+        return $this->hasMany(Article::class, 'user_id');
     }
 
     public static function getFirstAdmin(): ?Model
@@ -129,8 +129,23 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isAdmin(): bool
     {
-        return $this->roles()->first()->name === Role::ADMIN ||
-            $this->hasAllPermissions(config('permissions_list.SUPER_ADMIN', false));
+        return $this->hasRole(Role::ADMIN) || $this->getAllPermissions()->contains('name', config('permissions_list.SUPER_ADMIN'));
+    }
+
+    public function avatarUrl(): string
+    {
+        return $this->image?->url() ?? asset('seeders/images/profile_picture.jpg');
+    }
+
+    public function publicRoleName(): string
+    {
+        foreach ([Role::ADMIN => 'Administrator', Role::EDITOR_IN_CHIEF => 'Redaktor naczelny', Role::SECRETARY => 'Sekretarz redakcji', Role::EDITOR => 'Redaktor', Role::AUTHOR => 'Redaktor'] as $role => $label) {
+            if ($this->hasRole($role)) {
+                return $label;
+            }
+        }
+
+        return 'Autor';
     }
 
     public function role(): \Spatie\Permission\Models\Role

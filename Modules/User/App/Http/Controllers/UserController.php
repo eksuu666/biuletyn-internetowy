@@ -17,8 +17,8 @@ class UserController extends Controller
         public UserService $userService
     ) {
         $this->middleware('can:'.config('permissions_list.USER_INDEX', false))->only('index');
-        $this->middleware('can:'.config('permissions_list.USER_STORE', false))->only('store');
-        $this->middleware('can:'.config('permissions_list.USER_UPDATE', false))->only('update');
+        $this->middleware('can:'.config('permissions_list.USER_STORE', false))->only(['create', 'store']);
+        $this->middleware('can:'.config('permissions_list.USER_UPDATE', false))->only(['edit', 'update', 'SEOSettings']);
         // Policy is used in destroy method
         // $this->middleware('can:' . config('permissions_list.USER_DESTROY', false))->only('destroy');
     }
@@ -63,7 +63,7 @@ class UserController extends Controller
         return back()->with('success', __('entity_deleted', ['entity' => __('user')]));
     }
 
-    public function SEOSettings(User $user): view
+    public function SEOSettings(User $user): View
     {
         $nextUrl = config('app.panel_prefix', 'panel').'.users.index';
         $title = $user->full_name;

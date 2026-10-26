@@ -32,6 +32,7 @@ class ArticleFactory extends Factory
             'published_at' => fake()->dateTimeBetween('-1 year', 'now')->format('Y-m-d H:i:s'),
             'editor_choice' => fake()->boolean,
             'status' => fake()->boolean,
+            'workflow_state' => Article::PUBLISHED,
             'category_id' => Category::factory(),
             'user_id' => User::factory(),
         ];

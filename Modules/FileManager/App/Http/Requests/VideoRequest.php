@@ -16,7 +16,7 @@ class VideoRequest extends FormRequest
             'user_id' => 'required|numeric',
         ];
 
-        if (strtolower($this->method()) === 'put') {
+        if ($this->isMethod('put') || $this->isMethod('patch')) {
             $rules['video'] = "nullable|$video_rule";
         }
 

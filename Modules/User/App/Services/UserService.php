@@ -6,7 +6,10 @@ use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\ValidationException;
 use Modules\FileManager\App\Services\Image\ImageService;
+use Modules\Role\App\Models\Role;
+use Modules\User\App\Helpers\UserHelper;
 use Modules\User\App\Http\Requests\UserStoreRequest;
 use Modules\User\App\Http\Requests\UserUpdateRequest;
 use Modules\User\App\Models\User;
@@ -45,7 +48,8 @@ class UserService
         $data = $request->validated();
         $request->merge(['alt_text' => 'User Profile Picture']);
         $user = User::create($data);
-        $profile_picture = $this->imageService->store($request, 'picture', $user->full_name);
+        $user->syncRoles(Role::SUBSCRIBER);
+        $profile_picture = $request->hasFile('picture') ? $this->imageService->store($request, 'picture', $user->full_name) : UserHelper::createDefaultProfilePicture($user->id);
         $user->image()->save($profile_picture);
         if ($request->email_verification) {
             $user->markEmailAsVerified();
@@ -55,7 +59,11 @@ class UserService
     public function update(UserUpdateRequest $request, User $user): void
     {
         $data = $request->validated();
-        $this->imageService->uploadImageDuringUpdate($request, $user, $user->full_name);
+        if ($request->hasFile('picture')) {
+            $oldImage = $user->image;
+            $user->image()->save($this->imageService->store($request, 'picture', $user->full_name));
+            $oldImage?->delete();
+        }
         $user->update($data);
         $this->checkEmailAsVerified($request, $user);
     }
@@ -70,6 +78,9 @@ class UserService
     public function delete(User $user): void
     {
         Gate::authorize('delete', $user);
+        if (($user->hasRole(Role::ADMIN) && User::query()->role(Role::ADMIN)->count() <= 1) || $user->articles()->withTrashed()->exists()) {
+            throw ValidationException::withMessages(['user' => 'Nie można usunąć ostatniego administratora ani autora istniejących materiałów. W razie potrzeby wyłącz konto.']);
+        }
         $this->imageService->destroyWithoutKeyConstraints($user->image);
         $user->delete();
     }

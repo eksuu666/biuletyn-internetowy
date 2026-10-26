@@ -2,7 +2,6 @@
 
 namespace Modules\Front\App\View\Composers;
 
-use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 use Modules\AdManager\App\Models\Ad;
 use Modules\ContactUs\App\Models\ContactInfo;
@@ -19,19 +18,19 @@ class SharedDataComposer
 
     public function compose(View $view): void
     {
-        $socialNetworks = Cache::remember('social_networks', 60 * 60, function () {
+        $socialNetworks = (function () {
             return $this->socialNetworkService->getSocialNetworksWithTag(SocialNetworkService::TAG);
-        });
+        })();
 
-        $siteDetails = Cache::remember('site_details', 60 * 60, static function () {
+        $siteDetails = (static function () {
             return SiteDetail::with('mainLogo', 'secondLogo', 'favicon')->latest()->first();
-        });
+        })();
 
-        $contactInfo = Cache::remember('contact_info', 60 * 60, static function () {
+        $contactInfo = (static function () {
             return ContactInfo::query()->first(['email', 'phone']);
-        });
+        })();
 
-        $ads = Cache::remember('ads', 60 * 60, static function () {
+        $ads = (static function () {
             return [
                 'header' => Ad::active()->bySection(Ad::HEADER)->first(),
                 'first_sidebar' => Ad::active()->bySection(Ad::FIRST_SIDEBAR)->limit(4)->get(),
@@ -41,7 +40,7 @@ class SharedDataComposer
                 'third_section' => Ad::active()->bySection(Ad::THIRD_SECTION)->limit(10)->get(),
                 'fourth_section' => Ad::active()->bySection(Ad::FOURTH_SECTION)->limit(10)->get(),
             ];
-        });
+        })();
 
         $viewData = $this->staticContentService->composeViewData();
         $viewData['social_networks'] = $socialNetworks;

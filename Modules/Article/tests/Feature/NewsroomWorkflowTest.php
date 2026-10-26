@@ -97,6 +97,7 @@ class NewsroomWorkflowTest extends TestCase
         $author = User::factory()->active()->create();
         $article->update(['user_id' => $author->id]);
         $this->put(route('panel.articles.update', $article), [
+            'workflow_version' => $article->workflow_version,
             'title' => 'Po korekcie', 'slug' => $article->slug, 'body' => '<p>Korekta</p>',
             'published_at' => $article->published_at->format('Y-m-d H:i:s'), 'category_id' => $this->category->id, 'status' => 'on',
         ])->assertSessionHasNoErrors()->assertRedirect();

@@ -21,7 +21,7 @@ Route::prefix(config('app.panel_prefix', 'panel').'/comments')
 Route::prefix('comments')
     ->name('comments.')
     ->controller(FrontCommentController::class)
-    ->middleware(ProtectAgainstSpam::class)
+    ->middleware([ProtectAgainstSpam::class, 'throttle:15,1'])
     ->group(function () {
         Route::post('/', 'store')->name('store');
         Route::put('/{comment}', 'update')->name('update');

@@ -18,7 +18,7 @@ class RegisterControllerTest extends TestCase
         $response = $this->get(route('register'));
         $response->assertStatus(200)
             ->assertViewIs('auth::register')
-            ->assertSee('ثبت نام');
+            ->assertSee('Zarejestruj się');
     }
 
     public function test_register_service_works(): void

@@ -140,7 +140,7 @@
 
                 <li class="dropdown dropdown-user">
                     <a class="dropdown-toggle dropdown-hove cursor-pointer d-flex align-items-center gap-2" data-bs-toggle="dropdown">
-                        <img src="{{ asset('storage/' . $currentUser->image->file_path) }}" alt="{{ $currentUser->image->alt_text }}"
+                        <img src="{{ $currentUser->avatarUrl() }}" alt="{{ $currentUser->full_name }}"
                              class="object-fit-cover img-circle" style="width: 45px; height: 45px">
                         <span>{{ $currentUser->full_name }}</span>
                         <i class="icon-arrow-down"></i>

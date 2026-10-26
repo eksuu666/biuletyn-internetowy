@@ -1,10 +1,10 @@
-@extends('panel::layouts.master', ['title' => 'مشاهده نظر'])
+@extends('panel::layouts.master', ['title' => 'Zobacz komentarz'])
 
 @section('content')
 
     <x-common-breadcrumbs>
-        <li><a href="{{ route(config('app.panel_prefix', 'panel') . '.comments.index') }}">لیست نظرات</a></li>
-        <li><a>مشاهده نظر</a></li>
+        <li><a href="{{ route(config('app.panel_prefix', 'panel') . '.comments.index') }}">Komentarze</a></li>
+        <li><a>Zobacz komentarz</a></li>
     </x-common-breadcrumbs>
 
     <div class="row pe-0">
@@ -14,12 +14,12 @@
                     <div class="portlet-title">
                         <h3 class="title">
                             <i class="far fa-comment"></i>
-                            مشاهده نظر
+                            Zobacz komentarz
                         </h3>
                     </div><!-- /.portlet-title -->
                     <div class="buttons-box ltr">
                         <a class="btn btn-sm btn-default btn-round btn-fullscreen" rel="tooltip"
-                           aria-label="تمام صفحه" data-bs-original-title="تمام صفحه">
+                           aria-label="Pełny ekran" data-bs-original-title="Pełny ekran">
                             <i class="icon-size-fullscreen d-flex justify-content-center align-items-center"></i>
                             <div class="paper-ripple">
                                 <div class="paper-ripple__background"></div>
@@ -34,7 +34,7 @@
                             <a href="#">
                                 <img src="{{ $comment->commenterImageLink() }}" class="img-circle" alt="{{ $comment->commenterName() }}">
                                 <span class="user">
-                                {{ ($comment->isGuest() ? 'کاربر مهمان: ' : '') . $comment->commenterName() }}
+                                {{ ($comment->isGuest() ? 'Gość: ' : '') . $comment->commenterName() }}
                             </span>
                             </a>
                             <span class="float-end text-muted">
@@ -54,7 +54,7 @@
                                         @csrf
                                         @method('patch')
                                         <button class="btn btn-sm btn-success btn-icon round d-flex justify-content-center align-items-center"
-                                                rel="tooltip" aria-label="تایید نظر" data-bs-original-title="تایید نظر">
+                                                rel="tooltip" aria-label="Zatwierdź komentarz" data-bs-original-title="Zatwierdź komentarz">
                                             <i class="icon-check"></i>
                                         </button>
                                     </form>
@@ -66,7 +66,7 @@
                                         @csrf
                                         @method('patch')
                                         <button class="btn btn-sm btn-warning btn-icon round d-flex justify-content-center align-items-center"
-                                                rel="tooltip" aria-label="رد نظر" data-bs-original-title="رد نظر">
+                                                rel="tooltip" aria-label="Odrzuć komentarz" data-bs-original-title="Odrzuć komentarz">
                                             <i class="icon-close"></i>
                                         </button>
                                     </form>

@@ -1,8 +1,8 @@
-@extends('panel::layouts.master', ['title' => 'لیست تبلیغات'])
+@extends('panel::layouts.master', ['title' => 'Reklamy'])
 
 @section('content')
     <x-common-breadcrumbs>
-        <li><a>لیست تبلیغات</a></li>
+        <li><a>Reklamy</a></li>
     </x-common-breadcrumbs>
 
     <div class="row pe-0">
@@ -12,20 +12,20 @@
                     <div class="portlet-title d-flex gap-3">
                         <h3 class="title m-0">
                             <i class="fas fa-bullhorn"></i>
-                            لیست تبلیغات
+                            Reklamy
                         </h3>
                         <form class="d-inline-block search-form">
                             <div class="input-group">
                                 <button class="btn btn-secondary d-flex align-items-center" type="submit">
                                     <i class="icon-magnifier"></i>
                                 </button>
-                                <input name="query" type="text" class="form-control p-2" placeholder="جستجو..." value="{{ request()->get('query') }}">
+                                <input name="query" type="text" class="form-control p-2" placeholder="Szukaj..." value="{{ request()->get('query') }}">
                             </div>
                         </form>
                     </div><!-- /.portlet-title -->
                     <div class="buttons-box ltr">
                         <a class="btn btn-sm btn-default btn-round btn-fullscreen" rel="tooltip"
-                           aria-label="تمام صفحه" data-bs-original-title="تمام صفحه">
+                           aria-label="Pełny ekran" data-bs-original-title="Pełny ekran">
                             <i class="icon-size-fullscreen d-flex justify-content-center align-items-center"></i>
                             <div class="paper-ripple">
                                 <div class="paper-ripple__background"></div>
@@ -35,7 +35,7 @@
                         @can(config('permissions_list.ADS_STORE', false))
                             <a class="btn btn-sm btn-default btn-round bg-green text-white" rel="tooltip"
                                href="{{ route(config('app.panel_prefix', 'panel') . '.ads.create') }}"
-                               aria-label="ایجاد تبلیغ جدید" data-bs-original-title="ایجاد تبلیغ جدید">
+                               aria-label="Nowa reklama" data-bs-original-title="Nowa reklama">
                                 <i class="icon-plus d-flex justify-content-center align-items-center"></i>
                                 <div class="paper-ripple">
                                     <div class="paper-ripple__background"></div>
@@ -51,16 +51,16 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>تصویر</th>
-                                <th>عنوان</th>
-                                <th>لینک</th>
-                                <th>مکان قرارگیری</th>
-                                <th>تاریخ انتشار</th>
-                                <th>تاریخ انقضا</th>
-                                <th>تاریخ ایجاد</th>
-                                <th>وضعیت</th>
+                                <th>Obraz</th>
+                                <th>Tytuł</th>
+                                <th>Adres docelowy</th>
+                                <th>Miejsce emisji</th>
+                                <th>Początek emisji</th>
+                                <th>Koniec emisji</th>
+                                <th>Utworzono</th>
+                                <th>Aktywna</th>
                                 @canany([config('permissions_list.ADS_UPDATE'), config('permissions_list.ADS_DESTROY')])
-                                    <th>عملیات</th>
+                                    <th>Działania</th>
                                 @endcanany
                             </tr>
                             </thead>
@@ -74,22 +74,22 @@
                                     <td>{{ $ad->title }}</td>
                                     <td>{{ $ad->link }}</td>
                                     <td>{{ nullable_value( __($ad->getSection()) ) }}</td>
-                                    <td class="ltr text-right nowrap">{{ jalalian()->forge($ad->published_at)->format(config('common.datetime_format')) }}</td>
+                                    <td class="ltr text-right nowrap">{{ $ad->published_at->format('d.m.Y H:i') }}</td>
                                     <td class="ltr text-right nowrap">
                                         @if($ad->expired_at)
-                                            {{ jalalian()->forge($ad->expired_at)->format(config('common.datetime_format')) }}
+                                            {{ $ad->expired_at->format('d.m.Y H:i') }}
                                         @else
                                             {{ nullable_value($ad->expired_at) }}
                                         @endif
                                     </td>
-                                    <td class="ltr text-right nowrap">{{ jalalian()->forge($ad->created_at)->format(config('common.datetime_format')) }}</td>
+                                    <td class="ltr text-right nowrap">{{ $ad->created_at->format('d.m.Y H:i') }}</td>
                                     <td class="{{ status_class($ad->status) }}">{{ status_message($ad->status) }}</td>
                                     @canany([config('permissions_list.ADS_UPDATE'), config('permissions_list.ADS_DESTROY')])
                                         <td>
                                             <div class="d-flex gap-2">
                                                 @can(config('permissions_list.ADS_UPDATE', false))
                                                     <a class="btn btn-sm btn-info btn-icon round d-flex justify-content-center align-items-center"
-                                                       rel="tooltip" aria-label="ویرایش" data-bs-original-title="ویرایش"
+                                                       rel="tooltip" aria-label="Edytuj" data-bs-original-title="Edytuj"
                                                        href="{{ route(config('app.panel_prefix', 'panel') . '.ads.edit', $ad->id) }}">
                                                         <i class="icon-pencil fa-flip-horizontal"></i>
                                                     </a>

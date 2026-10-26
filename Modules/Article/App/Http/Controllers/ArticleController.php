@@ -9,6 +9,7 @@ use Illuminate\View\View;
 use Modules\Article\App\Http\Requests\ArticleRequest;
 use Modules\Article\App\Models\Article;
 use Modules\Article\App\Services\ArticleService;
+use Modules\Article\App\Services\EditorialWorkflow;
 use Modules\Category\App\Models\Category;
 use Modules\Tag\App\Models\Tag;
 
@@ -49,6 +50,7 @@ class ArticleController extends Controller
 
     public function edit(Article $article): View
     {
+        abort_unless(app(EditorialWorkflow::class)->canEdit(auth()->user(), $article), 403);
         $categories = Category::query()->active()->latest()->get();
         $tags = Tag::query()->active()->latest()->get();
 
@@ -72,6 +74,7 @@ class ArticleController extends Controller
 
     public function SEOSettings(Article $article): View
     {
+        abort_unless(app(EditorialWorkflow::class)->canEdit(auth()->user(), $article), 403);
         $nextUrl = config('app.panel_prefix', 'panel').'.articles.index';
         $title = $article->title;
         $pageTitle = __('article').' '.$title;

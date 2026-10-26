@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="pl" dir="ltr">
 
 <head>
     <title>{{ !empty($title) ? $title . ' | ' . config('app.name') : config('app.name') }}</title>
@@ -14,6 +14,7 @@
         .swal2-title {
             font-size: 1.4rem !important;
         }
+        .modal-page, .modal-page label, .modal-page input { direction: ltr; text-align: left; }
     </style>
 
 </head>

@@ -13,8 +13,13 @@ class ProfileService
     public function update(ProfileRequest $request): bool
     {
         $user = User::query()->find(auth()->id());
-        $data = $request->validated();
-        $this->imageService->uploadImageDuringUpdate($request, $user, $user->full_name);
+        $data = $request->safe()->except('picture');
+        if ($request->hasFile('picture')) {
+            $oldImage = $user->image;
+            $newImage = $this->imageService->store($request, 'picture', $request->full_name);
+            $user->image()->save($newImage);
+            $oldImage?->delete();
+        }
 
         return $user->update($data);
     }

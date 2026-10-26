@@ -48,8 +48,8 @@ class VideoService
 
     public function update(VideoRequest $request, Video $video): Model
     {
-        Gate::authorize('store', $video);
-        $video->update($request->validated());
+        Gate::authorize('update', $video);
+        $video->update($request->safe()->except('user_id'));
         $this->handleMedia($video, $request);
 
         return $video;

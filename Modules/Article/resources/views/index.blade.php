@@ -20,6 +20,12 @@
                                     <i class="icon-magnifier"></i>
                                 </button>
                                 <input name="query" type="text" class="form-control p-2" placeholder="Szukaj..." value="{{ request()->get('query') }}">
+                                <select class="form-control" name="stage" aria-label="Etap obiegu redakcyjnego">
+                                    <option value="">Wszystkie etapy</option>
+                                    @foreach(\Modules\Article\App\Models\Article::WORKFLOW_LABELS as $stage => $label)
+                                        <option value="{{ $stage }}" @selected(request('stage') === $stage)>{{ $label }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </form>
                     </div><!-- /.portlet-title -->
@@ -77,7 +83,7 @@
                                     <td>
                                         <img src="{{ asset('storage/' . $article->image->file_path) }}" alt="{{ $article->image->alt_text }}" width="100px" style="max-height: 90px">
                                     </td>
-                                    <td>{{ $article->title }}</td>
+                                    <td><a href="{{ route(config('app.panel_prefix').'.articles.review', $article) }}">{{ $article->title }}</a></td>
                                     <td>{{ $article->slug }}</td>
                                     <td>{{ $article->user?->full_name }}</td>
                                     <td>{{ $article->category?->name }}</td>
@@ -88,7 +94,7 @@
                                     <td class="ltr text-right nowrap">{{ jalalian()->forge($article->created_at)->format(config('common.datetime_format')) }}</td>
                                     <td class="{{ status_class($article->editor_choice) }}">{{ status_message($article->editor_choice) }}</td>
                                     <td class="{{ status_class($article->isHot()) }}">{{ status_message($article->isHot()) }}</td>
-                                    <td class="{{ status_class($article->status) }}">{{ ! $article->status ? 'Szkic' : ($article->published_at->isFuture() ? 'Zaplanowany' : 'Opublikowany') }}</td>
+                                    <td>{{ \Modules\Article\App\Models\Article::WORKFLOW_LABELS[$article->workflow_state] }}{{ $article->workflow_state === 'published' && $article->published_at->isFuture() ? ' — zaplanowany' : '' }}</td>
                                     @canany([
                                         config('permissions_list.ARTICLE_UPDATE'),
                                         config('permissions_list.ARTICLE_DESTROY'),

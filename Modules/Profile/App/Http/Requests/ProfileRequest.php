@@ -10,8 +10,8 @@ class ProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'full_name' => 'required|string|min:2',
-            'username' => 'required|string|min:2|unique:users,username,'.Auth::id(),
+            'full_name' => 'required|string|min:2|max:255',
+            'username' => 'required|string|alpha_dash:ascii|min:2|max:100|unique:users,username,'.Auth::id(),
             'bio' => 'nullable|string|max:600',
             'picture' => 'nullable|image|max:5000',
         ];

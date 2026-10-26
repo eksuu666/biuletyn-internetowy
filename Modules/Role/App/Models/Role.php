@@ -16,6 +16,10 @@ class Role extends SpatieRole
 
     public const AUTHOR = 'Author';
 
+    public const SECRETARY = 'Secretary';
+
+    public const EDITOR_IN_CHIEF = 'EditorInChief';
+
     public const SUBSCRIBER = 'Subscriber';
 
     protected $fillable = [
@@ -30,6 +34,8 @@ class Role extends SpatieRole
             self::ADMIN,
             self::EDITOR,
             self::AUTHOR,
+            self::SECRETARY,
+            self::EDITOR_IN_CHIEF,
             self::SUBSCRIBER,
         ]);
     }

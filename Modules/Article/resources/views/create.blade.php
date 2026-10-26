@@ -44,7 +44,7 @@
                             <div class="form-group col-lg-6">
                                 <label for="published_at">Data publikacji <small>(wymagane)</small></label>
                                 <input id="published_at" name="published_at" type="datetime-local" class="form-control" required value="{{ old('published_at', now()->format('Y-m-d\TH:i')) }}">
-                                <small>Publikacja nastąpi o wskazanej godzinie (Europe/Warsaw), jeśli zaznaczysz „Opublikuj / zaplanuj”. Bez zaznaczenia materiał pozostaje szkicem.</small>
+                                <small>Planowany termin (Europe/Warsaw). Publikacja wymaga najpierw korekty sekretarza i akceptacji redaktora naczelnego.</small>
                             </div>
                             <div class="form-group relative col-lg-6">
                                 <label>Zdjęcie główne <small>(wymagane)</small></label>
@@ -106,8 +106,7 @@
                                     </div>
                                 @endcanany
                                 <div class="text-center col-4">
-                                    <input id="status" class="form-control" name="status" type="checkbox" @if(old('status')) checked @endif>
-                                    <label for="status">Opublikuj / zaplanuj</label>
+                                    <p>Nowy materiał zostanie zapisany jako szkic. Następnie przekaż go sekretarzowi w widoku obiegu redakcyjnego.</p>
                                 </div>
                             </div>
                             <div class="form-group">

@@ -1,89 +1,20 @@
 <?php
 
-return [
-    [
-        'name' => 'Admin',
-        'local_name' => 'مدیر',
-        'permissions' => [
-            config('permissions_list.SUPER_ADMIN'),
-        ],
-    ],
-    [
-        'name' => 'Editor',
-        'local_name' => 'ویرایشگر',
-        'permissions' => [
-            config('permissions_list.ARTICLE_INDEX'),
-            config('permissions_list.ARTICLE_STORE'),
-            config('permissions_list.ARTICLE_UPDATE'),
-            config('permissions_list.ARTICLE_DESTROY'),
-            config('permissions_list.ARTICLE_EDITOR_CHOICE'),
-            config('permissions_list.ARTICLE_HOTNESS'),
-            config('permissions_list.COMMENT_INDEX'),
-            config('permissions_list.COMMENT_SHOW'),
-            config('permissions_list.COMMENT_APPROVE'),
-            config('permissions_list.COMMENT_REJECT'),
-            config('permissions_list.COMMENT_DESTROY'),
-            config('permissions_list.CATEGORY_INDEX'),
-            config('permissions_list.CATEGORY_STORE'),
-            config('permissions_list.CATEGORY_UPDATE'),
-            config('permissions_list.CATEGORY_DESTROY'),
-            config('permissions_list.TAG_INDEX'),
-            config('permissions_list.TAG_STORE'),
-            config('permissions_list.TAG_UPDATE'),
-            config('permissions_list.TAG_DESTROY'),
-            config('permissions_list.TAG_HOTNESS'),
-            config('permissions_list.MENU_INDEX'),
-            config('permissions_list.MENU_STORE'),
-            config('permissions_list.MENU_UPDATE'),
-            config('permissions_list.MENU_DESTROY'),
-            config('permissions_list.PAGE_INDEX'),
-            config('permissions_list.PAGE_STORE'),
-            config('permissions_list.PAGE_UPDATE'),
-            config('permissions_list.PAGE_DESTROY'),
-            config('permissions_list.IMAGE_INDEX_ALL'),
-            config('permissions_list.IMAGE_UPDATE_ALL'),
-            config('permissions_list.IMAGE_DESTROY_ALL'),
-            config('permissions_list.VIDEO_INDEX_ALL'),
-            config('permissions_list.VIDEO_STORE'),
-            config('permissions_list.VIDEO_UPDATE_ALL'),
-            config('permissions_list.VIDEO_DESTROY_ALL'),
-            config('permissions_list.SETTING_SOCIAL_NETWORKS'),
-            config('permissions_list.SETTING_ABOUT_US'),
-            config('permissions_list.SETTING_SITE_DETAILS'),
-            config('permissions_list.SEO_MANAGEMENT'),
-            config('permissions_list.STATS_HEADER'),
-            config('permissions_list.STATS_CONTENT'),
-        ],
-    ],
-    [
-        'name' => 'Author',
-        'local_name' => 'نویسنده',
-        'permissions' => [
-            config('permissions_list.ARTICLE_INDEX'),
-            config('permissions_list.ARTICLE_STORE'),
-            config('permissions_list.ARTICLE_UPDATE'),
-            config('permissions_list.ARTICLE_DESTROY'),
-            config('permissions_list.CATEGORY_INDEX'),
-            config('permissions_list.CATEGORY_STORE'),
-            config('permissions_list.TAG_INDEX'),
-            config('permissions_list.TAG_STORE'),
-            config('permissions_list.IMAGE_INDEX_OWN'),
-            config('permissions_list.IMAGE_UPDATE_OWN'),
-            config('permissions_list.IMAGE_DESTROY_OWN'),
-            config('permissions_list.STATS_HEADER'),
-            config('permissions_list.STATS_CONTENT'),
-        ],
-    ],
-    [
-        'name' => 'Subscriber',
-        'local_name' => 'عضو ساده',
-        'permissions' => [
-            config('permissions_list.PROFILE_EDIT'),
-            config('permissions_list.PROFILE_CHANGE_PASSWORD'),
-            config('permissions_list.PROFILE_CHANGE_EMAIL'),
-            config('permissions_list.PROFILE_SOCIAL_NETWORKS'),
-            config('permissions_list.STATS_HEADER'),
-            config('permissions_list.STATS_CONTENT'),
-        ],
-    ],
+$profile = ['PROFILE_EDIT', 'PROFILE_CHANGE_PASSWORD', 'PROFILE_CHANGE_EMAIL', 'PROFILE_SOCIAL_NETWORKS'];
+$reporter = array_merge($profile, ['ARTICLE_INDEX', 'ARTICLE_STORE', 'ARTICLE_UPDATE', 'ARTICLE_DESTROY', 'IMAGE_INDEX_OWN', 'IMAGE_UPDATE_OWN', 'IMAGE_DESTROY_OWN', 'VIDEO_STORE', 'VIDEO_INDEX_OWN', 'VIDEO_UPDATE_OWN', 'VIDEO_DESTROY_OWN']);
+$secretary = array_merge($reporter, ['ARTICLE_CORRECT', 'COMMENT_INDEX', 'COMMENT_SHOW', 'COMMENT_APPROVE', 'COMMENT_REJECT', 'CATEGORY_INDEX', 'TAG_INDEX']);
+$chief = array_merge($secretary, ['ARTICLE_PUBLISH', 'ARTICLE_EDITOR_CHOICE', 'ARTICLE_HOTNESS', 'CATEGORY_STORE', 'CATEGORY_UPDATE', 'TAG_STORE', 'TAG_UPDATE', 'MENU_INDEX', 'MENU_STORE', 'MENU_UPDATE', 'SEO_MANAGEMENT']);
+$roles = [
+    ['Admin', 'Administrator', ['SUPER_ADMIN']],
+    ['Editor', 'Redaktor', $reporter],
+    ['Author', 'Redaktor', $reporter],
+    ['Secretary', 'Sekretarz redakcji', $secretary],
+    ['EditorInChief', 'Redaktor naczelny', array_diff($chief, ['ARTICLE_CORRECT'])],
+    ['Subscriber', 'Czytelnik', $profile],
 ];
+
+return array_map(static fn (array $role) => [
+    'name' => $role[0],
+    'local_name' => $role[1],
+    'permissions' => array_values(array_map(static fn ($key) => config('permissions_list.'.$key), $role[2])),
+], $roles);

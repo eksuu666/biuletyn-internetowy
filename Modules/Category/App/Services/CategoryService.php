@@ -6,6 +6,8 @@ use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 use Modules\Article\App\Models\Article;
 use Modules\Category\App\Http\Requests\CategoryRequest;
 use Modules\Category\App\Models\Category;
@@ -49,16 +51,21 @@ class CategoryService
 
     public function destroy(Category $category): void
     {
-        $this->reassignArticles($category);
-        $this->imageService->destroyWithoutKeyConstraints($category->image);
-        $category->delete();
+        DB::transaction(function () use ($category) {
+            $this->reassignArticles($category);
+            $this->imageService->destroyWithoutKeyConstraints($category->image);
+            $category->delete();
+        });
     }
 
     private function reassignArticles(Category $category): void
     {
-        if ($category->articles && $category->articles->count() > 0) {
-            $firstCategory = Category::query()->firstOrFail();
-            $category->articles->each(function (Article $article) use ($firstCategory) {
+        if ($category->articles()->withTrashed()->exists()) {
+            $firstCategory = Category::whereKeyNot($category->id)->first();
+            if (! $firstCategory) {
+                throw ValidationException::withMessages(['category' => 'To ostatnia kategoria zawierająca materiały. Najpierw utwórz kategorię zastępczą.']);
+            }
+            $category->articles()->withTrashed()->each(function (Article $article) use ($firstCategory) {
                 $article->update(['category_id' => $firstCategory->id]);
             });
         }

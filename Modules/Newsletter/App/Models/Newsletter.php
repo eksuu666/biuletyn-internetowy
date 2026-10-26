@@ -12,7 +12,20 @@ class Newsletter extends Model
     protected $fillable = [
         'email',
         'subscribed_at',
+        'confirmation_hash',
+        'consented_at',
+        'confirmed_at',
+        'unsubscribed_at',
     ];
+
+    protected $hidden = ['confirmation_hash'];
+
+    protected $casts = ['confirmed_at' => 'datetime', 'unsubscribed_at' => 'datetime'];
+
+    public function scopeConfirmed($query): void
+    {
+        $query->whereNotNull('confirmed_at')->whereNull('unsubscribed_at');
+    }
 
     public function toSearchableArray(): array
     {

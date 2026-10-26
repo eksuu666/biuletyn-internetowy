@@ -12,7 +12,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('portal:prune-analytics')->daily()->withoutOverlapping();
+        $schedule->command('queue:monitor redis:default --max=100')->everyFiveMinutes()->withoutOverlapping();
     }
 
     /**

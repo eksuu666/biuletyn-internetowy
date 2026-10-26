@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 use Laravel\Scout\Searchable;
@@ -33,10 +35,29 @@ class Article extends Model implements Feedable
     use Likeable;
     use Searchable;
     use SEOAble;
+    use SoftDeletes;
 
     public const ARTICLE = 'article';
 
     public const NEWS = 'news';
+
+    public const DRAFT = 'draft';
+
+    public const SUBMITTED = 'submitted';
+
+    public const AWAITING_APPROVAL = 'awaiting_approval';
+
+    public const PUBLISHED = 'published';
+
+    public const CHANGES_REQUESTED = 'changes_requested';
+
+    public const WORKFLOW_LABELS = [
+        self::DRAFT => 'Szkic',
+        self::SUBMITTED => 'Do korekty sekretarza',
+        self::AWAITING_APPROVAL => 'Po korekcie — do akceptacji naczelnego',
+        self::PUBLISHED => 'Zatwierdzony do publikacji',
+        self::CHANGES_REQUESTED => 'Zwrócony autorowi',
+    ];
 
     public const TYPES = [
         self::NEWS,
@@ -125,7 +146,12 @@ class Article extends Model implements Feedable
 
     public function scopePubliclyVisible(Builder $query): void
     {
-        $query->active()->published()->whereHas('category', fn (Builder $category) => $category->active());
+        $query->where('workflow_state', self::PUBLISHED)->active()->published()->whereHas('category', fn (Builder $category) => $category->active());
+    }
+
+    public function revisions(): HasMany
+    {
+        return $this->hasMany(ArticleRevision::class);
     }
 
     public function isPubliclyVisible(): bool

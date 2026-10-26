@@ -5,6 +5,7 @@ namespace Modules\FileManager\App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 use Modules\FileManager\App\Http\Requests\VideoRequest;
 use Modules\FileManager\App\Models\Video;
@@ -28,6 +29,8 @@ class VideoController extends Controller
 
     public function create(): View
     {
+        Gate::authorize('store', Video::class);
+
         return view('file-manager::videos.create');
     }
 
@@ -41,6 +44,8 @@ class VideoController extends Controller
 
     public function edit(Video $video)
     {
+        Gate::authorize('update', $video);
+
         return view('file-manager::videos.edit', compact('video'));
     }
 
@@ -61,6 +66,7 @@ class VideoController extends Controller
 
     public function deleteThumbnail(Video $video): RedirectResponse
     {
+        Gate::authorize('update', $video);
         if ($video->hasMedia('thumbnails')) {
             $video->clearMediaCollection('thumbnails');
 

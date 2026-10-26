@@ -1,9 +1,9 @@
-@extends('panel::layouts.master', ['title' => 'تغییر ایمیل'])
+@extends('panel::layouts.master', ['title' => 'تغییر E-mail'])
 
 @section('content')
     <x-common-breadcrumbs>
         <li><a>پروفایل</a></li>
-        <li><a>تغییر ایمیل</a></li>
+        <li><a>تغییر E-mail</a></li>
     </x-common-breadcrumbs>
 
     <div class="row pe-0">
@@ -13,12 +13,12 @@
                     <div class="portlet-title">
                         <h3 class="title">
                             <i class="far fa-pen-to-square"></i>
-                            تغییر ایمیل
+                            تغییر E-mail
                         </h3>
                     </div><!-- /.portlet-title -->
                     <div class="buttons-box">
                         <a class="btn btn-sm btn-default btn-round btn-fullscreen" rel="tooltip"
-                           aria-label="تمام صفحه" data-bs-original-title="تمام صفحه">
+                           aria-label="Pełny ekran" data-bs-original-title="Pełny ekran">
                             <i class="icon-size-fullscreen d-flex justify-content-center align-items-center"></i>
                             <div class="paper-ripple">
                                 <div class="paper-ripple__background"></div>
@@ -42,14 +42,14 @@
 
                         <fieldset class="row justify-content-center">
                             <div class="form-group col-lg-6">
-                                <label for="email">ایمیل</label>
+                                <label for="email">E-mail</label>
                                 <input id="email" class="form-control" name="email" type="email" required value="{{ old('email', $user->email) }}">
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-6 col-sm-offset-4 mx-auto">
                                     <button class="btn btn-success btn-block">
                                         <i class="icon-check"></i>
-                                        تغییر ایمیل
+                                        تغییر E-mail
                                     </button>
                                 </div>
                             </div>

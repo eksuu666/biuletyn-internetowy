@@ -9,11 +9,11 @@ use Modules\Auth\App\Http\Controllers\VerifyEmailController;
 
 // Login
 Route::get('/login', [LoginController::class, 'view'])->name('login')->middleware('guest');
-Route::post('/login', [LoginController::class, 'login'])->middleware('guest');
+Route::post('/login', [LoginController::class, 'login'])->middleware(['guest', 'throttle:8,1']);
 
 // Register
 Route::get('/register', [RegisterController::class, 'view'])->name('register')->middleware('guest');
-Route::post('/register', [RegisterController::class, 'register'])->middleware('guest');
+Route::post('/register', [RegisterController::class, 'register'])->middleware(['guest', 'throttle:5,1']);
 
 // Verify Email
 Route::controller(VerifyEmailController::class)->prefix('/email')->name('verification.')->middleware(['auth', 'not.verified'])

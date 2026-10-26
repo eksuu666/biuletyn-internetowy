@@ -3,6 +3,7 @@
 Serwis lokalnego biuletynu sŁodziak, rozwijany na bazie modułowego portalu Laravel. Wariant produkcyjny obejmuje aplikację, Nginx, MariaDB, Redis, kolejkę, scheduler i trwały storage.
 
 - [Instrukcja wdrożenia](docs/DEPLOYMENT.md)
+- [Role, obieg redakcyjny i newsletter](docs/EDITORIAL_WORKFLOW.md)
 - [Audyt startowy i plan dalszych prac](docs/AUDIT.md)
 - [Aktualny stan funkcji i weryfikacja stosu z bazą danych](docs/PORTAL_STATUS.md)
 

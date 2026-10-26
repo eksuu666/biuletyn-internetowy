@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @see https://github.com/artesaos/seotools
  */
@@ -9,9 +10,9 @@ return [
          * The default configurations to be used by the meta generator.
          */
         'defaults' => [
-            'title' => 'خبرگزاری '.config('app.name'), // set false to total remove
+            'title' => config('app.name'), // set false to total remove
             'titleBefore' => false, // Put defaults.title before page title, like 'It's Over 9000! - Dashboard'
-            'description' => 'خبرگزاری '.config('app.name'),  // set false to total remove
+            'description' => config('app.name'),  // set false to total remove
             'separator' => ' | ',
             'keywords' => [],
             'canonical' => false, // Set to null or 'full' to use Url::full(), set to 'current' to use Url::current(), set false to total remove
@@ -36,8 +37,8 @@ return [
          * The default configurations to be used by the opengraph generator.
          */
         'defaults' => [
-            'title' => 'خبرگزاری '.config('app.name'), // set false to total remove
-            'description' => 'خبرگزاری '.config('app.name'), // set false to total remove
+            'title' => config('app.name'), // set false to total remove
+            'description' => config('app.name'), // set false to total remove
             'url' => false, // Set null for using Url::current(), set false to total remove
             'type' => false,
             'site_name' => false,
@@ -49,8 +50,8 @@ return [
          * The default values to be used by the twitter cards generator.
          */
         'defaults' => [
-            //'card'        => 'summary',
-            //'site'        => '@LuizVinicius73',
+            // 'card'        => 'summary',
+            // 'site'        => '@LuizVinicius73',
         ],
     ],
     'json-ld' => [
@@ -58,8 +59,8 @@ return [
          * The default configurations to be used by the json-ld generator.
          */
         'defaults' => [
-            'title' => 'خبرگزاری '.config('app.name'), // set false to total remove
-            'description' => 'خبرگزاری '.config('app.name'), // set false to total remove
+            'title' => config('app.name'), // set false to total remove
+            'description' => config('app.name'), // set false to total remove
             'url' => false, // Set to null or 'full' to use Url::full(), set to 'current' to use Url::current(), set false to total remove
             'type' => 'WebPage',
             'images' => [],

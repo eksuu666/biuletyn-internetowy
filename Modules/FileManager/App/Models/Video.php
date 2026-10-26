@@ -65,7 +65,7 @@ class Video extends Model implements HasMedia
             ->registerMediaConversions(function (Media $media) {
                 $this
                     ->addMediaConversion('thumb')
-                    ->extractVideoFrameAtSecond(2)
+                    ->extractVideoFrameAtSecond(0)
                     ->width(320)
                     ->height(240);
             });
@@ -86,14 +86,14 @@ class Video extends Model implements HasMedia
     protected function name(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $this->getFirstMedia('videos')->name,
+            get: fn ($value) => $this->getFirstMedia('videos')?->name ?? 'Wideo',
         );
     }
 
     protected function url(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $this->getFirstMedia('videos')->getUrl(),
+            get: fn ($value) => $this->getFirstMedia('videos')?->getUrl() ?? '',
         );
     }
 
@@ -119,7 +119,7 @@ class Video extends Model implements HasMedia
         }
 
         $video = $this->getFirstMedia('videos');
-        if ($video) {
+        if ($video && $video->hasGeneratedConversion('thumb')) {
             return $video->getUrl('thumb');
         }
 

@@ -1,9 +1,9 @@
-@extends('panel::layouts.master', ['title' => 'اختصاص نقش به کاربر'])
+@extends('panel::layouts.master', ['title' => 'Przypisz rolę użytkownikowi'])
 
 @section('content')
     <x-common-breadcrumbs>
-        <li><a href="{{ route(config('app.panel_prefix', 'panel') . '.users.index') }}">لیست کاربران</a></li>
-        <li><a>اختصاص نقش به کاربر</a></li>
+        <li><a href="{{ route(config('app.panel_prefix', 'panel') . '.users.index') }}">Użytkownicy</a></li>
+        <li><a>Przypisz rolę użytkownikowi</a></li>
     </x-common-breadcrumbs>
 
     <div class="row pe-0">
@@ -13,12 +13,12 @@
                     <div class="portlet-title">
                         <h3 class="title">
                             <i class="icon-user-follow"></i>
-                            اختصاص نقش به {{ $user->full_name }}
+                            Przypisz rolę: {{ $user->full_name }}
                         </h3>
                     </div><!-- /.portlet-title -->
                     <div class="buttons-box">
                         <a class="btn btn-sm btn-default btn-round btn-fullscreen" rel="tooltip"
-                           aria-label="تمام صفحه" data-bs-original-title="تمام صفحه">
+                           aria-label="Pełny ekran" data-bs-original-title="Pełny ekran">
                             <i class="icon-size-fullscreen d-flex justify-content-center align-items-center"></i>
                             <div class="paper-ripple">
                                 <div class="paper-ripple__background"></div>
@@ -38,9 +38,9 @@
                                 <div class="roles-layout">
                                     @foreach($roles as $role)
                                         <div class="roles-item">
-                                            <label for="name" class="cursor-pointer">
-                                                <input id="{{ $role->name }}" class="form-control" name="roles" type="radio" value="{{ $role->name }}"
-                                                    {{ $roleService->selectedItems($user->roles, $role->name, old('roles')) }}>
+                                            <label for="{{ $role->name }}" class="cursor-pointer">
+                                                <input id="{{ $role->name }}" class="form-control" name="roles[]" type="radio" value="{{ $role->id }}"
+                                                      @checked(in_array($role->id, old('roles', $user->roles->pluck('id')->all())))>
                                                 {{ $role->local_name }}
                                             </label>
                                         </div>
@@ -52,7 +52,7 @@
                                 <div class="col-sm-6 col-sm-offset-4 mx-auto">
                                     <button class="btn btn-success btn-block">
                                         <i class="icon-check"></i>
-                                        اختصاص نقش به کاربر
+                                        Przypisz rolę użytkownikowi
                                     </button>
                                 </div>
                             </div>
@@ -91,7 +91,7 @@
             },
             messages: {
                 password_confirmation: {
-                    equalTo: "رمزهای عبور یکسان نیستند"
+                    equalTo: "Hasła muszą być takie same"
                 }
             }
         });

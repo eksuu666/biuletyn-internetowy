@@ -46,6 +46,8 @@ class Ad extends Model
         'status',
     ];
 
+    protected $casts = ['published_at' => 'datetime', 'expired_at' => 'datetime'];
+
     public function toSearchableArray(): array
     {
         return [

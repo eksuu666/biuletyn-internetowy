@@ -14,7 +14,7 @@ class ArticleRequest extends FormRequest
         $rules = [
             'title' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:articles,slug',
-            'body' => 'required|string',
+            'body' => 'required|string|max:2000000',
             'published_at' => 'required|date',
             'image' => 'required'.$imageRules,
             'category_id' => 'required|exists:categories,id',
@@ -26,6 +26,7 @@ class ArticleRequest extends FormRequest
         ];
 
         if ($this->isMethod('put') || $this->isMethod('patch')) {
+            $rules['workflow_version'] = 'required|integer|min:1';
             $rules['image'] = 'nullable'.$imageRules;
             $rules['slug'] .= ','.$this->route('article')->id;
         } else {

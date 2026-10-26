@@ -28,5 +28,5 @@
 <script src="{{ asset('admin/assets/plugins/iCheck/icheck.min.js') }}"></script>
 <script src="{{ asset('admin/assets/plugins/switchery/dist/switchery.js') }}"></script>
 <script src="{{ asset('admin/assets/plugins/jquery-validation/dist/jquery.validate.min.js') }}"></script>
-<script src="{{ asset('admin/assets/plugins/jquery-validation/src/localization/messages_fa.js') }}"></script>
+<script src="{{ asset('admin/assets/js/validation-pl.js') }}"></script>
 <script src="{{ asset('admin/assets/js/core.js') }}"></script>
