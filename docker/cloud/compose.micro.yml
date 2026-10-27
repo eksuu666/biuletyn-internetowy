@@ -1,0 +1,45 @@
+# Overlay for a small trial VM. Always use together with compose.production.yml.
+services:
+  app:
+    mem_limit: 256m
+    volumes:
+      - ./docker/cloud/php.ini:/usr/local/etc/php/conf.d/zz-micro.ini:ro
+      - ./docker/cloud/php-fpm.conf:/usr/local/etc/php-fpm.d/zz-micro.conf:ro
+  worker:
+    mem_limit: 192m
+    volumes:
+      - ./docker/cloud/php.ini:/usr/local/etc/php/conf.d/zz-micro.ini:ro
+    command: php artisan queue:work redis --sleep=5 --tries=3 --timeout=120 --memory=96 --max-time=3600
+  scheduler:
+    mem_limit: 128m
+    volumes:
+      - ./docker/cloud/php.ini:/usr/local/etc/php/conf.d/zz-micro.ini:ro
+  web:
+    mem_limit: 48m
+  db:
+    mem_limit: 256m
+    command: mariadbd --innodb-buffer-pool-size=64M --max-connections=20 --performance-schema=OFF --key-buffer-size=8M --aria-pagecache-buffer-size=16M
+  redis:
+    mem_limit: 96m
+    command: redis-server --appendonly yes --maxmemory 64mb --maxmemory-policy noeviction
+  https:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    mem_limit: 96m
+    environment:
+      PORTAL_DOMAIN: ${PORTAL_DOMAIN:?Set PORTAL_DOMAIN}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/cloud/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      web:
+        condition: service_healthy
+    networks:
+      - internal
+volumes:
+  caddy_data:
+  caddy_config:
