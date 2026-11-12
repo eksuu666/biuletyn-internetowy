@@ -69,15 +69,16 @@ body.brand-panel.dark {
 .brand-panel .btn-primary:hover { background-color: var(--brand-red-hover); border-color: var(--brand-red-hover); }
 .brand-panel .portlet.box, .brand-panel .stat-box { border-radius: 10px; }
 .brand-panel .portlet.box { border: 1px solid var(--editorial-border); }
-.brand-panel .editorial-article-toolbar,
+.brand-panel .portlet-heading:has(> .portlet-title + .buttons-box),
 .brand-panel .editorial-article-toolbar .portlet-title {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 12px;
 }
-.brand-panel .editorial-article-toolbar { justify-content: space-between; }
-.brand-panel .editorial-article-toolbar .buttons-box { position: static; }
+.brand-panel .portlet-heading:has(> .portlet-title + .buttons-box) { justify-content: space-between; }
+.brand-panel .portlet-heading > .portlet-title + .buttons-box { position: static; flex: none; }
+.brand-panel .portlet-heading > .portlet-title .title { white-space: normal; }
 .brand-panel .editorial-article-toolbar .input-group > * { height: 38px !important; }
 .brand-panel .swal2-container * { font-family: var(--brand-font); }
 .brand-panel .swal2-popup { direction: ltr; }
