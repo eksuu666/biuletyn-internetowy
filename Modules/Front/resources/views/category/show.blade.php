@@ -1,22 +1,11 @@
-@extends('front::layouts.master')
+@extends('front::article-list', ['heading' => $category->name])
 
-@section('content')
-    <x-front-breadcrumbs>
-        <li><a href="{{ route('categories.index') }}">Kategorie</a></li>
-        <li>{{ $category->name }}</li>
-    </x-front-breadcrumbs>
-
-    <section class="block-wrapper">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                    @include('front::category.partials.category-listing')
-
-                    <x-front-listing-page-pagination :paginator="$articles"/>
-                </div><!-- Content Col end -->
-
-                @include('front::partials.pages-sidebars')
-            </div><!-- Row end -->
-        </div><!-- Container end -->
-    </section><!-- First block end -->
+@section('list-intro')
+    @if($subCategories->isNotEmpty())
+        <nav class="portal-pills" aria-label="Poddziały">
+            @foreach($subCategories as $childCategory)
+                <a href="{{ route('categories.show', $childCategory->slug) }}">{{ $childCategory->name }}</a>
+            @endforeach
+        </nav>
+    @endif
 @endsection

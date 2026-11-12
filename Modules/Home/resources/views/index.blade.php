@@ -1,37 +1,79 @@
 @extends('front::layouts.master')
 
 @section('content')
-    @include('home::partials.trending-post')
+    <div class="portal-wrap portal-home">
+        @include('front::partials.portal-ads', ['placements' => $ads['header']])
+        <div class="portal-section-heading">
+            <h1>Na pierwszej stronie</h1>
+            <a href="{{ route('home.latest') }}">Wszystkie wiadomości <span aria-hidden="true">↗</span></a>
+        </div>
 
-    <section class="block-wrapper">
-        <div class="container">
-            <div class="row">
-                @include('home::partials.content1')
+        <div class="portal-top-grid">
+            @if($featured)
+                <article class="portal-hero">
+                    <img src="{{ $featured->image ? asset('storage/' . $featured->image->file_path) : asset('home/images/lodz-portal.webp') }}" alt="{{ $featured->image?->alt_text ?? '' }}" fetchpriority="high">
+                    <div class="portal-hero-copy">
+                        <a class="portal-hero-tag" href="{{ route('categories.show', $featured->category->slug) }}">{{ $featured->category->name }}</a>
+                        <h2><a href="{{ $featured->getUrl() }}">{{ $featured->title }}</a></h2>
+                        <p>{{ $featured->bodyText(160) }}</p>
+                        <div class="portal-meta">
+                            @if($featured->user)
+                                <a href="{{ route('author.index', $featured->user->username) }}">{{ $featured->user->full_name }}</a>
+                            @endif
+                            <time datetime="{{ $featured->published_at->toAtomString() }}">{{ $featured->published_at->locale('pl')->translatedFormat('j M Y') }}</time>
+                        </div>
+                    </div>
+                </article>
+            @else
+                <section class="portal-hero portal-hero-intro">
+                    <img src="{{ asset('home/images/lodz-portal.webp') }}" alt="" fetchpriority="high" width="1536" height="1024">
+                    <div class="portal-hero-copy">
+                        <span class="portal-hero-tag">Lokalne wiadomości</span>
+                        <h2>Łódź.<br>Nasza sprawa.</h2>
+                        <p>Sprawy mieszkańców, kultura i miasto, które zmienia się na naszych oczach.</p>
+                        <a class="portal-button" href="{{ route('about-us.index') }}">Poznaj redakcję <span aria-hidden="true">↗</span></a>
+                    </div>
+                </section>
+            @endif
 
-                @include('front::partials.sidebar1', ['sidebar_classes' => 'col-lg-4 col-md-4 col-sm-12 col-xs-12'])
-            </div><!-- Row end -->
-        </div><!-- Container end -->
-    </section><!-- First block end -->
+            <aside class="portal-brief" aria-labelledby="portal-brief-heading">
+                <h2 id="portal-brief-heading"><span aria-hidden="true"></span> Najnowsze</h2>
+                @if($latest->isNotEmpty())
+                    <ol>
+                        @foreach($latest->take(5) as $story)
+                            <li>
+                                <time datetime="{{ $story->published_at->toAtomString() }}">{{ $story->published_at->isToday() ? $story->published_at->format('H:i') : $story->published_at->locale('pl')->translatedFormat('j M') }}</time>
+                                <a href="{{ $story->getUrl() }}">{{ $story->title }}</a>
+                            </li>
+                        @endforeach
+                    </ol>
+                    <a class="portal-text-link" href="{{ route('home.latest') }}">Przejdź do najnowszych <span aria-hidden="true">→</span></a>
+                @else
+                    <div class="portal-brief-empty">
+                        <span class="portal-kicker">Od redakcji</span>
+                        <h3>Pracujemy nad pierwszym wydaniem.</h3>
+                        <p>Masz temat z Łodzi, któremu warto się przyjrzeć? Daj nam znać.</p>
+                        <a class="portal-text-link" href="{{ url('/contact-us') }}">Napisz do nas <span aria-hidden="true">→</span></a>
+                    </div>
+                @endif
+            </aside>
+        </div>
 
-    @include('home::partials.ads-content1')
-
-    @include('home::partials.content2')
-
-    @include('home::partials.ads-content2')
-
-    @include('home::partials.content3')
-
-    @include('home::partials.ads-content3')
-
-    <section class="block-wrapper pb-3">
-        <div class="container">
-            <div class="row">
-                @include('home::partials.content4')
-
-                @include('front::partials.sidebar2', ['sidebar_classes' => 'col-lg-4 col-md-4 col-sm-12 col-xs-12', 'sidebar_style' => 'margin-top', 0])
-            </div><!-- Row end -->
-        </div><!-- Container end -->
-    </section><!-- Fourth block end -->
-
-    @include('home::partials.ads-content4')
+        @include('front::partials.portal-ads', ['placements' => $ads['first_section']])
+        @if($stories->isNotEmpty())
+            <section class="portal-section" aria-labelledby="portal-stories">
+                <div class="portal-section-heading">
+                    <h2 id="portal-stories">Wiadomości i tematy</h2>
+                    <a href="{{ route('home.latest') }}">Zobacz więcej <span aria-hidden="true">↗</span></a>
+                </div>
+                <div class="portal-cards">
+                    @foreach($stories as $story)
+                        @include('front::partials.portal-card')
+                    @endforeach
+                </div>
+            </section>
+        @endif
+        @include('front::partials.portal-ads', ['placements' => $ads['second_section']->concat($ads['third_section'])->concat($ads['fourth_section'])->concat($ads['first_sidebar'])->concat($ads['second_sidebar'])])
+        @include('front::partials.portal-newsletter')
+    </div>
 @endsection

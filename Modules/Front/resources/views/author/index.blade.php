@@ -1,24 +1,5 @@
-@extends('front::layouts.master')
+@extends('front::article-list', ['emptyMessage' => 'Ten autor nie ma jeszcze opublikowanych tekstów.'])
 
-@section('content')
-    <x-front-breadcrumbs>
-        <li>Autorzy</li>
-        <li>{{ $author->full_name }}</li>
-    </x-front-breadcrumbs>
-
-    <section class="block-wrapper">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                    @include('front::author.partials.author-box')
-
-                    @include('front::author.partials.category-listing')
-
-                    <x-front-listing-page-pagination :paginator="$articles"/>
-                </div><!-- Content Col end -->
-
-                @include('front::partials.pages-sidebars')
-            </div><!-- Row end -->
-        </div><!-- Container end -->
-    </section><!-- First block end -->
+@section('list-heading')
+    @include('front::partials.portal-author', ['profile' => $author, 'fullProfile' => true])
 @endsection

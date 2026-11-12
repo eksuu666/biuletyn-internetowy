@@ -1,22 +1,7 @@
-@extends('front::layouts.master')
+@extends('front::article-list', ['heading' => 'Wyniki wyszukiwania', 'emptyMessage' => 'Nie znaleziono wiadomości. Spróbuj wpisać inną frazę.'])
 
-@section('content')
-    <x-front-breadcrumbs>
-        <li>Szukaj</li>
-        <li>{{ $searchText }}</li>
-    </x-front-breadcrumbs>
-
-    <section class="block-wrapper">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                    @include('front::search.partials.category-listing')
-
-                    <x-front-listing-page-pagination :paginator="$articles"/>
-                </div><!-- Content Col end -->
-
-                @include('front::partials.pages-sidebars')
-            </div><!-- Row end -->
-        </div><!-- Container end -->
-    </section><!-- First block end -->
+@section('list-intro')
+    @if(request()->filled('query') || request()->filled('text'))
+        <p>Fraza „{{ $searchText }}”</p>
+    @endif
 @endsection

@@ -3,6 +3,7 @@
 namespace Modules\Home\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\View\View;
 use Modules\Home\App\Services\HomeService;
 use Modules\SEOManager\App\Services\Front\SEOService;
@@ -15,26 +16,24 @@ class HomeController extends Controller
     {
         $this->seoService->setHomePageSEO();
 
-        $trendingPosts = $this->homeService->getTrendingPosts();
-        $articlesIdsIgnore = $trendingPosts['editor_choices']->pluck('id');
-        $trendingPosts['first_editor_choice'] = $trendingPosts['editor_choices']->pop();
+        $latest = $this->homeService->baseQuery()->limit(13)->get();
+        $featured = $this->homeService->baseQuery()->editorChoice()->first() ?? $latest->first();
+        $stories = $latest->where('id', '!=', $featured?->id)->values();
 
-        $trendingPosts['latest_articles'] = $this->homeService->getLatestArticles($articlesIdsIgnore);
-        $articlesIdsIgnore = $trendingPosts['latest_articles']->pluck('id');
+        return view('home::index', compact('featured', 'latest', 'stories'));
+    }
 
-        $firstContent['latest_articles'] = $this->homeService->getFirstContentArticles($articlesIdsIgnore);
-        $articlesIdsIgnore = $articlesIdsIgnore->merge($firstContent['latest_articles']->pluck('id'));
+    public function latest(): View
+    {
+        SEOTools::setTitle('Najnowsze wiadomości');
+        SEOTools::setDescription('Najnowsze materiały sŁodziaka z Łodzi i okolic.');
+        $articles = $this->homeService->baseQuery()->paginate(12);
+        SEOTools::setCanonical($articles->url($articles->currentPage()));
 
-        $secondContent['parent_categories'] = $this->homeService->getParentCategories();
-        $thirdContent['categories'] = $this->homeService->getCategoriesWithoutParent();
-        $fourthContent['latest_articles'] = $this->homeService->getFourthContentArticles($articlesIdsIgnore);
-
-        return view('home::index', [
-            'trending_posts' => $trendingPosts,
-            'first_content' => $firstContent,
-            'second_content' => $secondContent,
-            'third_content' => $thirdContent,
-            'fourth_content' => $fourthContent,
+        return view('front::article-list', [
+            'heading' => 'Najnowsze',
+            'articles' => $articles,
+            'emptyMessage' => 'Pierwsze wiadomości pojawią się tutaj po publikacji.',
         ]);
     }
 }

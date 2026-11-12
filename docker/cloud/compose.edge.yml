@@ -1,0 +1,15 @@
+services:
+  web:
+    networks:
+      internal:
+      edge:
+        aliases:
+          - slodziak-upstream
+  https:
+    profiles:
+      - standalone-https
+
+networks:
+  edge:
+    external: true
+    name: ${PORTAL_EDGE_NETWORK:?Set PORTAL_EDGE_NETWORK to the existing proxy network}

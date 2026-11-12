@@ -110,7 +110,8 @@ class FrontServiceProvider extends ServiceProvider
         $this->app->booted(function () {
             View::composer([
                 'home::index',
-                'front::*',
+                'front::layouts.master',
+                'front::single-article.show',
             ], SharedDataComposer::class);
         });
     }

@@ -20,7 +20,7 @@ class CategoriesPageSEOService extends BaseSEOService
             $canonicalUrl = $seoSetting?->canonical_url ?? $categoryUrl;
             $keywords = ! empty($seoSetting?->keywords) ? explode(',', $seoSetting->keywords) : [];
             $robots = $seoSetting?->robots ?? 'index, follow';
-            $imageUrl = asset('storage/'.$category->image->file_path);
+            $imageUrl = $category->image?->url() ?? asset('home/images/lodz-portal.webp');
 
             return compact('title', 'description', 'categoryUrl', 'canonicalUrl', 'keywords', 'robots', 'imageUrl');
         });

@@ -55,7 +55,7 @@ class NewsroomWorkflowTest extends TestCase
         foreach ([$live, $draft, $future] as $article) {
             $article->tags()->attach($tag);
         }
-        foreach (['/', '/search?query=Portalneedle', '/categories/lodz', '/tags/portalneedle', '/author/redakcja', '/feed'] as $url) {
+        foreach (['/', '/najnowsze', '/search?query=Portalneedle', '/categories/lodz', '/tags/portalneedle', '/author/redakcja', '/feed'] as $url) {
             $this->get($url)->assertOk()->assertSee($live->title)->assertDontSee($draft->title)->assertDontSee($future->title);
         }
         $this->get('/sitemap.xml')->assertOk()->assertSee('articles-1.xml');
