@@ -1,7 +1,7 @@
 <section class="portal-newsletter" id="newsletter" aria-labelledby="newsletter-heading">
     <div>
         <span class="portal-kicker">Newsletter</span>
-        <h2 id="newsletter-heading">Łódź w Twojej skrzynce.</h2>
+        <h2 id="newsletter-heading">sŁodziaki w Twojej skrzynce</h2>
         @if(config('mail.default') !== 'log')
             <p>Najważniejsze teksty sŁodziaka prosto na Twój e-mail.</p>
         @else

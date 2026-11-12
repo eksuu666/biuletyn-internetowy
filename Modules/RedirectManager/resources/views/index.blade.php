@@ -1,9 +1,9 @@
-@extends('panel::layouts.master', ['title' => 'لیست ریدایرکت‌ها'])
+@extends('panel::layouts.master', ['title' => 'Przekierowania'])
 
 @section('content')
 
     <x-common-breadcrumbs>
-        <li><a>لیست ریدایرکت‌ها</a></li>
+        <li><a>Przekierowania</a></li>
     </x-common-breadcrumbs>
 
     <div class="row pe-0">
@@ -13,14 +13,14 @@
                     <div class="portlet-title d-flex gap-3">
                         <h3 class="title m-0">
                             <i class="fas fa-link"></i>
-                            لیست ریدایرکت‌ها
+                            Przekierowania
                         </h3>
                         <form class="d-inline-block search-form">
                             <div class="input-group">
                                 <button class="btn btn-secondary d-flex align-items-center" type="submit">
                                     <i class="icon-magnifier"></i>
                                 </button>
-                                <input name="query" type="text" class="form-control p-2" placeholder="جستجو..." value="{{ request()->get('query') }}">
+                                <input name="query" type="text" class="form-control p-2" placeholder="Szukaj..." value="{{ request()->get('query') }}">
                             </div>
                         </form>
                     </div><!-- /.portlet-title -->
@@ -28,7 +28,7 @@
                         @can(config('permissions_list.REDIRECT_STORE', false))
                             <a class="btn btn-sm btn-default btn-round bg-green text-white" rel="tooltip"
                                href="{{ route(config('app.panel_prefix', 'panel') . '.redirects.create') }}"
-                               aria-label="ایجاد ریدایرکت جدید" data-bs-original-title="ایجاد ریدایرکت جدید">
+                               aria-label="Dodaj przekierowanie" data-bs-original-title="Dodaj przekierowanie">
                                 <i class="icon-plus d-flex justify-content-center align-items-center"></i>
                                 <div class="paper-ripple">
                                     <div class="paper-ripple__background"></div>
@@ -44,16 +44,16 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>URL مبدا</th>
-                                <th>URL مقصد</th>
-                                <th>کد وضعیت</th>
-                                <th>تاریخ ایجاد</th>
-                                <th>وضعیت</th>
+                                <th>URL Źródło</th>
+                                <th>URL Cel</th>
+                                <th>Kod HTTP</th>
+                                <th>Utworzono</th>
+                                <th>Status</th>
                                 @canany([
                                     config('permissions_list.REDIRECT_UPDATE', false),
                                     config('permissions_list.REDIRECT_DESTROY', false)
                                 ])
-                                    <th>عملیات</th>
+                                    <th>Działania</th>
                                 @endcanany
                             </tr>
                             </thead>
@@ -74,7 +74,7 @@
                                             <div class="d-flex gap-2">
                                                 @can(config('permissions_list.REDIRECT_UPDATE', false))
                                                     <a class="btn btn-sm btn-info btn-icon round d-flex justify-content-center align-items-center"
-                                                       rel="tooltip" aria-label="ویرایش" data-bs-original-title="ویرایش"
+                                                       rel="tooltip" aria-label="Edytuj" data-bs-original-title="Edytuj"
                                                        href="{{ route(config('app.panel_prefix', 'panel') . '.redirects.edit', $redirect->id) }}">
                                                         <i class="icon-pencil fa-flip-horizontal"></i>
                                                     </a>

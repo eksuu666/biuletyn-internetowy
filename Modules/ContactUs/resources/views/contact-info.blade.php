@@ -1,9 +1,9 @@
-@extends('panel::layouts.master', ['title' => 'تماس با ما'])
+@extends('panel::layouts.master', ['title' => 'Kontakt'])
 
 @section('content')
     <x-common-breadcrumbs>
-        <li><a>تماس با ما</a></li>
-        <li><a>ثبت اطلاعات</a></li>
+        <li><a>Kontakt</a></li>
+        <li><a>Zapisz</a></li>
     </x-common-breadcrumbs>
 
     <div class="row pe-0">
@@ -13,12 +13,12 @@
                     <div class="portlet-title">
                         <h3 class="title">
                             <i class="icon-call-in"></i>
-                            تماس با ما
+                            Kontakt
                         </h3>
                     </div><!-- /.portlet-title -->
                     <div class="buttons-box">
                         <a class="btn btn-sm btn-default btn-round btn-fullscreen" rel="tooltip"
-                           aria-label="تمام صفحه" data-bs-original-title="تمام صفحه">
+                           aria-label="Pełny ekran" data-bs-original-title="Pełny ekran">
                             <i class="icon-size-fullscreen d-flex justify-content-center align-items-center"></i>
                             <div class="paper-ripple">
                                 <div class="paper-ripple__background"></div>
@@ -42,23 +42,23 @@
 
                         <fieldset class="row justify-content-center">
                             <div class="form-group col-lg-6">
-                                <label for="title">عنوان <small>(ضروری)</small></label>
+                                <label for="title">Tytuł <small>(wymagane)</small></label>
                                 <input id="title" class="form-control" name="title" value="{{ old('title', $contact?->title) }}" required>
                             </div>
                             <div class="form-group col-lg-6">
-                                <label for="address">آدرس</label>
+                                <label for="address">Adres</label>
                                 <input id="address" class="form-control" name="address" value="{{ old('address', $contact?->address) }}">
                             </div>
                             <div class="form-group col-lg-6">
-                                <label for="email">ایمیل</label>
+                                <label for="email">E-mail</label>
                                 <input id="email" class="form-control" name="email" value="{{ old('email', $contact?->email) }}">
                             </div>
                             <div class="form-group col-lg-6">
-                                <label for="phone">شماره تماس</label>
+                                <label for="phone">Numer telefonu</label>
                                 <input id="phone" class="form-control" name="phone" value="{{ old('phone', $contact?->phone) }}">
                             </div>
                             <div class="form-group col-12">
-                                <label>محتوا <small>(ضروری)</small></label>
+                                <label>Treść <small>(wymagane)</small></label>
                                 <div id="toolbar-container"></div>
                                 <div id="editor"></div>
                                 <input type="hidden" id="content" name="content" value="{{ old('content', $contact?->content) }}" required>
@@ -68,7 +68,7 @@
                                 <div class="col-sm-6 col-sm-offset-4 mx-auto">
                                     <button class="btn btn-success btn-block">
                                         <i class="icon-check"></i>
-                                        ثبت اطلاعات تماس با ما
+                                        Zapisz dane kontaktowe
                                     </button>
                                 </div>
                             </div>

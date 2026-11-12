@@ -386,8 +386,8 @@
             try {
                 if (typeof swal != "undefined"){
                     swal.setDefaults({
-                        confirmButtonText: 'تائید',
-                        cancelButtonText: 'لغو'
+                        confirmButtonText: 'Potwierdź',
+                        cancelButtonText: 'Anuluj'
                     });
                 }
             } catch (e){}

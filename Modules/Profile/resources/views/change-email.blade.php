@@ -1,9 +1,9 @@
-@extends('panel::layouts.master', ['title' => 'تغییر E-mail'])
+@extends('panel::layouts.master', ['title' => 'Zmień E-mail'])
 
 @section('content')
     <x-common-breadcrumbs>
-        <li><a>پروفایل</a></li>
-        <li><a>تغییر E-mail</a></li>
+        <li><a>Profil</a></li>
+        <li><a>Zmień E-mail</a></li>
     </x-common-breadcrumbs>
 
     <div class="row pe-0">
@@ -13,7 +13,7 @@
                     <div class="portlet-title">
                         <h3 class="title">
                             <i class="far fa-pen-to-square"></i>
-                            تغییر E-mail
+                            Zmień E-mail
                         </h3>
                     </div><!-- /.portlet-title -->
                     <div class="buttons-box">
@@ -49,7 +49,7 @@
                                 <div class="col-sm-6 col-sm-offset-4 mx-auto">
                                     <button class="btn btn-success btn-block">
                                         <i class="icon-check"></i>
-                                        تغییر E-mail
+                                        Zmień E-mail
                                     </button>
                                 </div>
                             </div>

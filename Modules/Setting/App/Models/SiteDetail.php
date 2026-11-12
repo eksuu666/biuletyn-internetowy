@@ -44,14 +44,21 @@ class SiteDetail extends Model
 
     public function mainLogoLink(): string
     {
-        return $this->getLogo($this->mainLogo);
+        return $this->customLogo()?->url() ?? asset('brand/slodziaki.jpg');
+    }
+
+    public function customLogo(): ?Image
+    {
+        return in_array($this->mainLogo?->alt_text, ['Default Logo', 'Logo sŁodziak', 'Logo sŁodziaki'], true)
+            ? null
+            : $this->mainLogo;
     }
 
     public function getLogo($relation): string
     {
-        return $relation ?
-            asset('storage/'.$relation->file_path) :
-            config('common.default_logo.file_link');
+        return $relation && ! in_array($relation->alt_text, ['Default Logo', 'Logo sŁodziak', 'Logo sŁodziaki'], true)
+            ? $relation->url()
+            : asset('brand/slodziaki.jpg');
     }
 
     public function secondLogoLink(): string
@@ -61,6 +68,10 @@ class SiteDetail extends Model
 
     public function faviconLink(): string
     {
-        return $this->getLogo($this->favicon);
+        if (! $this->favicon || in_array($this->favicon->alt_text, ['Default Favicon', 'Ikona sŁodziak', 'Ikona sŁodziaki'], true)) {
+            return asset('brand/slodziaki.jpg');
+        }
+
+        return $this->favicon->url();
     }
 }

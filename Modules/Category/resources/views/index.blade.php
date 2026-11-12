@@ -36,7 +36,7 @@
                         @can(config('permissions_list.CATEGORY_STORE', false))
                             <a class="btn btn-sm btn-default btn-round bg-green text-white" rel="tooltip"
                                href="{{ route(config('app.panel_prefix', 'panel') . '.categories.create') }}"
-                               aria-label="ایجاد دسته‌بندی‌ جدید" data-bs-original-title="ایجاد دسته‌بندی‌ جدید">
+                               aria-label="Dodaj kategorię" data-bs-original-title="Dodaj kategorię">
                                 <i class="icon-plus d-flex justify-content-center align-items-center"></i>
                                 <div class="paper-ripple">
                                     <div class="paper-ripple__background"></div>

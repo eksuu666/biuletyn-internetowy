@@ -1,8 +1,8 @@
-@extends('panel::layouts.master', ['title' => 'لیست صفحات'])
+@extends('panel::layouts.master', ['title' => 'Strony'])
 
 @section('content')
     <x-common-breadcrumbs>
-        <li><a>لیست صفحات</a></li>
+        <li><a>Strony</a></li>
     </x-common-breadcrumbs>
 
     <div class="row pe-0">
@@ -12,21 +12,21 @@
                     <div class="portlet-title d-flex gap-3">
                         <h3 class="title m-0">
                             <i class="fas fa-laptop-file"></i>
-                            لیست صفحات
+                            Strony
                         </h3>
                         <form class="d-inline-block search-form">
                             <div class="input-group">
                                 <button class="btn btn-secondary d-flex align-items-center" type="submit">
                                     <i class="icon-magnifier"></i>
                                 </button>
-                                <input name="query" type="text" class="form-control p-2" placeholder="جستجو..." value="{{ request()->get('query') }}">
+                                <input name="query" type="text" class="form-control p-2" placeholder="Szukaj..." value="{{ request()->get('query') }}">
                             </div>
                         </form>
                     </div><!-- /.portlet-title -->
 
                     <div class="buttons-box ltr">
                         <a class="btn btn-sm btn-default btn-round btn-fullscreen" rel="tooltip"
-                           aria-label="تمام صفحه" data-bs-original-title="تمام صفحه">
+                           aria-label="Pełny ekran" data-bs-original-title="Pełny ekran">
                             <i class="icon-size-fullscreen d-flex justify-content-center align-items-center"></i>
                             <div class="paper-ripple">
                                 <div class="paper-ripple__background"></div>
@@ -36,7 +36,7 @@
                         @can(config('permissions_list.PAGE_CREATE', false))
                             <a class="btn btn-sm btn-default btn-round bg-green text-white" rel="tooltip"
                                href="{{ route(config('app.panel_prefix', 'panel') . '.pages.create') }}"
-                               aria-label="ایجاد صفحه جدید" data-bs-original-title="ایجاد صفحه جدید">
+                               aria-label="Dodaj stronę" data-bs-original-title="Dodaj stronę">
                                 <i class="icon-plus d-flex justify-content-center align-items-center"></i>
                                 <div class="paper-ripple">
                                     <div class="paper-ripple__background"></div>
@@ -52,18 +52,18 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>تصویر شاخص</th>
-                                <th>عنوان</th>
+                                <th>Obraz główny</th>
+                                <th>Tytuł</th>
                                 <th>slug</th>
-                                <th>کاربر</th>
-                                <th>وضعیت</th>
-                                <th>تاریخ ایجاد</th>
+                                <th>Użytkownik</th>
+                                <th>Status</th>
+                                <th>Utworzono</th>
                                 @canany([
                                     config('permissions_list.PAGE_UPDATE'),
                                     config('permissions_list.PAGE_DESTROY'),
                                     config('permissions_list.SEO_MANAGEMENT', false)
                                 ])
-                                    <th>عملیات</th>
+                                    <th>Działania</th>
                                 @endcanany
                             </tr>
                             </thead>
@@ -91,7 +91,7 @@
 
                                                 @can(config('permissions_list.PAGE_UPDATE', false))
                                                     <a class="btn btn-sm btn-info btn-icon round d-flex justify-content-center align-items-center"
-                                                       rel="tooltip" aria-label="ویرایش" data-bs-original-title="ویرایش" href="{{ route(config('app.panel_prefix', 'panel') . '.pages.edit',
+                                                       rel="tooltip" aria-label="Edytuj" data-bs-original-title="Edytuj" href="{{ route(config('app.panel_prefix', 'panel') . '.pages.edit',
                                                         $page->id) }}">
                                                         <i class="icon-pencil fa-flip-horizontal"></i>
                                                     </a>

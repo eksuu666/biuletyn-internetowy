@@ -1,9 +1,17 @@
 @extends('panel::layouts.master', ['title' => 'Kokpit redakcyjny'])
 
 @section('content')
-    <x-common-breadcrumbs :noprefix="true">
-        <li><a>Kokpit</a></li>
-    </x-common-breadcrumbs>
+    <div class="col-12">
+        <div class="editorial-welcome">
+            <div>
+                <h1>Kokpit redakcji</h1>
+                <p>Materiały, publikacje i statystyki portalu.</p>
+            </div>
+            @can(config('permissions_list.ARTICLE_STORE', false))
+                <a class="btn btn-primary" href="{{ route(config('app.panel_prefix', 'panel') . '.articles.create') }}">Nowy materiał</a>
+            @endcan
+        </div>
+    </div>
 
     {{-- Header Stats --}}
     @include('panel::content-sections/header-stats')

@@ -19,7 +19,7 @@ class SharedDataComposer
     {
         if ($view->name() === 'front::layouts.master') {
             $view->with($this->staticContentService->composeViewData() + [
-                'site_details' => SiteDetail::with('favicon')->latest()->first(),
+                'site_details' => SiteDetail::with(['mainLogo', 'favicon'])->latest()->first(),
                 'social_networks' => $this->socialNetworkService->getSocialNetworksWithTag(SocialNetworkService::TAG),
             ]);
 

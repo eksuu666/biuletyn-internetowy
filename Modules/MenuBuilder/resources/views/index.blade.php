@@ -1,9 +1,9 @@
-@extends('panel::layouts.master', ['title' => 'لیست منوها'])
+@extends('panel::layouts.master', ['title' => 'Menu'])
 
 @section('content')
 
     <x-common-breadcrumbs>
-        <li><a>لیست منوها</a></li>
+        <li><a>Menu</a></li>
     </x-common-breadcrumbs>
 
     <div class="row pe-0">
@@ -13,20 +13,20 @@
                     <div class="portlet-title d-flex gap-3">
                         <h3 class="title m-0">
                             <i class="icon-menu"></i>
-                            لیست منوها
+                            Menu
                         </h3>
                         <form class="d-inline-block search-form">
                             <div class="input-group">
                                 <button class="btn btn-secondary d-flex align-items-center" type="submit">
                                     <i class="icon-magnifier"></i>
                                 </button>
-                                <input name="query" type="text" class="form-control p-2" placeholder="جستجو..." value="{{ request()->get('query') }}">
+                                <input name="query" type="text" class="form-control p-2" placeholder="Szukaj..." value="{{ request()->get('query') }}">
                             </div>
                         </form>
                     </div><!-- /.portlet-title -->
                     <div class="buttons-box ltr">
                         <a class="btn btn-sm btn-default btn-round btn-fullscreen" rel="tooltip"
-                           aria-label="تمام صفحه" data-bs-original-title="تمام صفحه">
+                           aria-label="Pełny ekran" data-bs-original-title="Pełny ekran">
                             <i class="icon-size-fullscreen d-flex justify-content-center align-items-center"></i>
                             <div class="paper-ripple">
                                 <div class="paper-ripple__background"></div>
@@ -35,7 +35,7 @@
                         </a>
                         @can(config('permissions_list.MENU_STORE', false))
                             <div class="btn-group" rel="tooltip"
-                                 aria-label="ایجاد منوی جدید" data-bs-original-title="ایجاد منوی جدید">
+                                 aria-label="Dodaj menu" data-bs-original-title="Dodaj menu">
                                 <button type="button" class="btn btn-sm btn-default btn-round bg-green text-white" data-bs-toggle="dropdown" aria-expanded="true">
                                     <i class="icon-plus d-flex justify-content-center align-items-center"></i>
                                     <div class="paper-ripple">
@@ -47,13 +47,13 @@
                                     <li>
                                         <a class="dropdown-item"
                                            href="{{ route(config('app.panel_prefix', 'panel') . '.menus.create') }}">
-                                            ایجاد منوی اصلی
+                                            Dodaj menu główne
                                         </a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item"
                                            href="{{ route(config('app.panel_prefix', 'panel') . '.menus.category-menu.create') }}">
-                                            ایجاد منوی دسته‌بندی
+                                            Dodaj menu kategorii
                                         </a>
                                     </li>
                                 </ul>
@@ -67,19 +67,19 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>نام</th>
-                                <th>آدرس</th>
-                                <th>ترتیب قرارگیری</th>
-                                <th>نوع</th>
-                                <th>منوی والد</th>
-                                <th>دسته‌بندی</th>
-                                <th>تاریخ ایجاد</th>
-                                <th>وضعیت</th>
+                                <th>Nazwa</th>
+                                <th>Adres</th>
+                                <th>Kolejność</th>
+                                <th>Typ</th>
+                                <th>Menu nadrzędne</th>
+                                <th>Kategoria</th>
+                                <th>Utworzono</th>
+                                <th>Status</th>
                                 @canany([
                                     config('permissions_list.MENU_UPDATE', false),
                                     config('permissions_list.MENU_DESTROY', false),
                                 ])
-                                    <th>عملیات</th>
+                                    <th>Działania</th>
                                 @endcanany
                             </tr>
                             </thead>
@@ -103,7 +103,7 @@
                                             <div class="d-flex gap-2">
                                                 @can(config('permissions_list.MENU_UPDATE', false))
                                                     <a class="btn btn-sm btn-info btn-icon round d-flex justify-content-center align-items-center"
-                                                       rel="tooltip" aria-label="ویرایش" data-bs-original-title="ویرایش"
+                                                       rel="tooltip" aria-label="Edytuj" data-bs-original-title="Edytuj"
                                                        @if($menu->type === get_class($menu)::MAIN_TYPE)
                                                            href="{{ route(config('app.panel_prefix', 'panel') . '.menus.edit', $menu->id) }}"
                                                        @else

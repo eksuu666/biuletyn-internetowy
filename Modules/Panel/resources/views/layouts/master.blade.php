@@ -2,12 +2,13 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="ltr">
 
 <head>
-    <title>{{ !empty($title) ? $title . ' | ' . config('app.name') : config('app.name') }}</title>
+    <title>{{ $title ?? 'Panel redakcji' }} | sŁodziaki</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="{{ $siteDetails->faviconLink() }}">
+    <x-brand-assets :site="$siteDetails ?? null"/>
 
     @include('panel::partials.styles')
+    <link rel="stylesheet" href="{{ asset('brand/editorial.css') }}?v={{ filemtime(public_path('brand/editorial.css')) }}">
 
     <!-- BEGIN PAGE CSS -->
     <style>
@@ -19,20 +20,11 @@
             transition: .3s all;
         }
 
-        .logo-con img {
-            max-width: 9rem;
-            max-height: 4rem;
-        }
-
-        .sidebar-collapse .logo-con img {
-            max-width: 100%;
-            max-height: 100%;
-        }
     </style>
     @stack('styles')
     <!-- END PAGE CSS -->
 </head>
-<body class="active-ripple theme-darkpurple fix-header sidebar-extra">
+<body class="active-ripple theme-darkpurple fix-header sidebar-extra brand-panel">
 <!-- BEGIN LOEADING -->
 <div id="loader">
     <div class="spinner"></div>

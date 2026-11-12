@@ -26,7 +26,7 @@ class HomeController extends Controller
     public function latest(): View
     {
         SEOTools::setTitle('Najnowsze wiadomości');
-        SEOTools::setDescription('Najnowsze materiały sŁodziaka z Łodzi i okolic.');
+        SEOTools::setDescription('Najnowsze wiadomości, porady i historie o zwierzętach.');
         $articles = $this->homeService->baseQuery()->paginate(12);
         SEOTools::setCanonical($articles->url($articles->currentPage()));
 

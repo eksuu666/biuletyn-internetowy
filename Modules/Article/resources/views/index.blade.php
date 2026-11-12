@@ -1,22 +1,21 @@
-@extends('panel::layouts.master', ['title' => 'Wiadomości'])
+@extends('panel::layouts.master', ['title' => 'Artykuły'])
 
 @section('content')
     <x-common-breadcrumbs>
-        <li><a>Wiadomości</a></li>
+        <li><a>Artykuły</a></li>
     </x-common-breadcrumbs>
 
     <div class="row pe-0">
         <div class="col-12 pe-0">
             <div class="portlet box shadow min-height-500">
-                <div class="portlet-heading">
+                <div class="portlet-heading editorial-article-toolbar">
                     <div class="portlet-title d-flex gap-3">
                         <h3 class="title m-0">
-                            <i class="icon-people"></i>
-                            Wiadomości
+                            Artykuły
                         </h3>
                         <form class="d-inline-block search-form">
                             <div class="input-group">
-                                <button class="btn btn-secondary d-flex align-items-center" type="submit">
+                                <button class="btn btn-secondary d-flex align-items-center" type="submit" aria-label="Szukaj artykułów">
                                     <i class="icon-magnifier"></i>
                                 </button>
                                 <input name="query" type="text" class="form-control p-2" placeholder="Szukaj..." value="{{ request()->get('query') }}">
@@ -60,7 +59,7 @@
                                 <th>#</th>
                                 <th>Zdjęcie</th>
                                 <th>Tytuł</th>
-                                <th>slug</th>
+                                <th>Adres URL</th>
                                 <th>Autor</th>
                                 <th>Kategoria</th>
                                 <th>Tagi</th>

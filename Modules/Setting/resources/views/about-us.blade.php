@@ -1,9 +1,9 @@
-@extends('panel::layouts.master', ['title' => 'درباره ما'])
+@extends('panel::layouts.master', ['title' => 'O nas'])
 
 @section('content')
     <x-common-breadcrumbs>
-        <li><a>تنظیمات</a></li>
-        <li><a>درباره ما</a></li>
+        <li><a>Ustawienia</a></li>
+        <li><a>O nas</a></li>
     </x-common-breadcrumbs>
 
     <div class="row pe-0">
@@ -13,12 +13,12 @@
                     <div class="portlet-title">
                         <h3 class="title">
                             <i class="icon-question"></i>
-                            درباره ما
+                            O nas
                         </h3>
                     </div><!-- /.portlet-title -->
                     <div class="buttons-box">
                         <a class="btn btn-sm btn-default btn-round btn-fullscreen" rel="tooltip"
-                           aria-label="تمام صفحه" data-bs-original-title="تمام صفحه">
+                           aria-label="Pełny ekran" data-bs-original-title="Pełny ekran">
                             <i class="icon-size-fullscreen d-flex justify-content-center align-items-center"></i>
                             <div class="paper-ripple">
                                 <div class="paper-ripple__background"></div>
@@ -42,12 +42,12 @@
 
                         <fieldset class="row justify-content-center">
                             <div class="form-group col-lg-6">
-                                <label for="title">عنوان <small>(ضروری)</small></label>
+                                <label for="title">Tytuł <small>(wymagane)</small></label>
                                 <input id="title" class="form-control" name="title" value="{{ old('title', $about?->title) }}" required>
                             </div>
 
                             <div class="form-group col-12">
-                                <label>محتوا <small>(ضروری)</small></label>
+                                <label>Treść <small>(wymagane)</small></label>
                                 <div id="toolbar-container"></div>
                                 <div id="editor"></div>
                                 <input type="hidden" id="content" name="content" value="{{ old('content', $about?->content) }}" required>
@@ -57,7 +57,7 @@
                                 <div class="col-sm-6 col-sm-offset-4 mx-auto">
                                     <button class="btn btn-success btn-block">
                                         <i class="icon-check"></i>
-                                        ثبت اطلاعات درباره ما
+                                        Zapisz stronę O nas
                                     </button>
                                 </div>
                             </div>

@@ -1,9 +1,9 @@
-@extends('panel::layouts.master', ['title' => 'ویرایش منوی دسته‌بندی'])
+@extends('panel::layouts.master', ['title' => 'Edytuj menu kategorii'])
 
 @section('content')
     <x-common-breadcrumbs>
-        <li><a href="{{ route(config('app.panel_prefix', 'panel') . '.menus.index') }}">لیست منوها</a></li>
-        <li><a>ویرایش منوی دسته‌بندی</a></li>
+        <li><a href="{{ route(config('app.panel_prefix', 'panel') . '.menus.index') }}">Menu</a></li>
+        <li><a>Edytuj menu kategorii</a></li>
     </x-common-breadcrumbs>
 
     <div class="row pe-0">
@@ -13,12 +13,12 @@
                     <div class="portlet-title">
                         <h3 class="title">
                             <i class="icon-menu"></i>
-                            ویرایش منوی دسته‌بندی
+                            Edytuj menu kategorii
                         </h3>
                     </div><!-- /.portlet-title -->
                     <div class="buttons-box">
                         <a class="btn btn-sm btn-default btn-round btn-fullscreen" rel="tooltip"
-                           aria-label="تمام صفحه" data-bs-original-title="تمام صفحه">
+                           aria-label="Pełny ekran" data-bs-original-title="Pełny ekran">
                             <i class="icon-size-fullscreen d-flex justify-content-center align-items-center"></i>
                             <div class="paper-ripple">
                                 <div class="paper-ripple__background"></div>
@@ -36,7 +36,7 @@
 
                         <fieldset class="row justify-content-center">
                             <div class="form-group col-lg-6">
-                                <label for="type">نوع <small>(ضروری)</small></label>
+                                <label for="type">Typ <small>(wymagane)</small></label>
                                 <select id="type" class="form-control" name="type" required>
                                     @foreach($types as $type)
                                         <option value="{{ $type }}" @if(old('type', $menu->type) === $type) selected @endif>{{ __('menu-builder::types.' . $type) }}</option>
@@ -44,9 +44,9 @@
                                 </select>
                             </div>
                             <div class="form-group col-lg-6">
-                                <label for="category_id">دسته‌بندی <small>(ضروری)</small></label>
+                                <label for="category_id">Kategoria <small>(wymagane)</small></label>
                                 <select id="category_id" class="form-control select2" name="category_id" required>
-                                    <option value="">انتخاب دسته‌بندی</option>
+                                    <option value="">Wybierz kategorię</option>
                                     @foreach($categories as $category)
                                         <option value="{{ $category->id }}" @if((int) old('category_id', $menu->category_id) === (int) $category->id) selected @endif>
                                             {{ $category->name}}
@@ -55,18 +55,18 @@
                                 </select>
                             </div>
                             <div class="form-group col-lg-6">
-                                <label for="position">ترتیب قرارگیری <small>(ضروری)</small></label>
+                                <label for="position">Kolejność <small>(wymagane)</small></label>
                                 <input id="position" class="form-control" name="position" type="number" required value="{{ old('position', $menu->position) }}">
-                                <p class="small">{{ 'بزرگ‌ترین ترتیب ثبت شده: ' . $latestPosition}}</p>
+                                <p class="small">{{ 'Najwyższa zapisana pozycja: ' . $latestPosition}}</p>
                             </div>
                             <div class="form-group text-center col-lg-12">
                                 <input id="status" class="form-control" name="status" type="checkbox" @if(old('status', $menu->status)) checked @endif>
-                                <label for="status">وضعیت</label>
+                                <label for="status">Status</label>
                             </div>
                             <div class="form-group col-lg-6">
                                 <button class="btn btn-success btn-block">
                                     <i class="icon-check"></i>
-                                    ویرایش منوی دسته‌بندی
+                                    Edytuj menu kategorii
                                 </button>
                             </div>
                         </fieldset>

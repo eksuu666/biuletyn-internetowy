@@ -2,8 +2,8 @@
     <div class="portal-wrap">
         <div class="portal-footer-row">
             <div>
-                <a class="portal-brand" href="{{ route('home.index') }}">s<span>Ł</span>odziak<span>.</span></a>
-                <p>{{ $site_details?->footer_text ?: 'Lokalne wiadomości z Łodzi i okolic.' }}</p>
+                <a class="portal-brand" href="{{ route('home.index') }}"><x-brand-logo :site="$site_details ?? null"/></a>
+                <p>{{ $site_details?->footer_text ?: 'Porady, adopcje i historie o zwierzętach.' }}</p>
             </div>
             <nav aria-label="Stopka">
                 <a href="{{ route('home.latest') }}">Najnowsze</a>
@@ -17,7 +17,7 @@
             </nav>
         </div>
         <div class="portal-footer-bottom">
-            <span>© {{ now()->year }} sŁodziak</span>
+            <span>© {{ now()->year }} sŁodziaki</span>
             @foreach($social_networks as $name => $url)
                 <a href="{{ $url }}" rel="noopener noreferrer">{{ ucfirst($name) }}</a>
             @endforeach

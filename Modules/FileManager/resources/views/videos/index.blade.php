@@ -1,9 +1,9 @@
-@extends('panel::layouts.master', ['title' => 'لیست ویدئوها'])
+@extends('panel::layouts.master', ['title' => 'Filmy'])
 
 @section('content')
 
     <x-common-breadcrumbs>
-        <li><a>لیست ویدئوها</a></li>
+        <li><a>Filmy</a></li>
     </x-common-breadcrumbs>
 
     <div class="row pe-0">
@@ -13,14 +13,14 @@
                     <div class="portlet-title d-flex gap-3">
                         <h3 class="title m-0">
                             <i class="icon-film"></i>
-                            لیست ویدئوها
+                            Filmy
                         </h3>
                         <form class="d-inline-block search-form">
                             <div class="input-group">
                                 <button class="btn btn-secondary d-flex align-items-center" type="submit">
                                     <i class="icon-magnifier"></i>
                                 </button>
-                                <input name="query" type="text" class="form-control p-2" placeholder="جستجو..." value="{{ request()->get('query') }}">
+                                <input name="query" type="text" class="form-control p-2" placeholder="Szukaj..." value="{{ request()->get('query') }}">
                                 @foreach(request()->except(['query', 'page']) as $key => $value)
                                     <input name="{{ $key }}" type="hidden" value="{{ $value }}">
                                 @endforeach
@@ -29,7 +29,7 @@
                     </div><!-- /.portlet-title -->
                     <div class="buttons-box ltr">
                         <a class="btn btn-sm btn-default btn-round btn-fullscreen" rel="tooltip"
-                           aria-label="تمام صفحه" data-bs-original-title="تمام صفحه">
+                           aria-label="Pełny ekran" data-bs-original-title="Pełny ekran">
                             <i class="icon-size-fullscreen d-flex justify-content-center align-items-center"></i>
                             <div class="paper-ripple">
                                 <div class="paper-ripple__background"></div>
@@ -39,7 +39,7 @@
                         @can('store', $videoClassName)
                             <a class="btn btn-sm btn-default btn-round bg-green text-white" rel="tooltip"
                                href="{{ route(config('app.panel_prefix', 'panel') . '.videos.create') }}"
-                               aria-label="ایجاد ویدئو جدید" data-bs-original-title="ایجاد ویدئو جدید">
+                               aria-label="Dodaj film" data-bs-original-title="Dodaj film">
                                 <i class="icon-plus d-flex justify-content-center align-items-center"></i>
                                 <div class="paper-ripple">
                                     <div class="paper-ripple__background"></div>
@@ -51,7 +51,7 @@
                         <!-- Filter box -->
                         @can('all', $videoClassName)
                             <div class="btn-group" rel="tooltip"
-                                 aria-label="فیلتر ویدئوها" data-bs-original-title="فیلتر ویدئوها">
+                                 aria-label="Filtruj filmy" data-bs-original-title="Filtruj filmy">
                                 <button type="button" class="btn btn-sm btn-default btn-round btn-info text-white dropdown-toggle" data-bs-toggle="dropdown"
                                         aria-expanded="true">
                                     <i class=" fas fa-filter d-flex justify-content-center align-items-center"></i>
@@ -81,15 +81,15 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>تصویر بندانگشتی</th>
-                                <th>نام فایل</th>
-                                <th>مدت زمان</th>
-                                <th>سایز</th>
-                                <th>فرمت</th>
-                                <th>کاربر آپلود کننده</th>
-                                <th>تاریخ ایجاد</th>
+                                <th>Miniatura</th>
+                                <th>Nazwa pliku</th>
+                                <th>Czas trwania</th>
+                                <th>Rozmiar</th>
+                                <th>Format</th>
+                                <th>Dodał</th>
+                                <th>Utworzono</th>
                                 {{--@can('operations', $videoClassName)--}}
-                                <th>عملیات</th>
+                                <th>Działania</th>
                                 {{--@endcan--}}
                             </tr>
                             </thead>
@@ -114,7 +114,7 @@
 
                                                 @can('update', $video)
                                                     <a class="btn btn-sm btn-info btn-icon round d-flex justify-content-center align-items-center"
-                                                       rel="tooltip" aria-label="ویرایش" data-bs-original-title="ویرایش"
+                                                       rel="tooltip" aria-label="Edytuj" data-bs-original-title="Edytuj"
                                                        href="{{ route(config('app.panel_prefix', 'panel') . '.videos.edit', $video->id) }}">
                                                         <i class="icon-pencil fa-flip-horizontal"></i>
                                                     </a>
@@ -130,7 +130,7 @@
                                                             @csrf
                                                             @method('delete')
                                                             <button class="btn btn-sm btn-secondary btn-icon round d-flex justify-content-center align-items-center"
-                                                                    rel="tooltip" aria-label="حذف تصویر بندانگشتی شخصی" data-bs-original-title="حذف تصویر بندانگشتی شخصی">
+                                                                    rel="tooltip" aria-label="Usuń własną miniaturę" data-bs-original-title="Usuń własną miniaturę">
                                                                 <i class="fas fa-trash-arrow-up fa-flip-horizontal"></i>
                                                             </button>
                                                         </form>

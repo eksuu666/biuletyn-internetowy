@@ -1,9 +1,9 @@
-@extends('panel::layouts.master', ['title' => 'ثبت آدرس شبکه‌های اجتماعی کاربر'])
+@extends('panel::layouts.master', ['title' => 'Profile społecznościowe użytkownika'])
 
 @section('content')
     <x-common-breadcrumbs>
-        <li><a>پروفایل</a></li>
-        <li><a>ثبت آدرس شبکه‌های اجتماعی کاربر</a></li>
+        <li><a>Profil</a></li>
+        <li><a>Profile społecznościowe użytkownika</a></li>
     </x-common-breadcrumbs>
 
     <div class="row pe-0">
@@ -13,7 +13,7 @@
                     <div class="portlet-title">
                         <h3 class="title">
                             <i class="icon-link"></i>
-                            ثبت آدرس شبکه‌های اجتماعی کاربر
+                            Profile społecznościowe użytkownika
                         </h3>
                     </div><!-- /.portlet-title -->
                     <div class="buttons-box">
@@ -53,7 +53,7 @@
                                 <div class="col-sm-6 col-sm-offset-4 mx-auto">
                                     <button class="btn btn-success btn-block">
                                         <i class="icon-check"></i>
-                                        ثبت آدرس شبکه‌های اجتماعی
+                                        Zapisz adresy profili
                                     </button>
                                 </div>
                             </div>

@@ -4,14 +4,14 @@
     <div class="portal-wrap portal-home">
         @include('front::partials.portal-ads', ['placements' => $ads['header']])
         <div class="portal-section-heading">
-            <h1>Na pierwszej stronie</h1>
+            <h1>Polecane</h1>
             <a href="{{ route('home.latest') }}">Wszystkie wiadomości <span aria-hidden="true">↗</span></a>
         </div>
 
         <div class="portal-top-grid">
             @if($featured)
                 <article class="portal-hero">
-                    <img src="{{ $featured->image ? asset('storage/' . $featured->image->file_path) : asset('home/images/lodz-portal.webp') }}" alt="{{ $featured->image?->alt_text ?? '' }}" fetchpriority="high">
+                    <img src="{{ $featured->image ? asset('storage/' . $featured->image->file_path) : asset('brand/zwierzaki.webp') }}" alt="{{ $featured->image?->alt_text ?? '' }}" fetchpriority="high">
                     <div class="portal-hero-copy">
                         <a class="portal-hero-tag" href="{{ route('categories.show', $featured->category->slug) }}">{{ $featured->category->name }}</a>
                         <h2><a href="{{ $featured->getUrl() }}">{{ $featured->title }}</a></h2>
@@ -26,11 +26,10 @@
                 </article>
             @else
                 <section class="portal-hero portal-hero-intro">
-                    <img src="{{ asset('home/images/lodz-portal.webp') }}" alt="" fetchpriority="high" width="1536" height="1024">
+                    <img src="{{ asset('brand/zwierzaki.webp') }}" alt="Pies i kot na ławce w ogrodzie" fetchpriority="high">
                     <div class="portal-hero-copy">
-                        <span class="portal-hero-tag">Lokalne wiadomości</span>
-                        <h2>Łódź.<br>Nasza sprawa.</h2>
-                        <p>Sprawy mieszkańców, kultura i miasto, które zmienia się na naszych oczach.</p>
+                        <h2>Życie ze zwierzętami</h2>
+                        <p>Porady dla opiekunów, historie adopcji i wiadomości ze świata zwierząt.</p>
                         <a class="portal-button" href="{{ route('about-us.index') }}">Poznaj redakcję <span aria-hidden="true">↗</span></a>
                     </div>
                 </section>
@@ -52,12 +51,19 @@
                     <div class="portal-brief-empty">
                         <span class="portal-kicker">Od redakcji</span>
                         <h3>Pracujemy nad pierwszym wydaniem.</h3>
-                        <p>Masz temat z Łodzi, któremu warto się przyjrzeć? Daj nam znać.</p>
+                        <p>Znasz historię zwierzaka, którą warto opowiedzieć? Daj nam znać.</p>
                         <a class="portal-text-link" href="{{ url('/contact-us') }}">Napisz do nas <span aria-hidden="true">→</span></a>
                     </div>
                 @endif
             </aside>
         </div>
+
+        <nav class="portal-topics" aria-label="Szukaj według tematu">
+            <strong>Szukaj według tematu</strong>
+            @foreach(['Psy', 'Koty', 'Adopcje', 'Opieka'] as $topic)
+                <a href="{{ route('search.index', ['query' => $topic]) }}">{{ $topic }} <span aria-hidden="true">↗</span></a>
+            @endforeach
+        </nav>
 
         @include('front::partials.portal-ads', ['placements' => $ads['first_section']])
         @if($stories->isNotEmpty())

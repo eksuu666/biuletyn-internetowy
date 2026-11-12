@@ -1,9 +1,9 @@
-@extends('panel::layouts.master', ['title' => 'تغییر Hasło'])
+@extends('panel::layouts.master', ['title' => 'Zmień Hasło'])
 
 @section('content')
     <x-common-breadcrumbs>
-        <li><a>پروفایل</a></li>
-        <li><a>تغییر Hasło</a></li>
+        <li><a>Profil</a></li>
+        <li><a>Zmień Hasło</a></li>
     </x-common-breadcrumbs>
 
     <div class="row pe-0">
@@ -13,7 +13,7 @@
                     <div class="portlet-title">
                         <h3 class="title">
                             <i class="far fa-pen-to-square"></i>
-                            تغییر Hasło
+                            Zmień Hasło
                         </h3>
                     </div><!-- /.portlet-title -->
                     <div class="buttons-box">
@@ -48,11 +48,11 @@
                                 </div>
                             </div>
                             <div class="form-group col-lg-6">
-                                <label for="new_password">Hasło جدید <small>(wymagane, minimum 8 znaków)</small></label>
+                                <label for="new_password">Hasło Nowy <small>(wymagane, minimum 8 znaków)</small></label>
                                 <input id="new_password" class="form-control" name="new_password" type="password" required minlength="8" value="{{ old('new_password') }}">
                             </div>
                             <div class="form-group col-lg-6">
-                                <label for="new_password_confirmation">Powtórz hasło جدید <small>(wymagane, minimum 8 znaków)</small></label>
+                                <label for="new_password_confirmation">Powtórz hasło Nowy <small>(wymagane, minimum 8 znaków)</small></label>
                                 <input id="new_password_confirmation" class="form-control" name="new_password_confirmation" type="password" required minlength="8" value="{{ old
                                 ('new_password_confirmation') }}">
                             </div>
@@ -60,7 +60,7 @@
                                 <div class="col-sm-6 col-sm-offset-4 mx-auto">
                                     <button class="btn btn-success btn-block">
                                         <i class="icon-check"></i>
-                                        تغییر Hasło
+                                        Zmień Hasło
                                     </button>
                                 </div>
                             </div>

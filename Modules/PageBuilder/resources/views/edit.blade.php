@@ -1,9 +1,9 @@
-@extends('panel::layouts.master', ['title' => 'ویرایش صفحه'])
+@extends('panel::layouts.master', ['title' => 'Edytuj stronę'])
 
 @section('content')
     <x-common-breadcrumbs>
-        <li><a href="{{ route(config('app.panel_prefix', 'panel') . '.pages.index') }}">لیست صفحات</a></li>
-        <li><a>ویرایش صفحه</a></li>
+        <li><a href="{{ route(config('app.panel_prefix', 'panel') . '.pages.index') }}">Strony</a></li>
+        <li><a>Edytuj stronę</a></li>
     </x-common-breadcrumbs>
 
     <div class="row pe-0">
@@ -13,12 +13,12 @@
                     <div class="portlet-title">
                         <h3 class="title">
                             <i class="fas fa-edit"></i>
-                            ویرایش صفحه
+                            Edytuj stronę
                         </h3>
                     </div><!-- /.portlet-title -->
                     <div class="buttons-box">
                         <a class="btn btn-sm btn-default btn-round btn-fullscreen" rel="tooltip"
-                           aria-label="تمام صفحه" data-bs-original-title="تمام صفحه">
+                           aria-label="Pełny ekran" data-bs-original-title="Pełny ekran">
                             <i class="icon-size-fullscreen d-flex justify-content-center align-items-center"></i>
                             <div class="paper-ripple">
                                 <div class="paper-ripple__background"></div>
@@ -35,25 +35,25 @@
 
                         <fieldset class="row justify-content-center">
                             <div class="form-group col-lg-6">
-                                <label for="title">عنوان <small>(ضروری)</small></label>
+                                <label for="title">Tytuł <small>(wymagane)</small></label>
                                 <input id="title" class="form-control" name="title" type="text" required value="{{ old('title', $page->title) }}">
                             </div>
                             <div class="form-group col-lg-6">
-                                <label for="slug">slug <small>(ضروری)</small> </label>
+                                <label for="slug">slug <small>(wymagane)</small> </label>
                                 <input id="slug" class="form-control" name="slug" type="text" required value="{{ old('slug', $page->slug) }}">
                             </div>
                             <div class="form-group col-12">
-                                <label for="tinymce-editor">محتوا <small>(ضروری)</small></label>
+                                <label for="tinymce-editor">Treść <small>(wymagane)</small></label>
                                 <textarea id="tinymce-editor" name="content" required>{{ old('content', $page->content) }}</textarea>
                             </div>
                             <div class="form-group relative col-lg-6">
-                                <label>تصویر شاخص <small>(ضروری)</small></label>
+                                <label>Obraz główny <small>(wymagane)</small></label>
                                 <div class="input-group round">
-                                    <input type="text" class="form-control file-input" placeholder="برای آپلود کلیک کنید">
+                                    <input type="text" class="form-control file-input" placeholder="Wybierz plik">
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-success">
                                             <i class="icon-picture"></i>
-                                            آپلود تصویر</button>
+                                            Prześlij obraz</button>
                                     </span>
                                 </div><!-- /.input-group -->
                                 <input type="file" class="form-control" name="image">
@@ -67,7 +67,7 @@
                             </div>
                             <div class="col-12 text-center form-group">
                                 <div>
-                                    <label for="status">وضعیت <small>(ضروری)</small></label>
+                                    <label for="status">Status <small>(wymagane)</small></label>
                                     <input id="status" class="form-control" name="status" type="checkbox" @if(old('status', $page->status)) checked @endif>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                                 <div class="col-sm-6 col-sm-offset-4 mx-auto">
                                     <button class="btn btn-success btn-block">
                                         <i class="icon-check"></i>
-                                        ویرایش صفحه
+                                        Edytuj stronę
                                     </button>
                                 </div>
                             </div>

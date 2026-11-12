@@ -1,9 +1,9 @@
-@extends('panel::layouts.master', ['title' => 'لیست ردیابی بازدیدها'])
+@extends('panel::layouts.master', ['title' => 'Historia odsłon'])
 
 @section('content')
 
     <x-common-breadcrumbs>
-        <li><a>لیست بازدیدها</a></li>
+        <li><a>Lista odsłon</a></li>
     </x-common-breadcrumbs>
 
     <div class="row pe-0">
@@ -13,20 +13,20 @@
                     <div class="portlet-title d-flex gap-3">
                         <h3 class="title m-0">
                             <i class="fas fa-arrows-to-eye"></i>
-                            لیست بازدیدها
+                            Lista odsłon
                         </h3>
                         <form class="d-inline-block search-form">
                             <div class="input-group">
                                 <button class="btn btn-secondary d-flex align-items-center" type="submit">
                                     <i class="icon-magnifier"></i>
                                 </button>
-                                <input name="query" type="text" class="form-control p-2" placeholder="جستجو..." value="{{ request()->get('query') }}">
+                                <input name="query" type="text" class="form-control p-2" placeholder="Szukaj..." value="{{ request()->get('query') }}">
                             </div>
                         </form>
                     </div><!-- /.portlet-title -->
                     <div class="buttons-box ltr">
                         <a class="btn btn-sm btn-default btn-round btn-fullscreen" rel="tooltip"
-                           aria-label="تمام صفحه" data-bs-original-title="تمام صفحه">
+                           aria-label="Pełny ekran" data-bs-original-title="Pełny ekran">
                             <i class="icon-size-fullscreen d-flex justify-content-center align-items-center"></i>
                             <div class="paper-ripple">
                                 <div class="paper-ripple__background"></div>
@@ -41,13 +41,13 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>کاربر</th>
+                                <th>Użytkownik</th>
                                 <th>URL</th>
-                                <th>ارجاع‌دهنده</th>
-                                <th>برچسب</th>
-                                <th>تاریخ بازدید</th>
+                                <th>Źródło ruchu</th>
+                                <th>Tag</th>
+                                <th>Data odsłony</th>
                                 @can('permissions_list.REQUEST_TRACKS_DESTROY')
-                                    <th>عملیات</th>
+                                    <th>Działania</th>
                                 @endcan
                             </tr>
                             </thead>
@@ -55,7 +55,7 @@
                             @foreach($requestsTrack as $requestTrack)
                                 <tr>
                                     <td>{{ $requestTrack->id }}</td>
-                                    <td>{{ $requestTrack->userTrack->user->full_name ?? 'مهمان' }}</td>
+                                    <td>{{ $requestTrack->userTrack->user->full_name ?? 'Gość' }}</td>
                                     <td>{{ $requestTrack->url }}</td>
                                     <td>{{ nullable_value($requestTrack->referer) }}</td>
                                     <td>{{ nullable_value($requestTrack->tag) }}</td>

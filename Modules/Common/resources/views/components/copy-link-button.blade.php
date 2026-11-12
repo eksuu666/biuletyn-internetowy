@@ -1,6 +1,6 @@
 <button class="btn btn-sm btn-secondary btn-icon round d-flex justify-content-center align-items-center copy-link-button"
         data-url="{{ $url }}"
-        rel="tooltip" aria-label="کپی لینک" data-bs-original-title="کپی لینک">
+        rel="tooltip" aria-label="Kopiuj odnośnik" data-bs-original-title="Kopiuj odnośnik">
     <i class="far fa-copy"></i>
 </button>
 
@@ -12,16 +12,16 @@
                 navigator.clipboard.writeText(url).then(() => {
                     swal.fire({
                         icon: 'success',
-                        title: 'کپی شد!',
-                        text: 'لینک با موفقیت کپی شد.',
-                        confirmButtonText: 'باشه'
+                        title: 'Skopiowano!',
+                        text: 'Odnośnik został skopiowany.',
+                        confirmButtonText: 'OK'
                     });
                 }).catch(err => {
                     Sweetalert2.fire({
                         icon: 'error',
-                        title: 'خطا!',
-                        text: 'کپی کردن لینک با خطا مواجه شد.',
-                        confirmButtonText: 'باشه'
+                        title: 'Błąd!',
+                        text: 'Kopiowanie odnośnika nie powiodło się.',
+                        confirmButtonText: 'OK'
                     });
                 });
             });

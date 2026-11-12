@@ -1,9 +1,9 @@
-@extends('panel::layouts.master', ['title' => 'ثبت آدرس شبکه‌های اجتماعی سایت'])
+@extends('panel::layouts.master', ['title' => 'Profile społecznościowe portalu'])
 
 @section('content')
     <x-common-breadcrumbs>
-        <li><a>تنظیمات</a></li>
-        <li><a>ثبت آدرس شبکه‌های اجتماعی سایت</a></li>
+        <li><a>Ustawienia</a></li>
+        <li><a>Profile społecznościowe portalu</a></li>
     </x-common-breadcrumbs>
 
     <div class="row pe-0">
@@ -13,12 +13,12 @@
                     <div class="portlet-title">
                         <h3 class="title">
                             <i class="icon-link"></i>
-                            ثبت آدرس شبکه‌های اجتماعی سایت
+                            Profile społecznościowe portalu
                         </h3>
                     </div><!-- /.portlet-title -->
                     <div class="buttons-box">
                         <a class="btn btn-sm btn-default btn-round btn-fullscreen" rel="tooltip"
-                           aria-label="تمام صفحه" data-bs-original-title="تمام صفحه">
+                           aria-label="Pełny ekran" data-bs-original-title="Pełny ekran">
                             <i class="icon-size-fullscreen d-flex justify-content-center align-items-center"></i>
                             <div class="paper-ripple">
                                 <div class="paper-ripple__background"></div>
@@ -53,7 +53,7 @@
                                 <div class="col-sm-6 col-sm-offset-4 mx-auto">
                                     <button class="btn btn-success btn-block">
                                         <i class="icon-check"></i>
-                                        ثبت آدرس شبکه‌های اجتماعی
+                                        Zapisz adresy profili
                                     </button>
                                 </div>
                             </div>

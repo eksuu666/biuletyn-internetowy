@@ -1,54 +1,35 @@
-<!DOCTYPE html>
-<html lang="pl" dir="ltr">
-
+<!doctype html>
+<html lang="pl">
 <head>
-    <title>{{ !empty($title) ? $title . ' | ' . config('app.name') : config('app.name') }}</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="{{ $siteDetails->faviconLink() }}">
-
-    @include('auth::partials.styles')
-    @stack('styles')
-
-    <style>
-        .swal2-title {
-            font-size: 1.4rem !important;
-        }
-        .modal-page, .modal-page label, .modal-page input { direction: ltr; text-align: left; }
-    </style>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>{{ $title ?? 'Konto' }} | sŁodziaki</title>
+    <x-brand-assets :site="$siteDetails ?? null"/>
 </head>
-<body class="active-ripple theme-darkpurple">
-<!-- BEGIN LOEADING -->
-<div id="loader">
-    <div class="spinner"></div>
-</div><!-- /loader -->
-<!-- END LOEADING -->
-
-<!-- BEGIN WRAPPER -->
-<div class="fixed-modal-bg"></div>
-<a href="#" class="btn btn-primary btn-icon btn-round btn-lg" id="toggle-dark-mode">
-    <i class="icon-bulb"></i>
-</a>
-<div class="modal-page shadow">
-    <div class="container-fluid">
-        <div class="row">
-
-            <div class="col-md-12">
-
+<body class="account-page">
+    <header class="account-header">
+        <a href="{{ route('home.index') }}"><x-brand-logo :site="$siteDetails ?? null"/></a>
+        <a class="account-back" href="{{ route('home.index') }}">← Wróć do portalu</a>
+    </header>
+    <main class="account-shell">
+        <section class="account-card" aria-labelledby="account-heading">
+            <div class="account-form-content">
+                @if(session('success') || session('message'))
+                    <p class="account-status" role="status">{{ session('success') ?: session('message') }}</p>
+                @endif
+                @if($errors->any())
+                    <ul class="account-errors" role="alert">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                @endif
                 @yield('content')
-
-            </div><!-- /.col-md-12 -->
-        </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-</div><!-- /.modal-page -->
-<!-- END WRAPPER -->
-
-@include('auth::partials.scripts')
-@stack('scripts')
-
-@include('sweetalert::alert')
-
+            </div>
+        </section>
+        <div class="account-photo" aria-hidden="true"></div>
+    </main>
+    <footer class="account-footer">© {{ now()->year }} sŁodziaki</footer>
 </body>
-
 </html>

@@ -11,13 +11,13 @@ return [
         'alt_text' => 'Default Image',
     ],
     'default_logo' => [
-        'file_path' => public_path('seeders/images/logo.png'),
-        'file_link' => asset('seeders/images/logo.png'),
+        'file_path' => public_path('brand/slodziaki.jpg'),
+        'file_link' => asset('brand/slodziaki.jpg'),
         'alt_text' => 'Default Logo',
     ],
     'default_favicon' => [
-        'file_path' => public_path('seeders/images/favicon.ico'),
-        'file_link' => asset('seeders/images/favicon.ico'),
+        'file_path' => public_path('brand/slodziaki.jpg'),
+        'file_link' => asset('brand/slodziaki.jpg'),
         'alt_text' => 'Default Favicon',
     ],
 ];

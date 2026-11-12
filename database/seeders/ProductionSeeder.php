@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Cache;
 use Modules\ContactUs\App\Models\ContactInfo;
 use Modules\FileManager\App\Helpers\ImageHelper;
 use Modules\Role\Database\Seeders\PermissionSeeder;
@@ -34,9 +35,9 @@ class ProductionSeeder extends Seeder
         $siteDetails = SiteDetail::query()->first();
 
         if (! $siteDetails) {
-            $mainLogo = ImageHelper::createDefaultImage(altText: 'Logo sŁodziak', configPath: 'common.default_logo.file_path');
-            $secondLogo = ImageHelper::createDefaultImage(altText: 'Logo sŁodziak', configPath: 'common.default_logo.file_path');
-            $favicon = ImageHelper::createDefaultImage(altText: 'Ikona sŁodziak', configPath: 'common.default_favicon.file_path');
+            $mainLogo = ImageHelper::createDefaultImage(altText: 'Logo sŁodziaki', configPath: 'common.default_logo.file_path');
+            $secondLogo = ImageHelper::createDefaultImage(altText: 'Logo sŁodziaki', configPath: 'common.default_logo.file_path');
+            $favicon = ImageHelper::createDefaultImage(altText: 'Ikona sŁodziaki', configPath: 'common.default_favicon.file_path');
 
             $siteDetails = new SiteDetail([
                 'main_logo_id' => $mainLogo->id,
@@ -45,13 +46,27 @@ class ProductionSeeder extends Seeder
             ]);
         }
 
-        if (! $siteDetails->exists) {
-            $siteDetails->fill([
-                'title' => 'sŁodziak — biuletyn blisko Łodzi',
-                'description' => 'Lokalne wiadomości, sprawy mieszkańców, kultura i wydarzenia z Łodzi oraz regionu.',
-                'keywords' => 'Łódź, wiadomości lokalne, biuletyn, wydarzenia, kultura, mieszkańcy',
-                'footer_text' => 'sŁodziak to niezależny biuletyn tworzony blisko spraw Łodzi i jej mieszkańców.',
-            ])->save();
+        $legacyDefaults = [
+            'title' => 'sŁodziak — biuletyn blisko Łodzi',
+            'description' => 'Lokalne wiadomości, sprawy mieszkańców, kultura i wydarzenia z Łodzi oraz regionu.',
+            'keywords' => 'Łódź, wiadomości lokalne, biuletyn, wydarzenia, kultura, mieszkańcy',
+            'footer_text' => 'sŁodziak to niezależny biuletyn tworzony blisko spraw Łodzi i jej mieszkańców.',
+        ];
+        $defaults = [
+            'title' => 'sŁodziaki — portal o zwierzętach',
+            'description' => 'Porady dla opiekunów, historie adopcji i wiadomości ze świata zwierząt.',
+            'keywords' => 'zwierzęta, psy, koty, adopcje, opieka nad zwierzętami',
+            'footer_text' => 'Porady, adopcje i historie o zwierzętach.',
+        ];
+
+        foreach ($defaults as $field => $value) {
+            if (! $siteDetails->exists || $siteDetails->{$field} === $legacyDefaults[$field]) {
+                $siteDetails->{$field} = $value;
+            }
+        }
+        if ($siteDetails->isDirty()) {
+            $siteDetails->save();
+            Cache::forget('homepage_seo');
         }
 
         ContactInfo::query()->firstOrCreate(['id' => 1], [
@@ -62,9 +77,19 @@ class ProductionSeeder extends Seeder
             'phone' => env('CONTACT_PHONE'),
         ]);
 
-        AboutUs::query()->firstOrCreate(['id' => 1], [
-            'title' => 'O sŁodziaku',
-            'content' => 'sŁodziak jest lokalnym biuletynem poświęconym Łodzi, jej mieszkańcom i sprawom, które wpływają na codzienne życie miasta.',
+        $about = AboutUs::query()->firstOrCreate(['id' => 1], [
+            'title' => 'O sŁodziakach',
+            'content' => 'sŁodziaki to portal o zwierzętach i ludziach, którzy się nimi opiekują. Publikujemy porady, wiadomości i historie adopcji.',
         ]);
+        if ($about->title === 'O sŁodziaku') {
+            $about->title = 'O sŁodziakach';
+        }
+        if ($about->content === 'sŁodziak jest lokalnym biuletynem poświęconym Łodzi, jej mieszkańcom i sprawom, które wpływają na codzienne życie miasta.') {
+            $about->content = 'sŁodziaki to portal o zwierzętach i ludziach, którzy się nimi opiekują. Publikujemy porady, wiadomości i historie adopcji.';
+        }
+        if ($about->isDirty()) {
+            $about->save();
+            Cache::forget('aboutus_seo');
+        }
     }
 }

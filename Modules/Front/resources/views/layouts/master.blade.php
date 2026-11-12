@@ -3,9 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    @if($site_details?->favicon)
-        <link rel="icon" href="{{ $site_details->faviconLink() }}">
-    @endif
+    <x-brand-assets :site="$site_details ?? null"/>
     <x-feed-links/>
     {!! SEO::generate() !!}
     <link rel="stylesheet" href="{{ asset('home/css/bootstrap.min.css') }}">

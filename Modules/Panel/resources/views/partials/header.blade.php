@@ -1,21 +1,20 @@
 <!-- BEGIN HEADER -->
 <div class="navbar navbar-fixed-top" id="main-navbar">
     <div class="header-right d-md-flex justify-content-center align-items-center">
-        <a href="{{ route(config('app.panel_prefix', 'panel') . '.index') }}" class="logo-con my-0 d-none d-md-block">
-            <img src="{{ $siteDetails->mainLogoLink() }}" class="img-responsive center-block"
-                 alt="{{ config('app.name') }}">
+        <a href="{{ route(config('app.panel_prefix', 'panel') . '.index') }}" class="editorial-brand" aria-label="sŁodziaki, panel redakcji">
+            <x-brand-logo :site="$siteDetails ?? null"/>
         </a>
     </div><!-- /.header-right -->
     <div class="header-left">
         <div class="top-bar">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a class="btn" id="toggle-sidebar">
+                    <a class="btn" id="toggle-sidebar" aria-label="Menu panelu">
                         <span class="menu"></span>
                     </a>
                 </li>
                 <li>
-                    <a class="btn open" id="toggle-sidebar-top">
+                    <a class="btn open" id="toggle-sidebar-top" aria-label="Profil w menu">
                         <i class="icon-user-following"></i>
                     </a>
                 </li>
@@ -26,6 +25,9 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-left">
+                <li class="editorial-portal-link">
+                    <a href="{{ route('home.index') }}">Zobacz portal ↗</a>
+                </li>
                 <li class="dropdown">
                     <a class="btn" id="toggle-fullscreen">
                         <i class="icon-size-fullscreen"></i>

@@ -26,7 +26,7 @@ class ArticlePageSEOService extends BaseSEOService
             $keywords = ! empty($seoSetting?->keywords) ? explode(',', $seoSetting->keywords) : $tags;
             $authorName = $seoSetting?->meta_author ?? $user?->full_name ?? config('app.name');
             $authorUrl = $user ? route('author.index', $user->username) : route('home.index');
-            $imageUrl = $article->image?->url() ?? asset('home/images/lodz-portal.webp');
+            $imageUrl = $article->image?->url() ?? asset('brand/zwierzaki.webp');
 
             return compact('title', 'description', 'articleUrl', 'canonicalUrl', 'robots', 'keywords', 'authorName', 'authorUrl', 'imageUrl', 'tags', 'category');
         });

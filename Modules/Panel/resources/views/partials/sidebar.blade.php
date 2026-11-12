@@ -1,5 +1,6 @@
 <!-- BEGIN SIDEBAR -->
 <div id="sidebar">
+    <p class="editorial-sidebar-title">Panel redakcji</p>
     <div class="sidebar-top">
         <div class="user-box">
             <a href="{{ route(config('app.panel_prefix', 'panel') . '.profile.edit') }}">

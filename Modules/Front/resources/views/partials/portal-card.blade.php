@@ -1,6 +1,6 @@
 <article class="portal-card">
     <a class="portal-card-media" href="{{ $story->getUrl() }}" tabindex="-1" aria-hidden="true">
-        <img src="{{ $story->image ? asset('storage/' . $story->image->file_path) : asset('home/images/lodz-portal.webp') }}" alt="" loading="lazy" decoding="async">
+        <img src="{{ $story->image ? asset('storage/' . $story->image->file_path) : asset('brand/zwierzaki.webp') }}" alt="" loading="lazy" decoding="async">
     </a>
     <div class="portal-card-content">
         <a class="portal-kicker" href="{{ route('categories.show', $story->category->slug) }}">{{ $story->category->name }}</a>

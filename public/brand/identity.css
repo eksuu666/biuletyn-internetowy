@@ -1,0 +1,125 @@
+:root {
+    --brand-red: #bc181a;
+    --brand-red-hover: #961114;
+    --brand-ink: #211c1a;
+    --brand-muted: #625852;
+    --brand-paper: #faf6ef;
+    --brand-line: #e9dfd4;
+    --brand-font: "DM Sans", "Segoe UI", Arial, sans-serif;
+}
+.brand-logo {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    width: 195px;
+    aspect-ratio: 5.28;
+    vertical-align: middle;
+    background: #fff;
+}
+.brand-logo img {
+    position: absolute;
+    display: block;
+    width: 118%;
+    max-width: none;
+    height: auto;
+    left: -9%;
+    top: -150%;
+}
+.brand-logo--custom img { inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.account-page, .account-page * { box-sizing: border-box; }
+.account-page {
+    margin: 0;
+    background: var(--brand-paper);
+    color: var(--brand-ink);
+    font: 16px/1.55 var(--brand-font);
+}
+.account-page a { color: var(--brand-red); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.account-page a:hover { color: var(--brand-red-hover); }
+.account-page :focus-visible { outline: 3px solid var(--brand-red); outline-offset: 4px; }
+.account-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 18px max(22px, calc((100% - 1120px) / 2));
+    background: #fff;
+    border-bottom: 1px solid var(--brand-line);
+}
+.account-back { font-size: 14px; font-weight: 700; }
+.account-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    width: min(1040px, calc(100% - 48px));
+    min-height: 510px;
+    margin: clamp(24px, 6vw, 68px) auto 0;
+    overflow: hidden;
+    border: 1px solid var(--brand-line);
+    border-radius: 22px;
+    background: #fff;
+}
+.account-card { display: grid; place-items: center; padding: clamp(24px, 5vw, 56px); }
+.account-form-content { width: 100%; max-width: 380px; }
+.account-card h1, .account-error h1 {
+    margin: 0 0 10px;
+    font-size: clamp(30px, 4vw, 48px);
+    line-height: 1.05;
+    letter-spacing: -.045em;
+}
+.account-intro { margin: 0 0 22px; color: var(--brand-muted); }
+.account-photo {
+    background: #d7c6a9 url('/brand/zwierzaki.webp') 78% center / cover no-repeat;
+}
+.account-form { display: grid; gap: 8px; margin-top: 20px; }
+.account-form label { font-size: 14px; font-weight: 700; }
+.account-form > input {
+    width: 100%;
+    padding: 11px 12px;
+    margin-bottom: 8px;
+    border: 1px solid #bfb4a9;
+    border-radius: 8px;
+    background: #fff;
+    color: inherit;
+    font: inherit;
+}
+.account-field-label { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; }
+.account-field-label a { font-size: 13px; font-weight: 600; }
+.account-check { display: flex; align-items: center; gap: 8px; margin: 5px 0 8px; }
+.account-check input { width: 16px; height: 16px; accent-color: var(--brand-red); }
+.account-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 17px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--brand-red);
+    color: #fff;
+    font: 700 15px/1.45 var(--brand-font);
+    cursor: pointer;
+}
+.account-page a.account-button { color: #fff; text-decoration: none; }
+.account-button:hover { background: var(--brand-red-hover); }
+.account-switch { margin: 18px 0 0; color: var(--brand-muted); font-size: 14px; }
+.account-link {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: var(--brand-red);
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.account-errors, .account-status { border-radius: 8px; margin: 0 0 16px; }
+.account-errors { background: #ffedec; color: #801b1e; padding: 11px 12px 11px 28px; }
+.account-status { background: #edf4e8; color: #355329; padding: 11px 12px; }
+.account-footer { text-align: center; color: var(--brand-muted); font-size: 13px; padding: 20px; }
+.account-error { max-width: 650px; margin: 10vh auto; padding: 0 22px; text-align: center; }
+.account-error-code { color: var(--brand-red); font-size: clamp(44px, 12vw, 100px); font-weight: 900; line-height: 1; margin: 0 0 12px; }
+.account-error .account-button { margin-top: 14px; }
+@media (max-width: 720px) {
+    .brand-logo { width: 160px; }
+    .account-header { padding: 14px; }
+    .account-shell { width: calc(100% - 28px); min-height: auto; grid-template-columns: 1fr; }
+    .account-photo { display: none; }
+    .account-back { font-size: 12px; }
+}

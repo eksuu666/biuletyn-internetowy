@@ -126,7 +126,9 @@ class PanelServiceProvider extends ServiceProvider
             });
 
             View::composer([
-                '*',
+                'panel::layouts.master',
+                'auth::layouts.master',
+                'setting::site-details',
             ], function () {
                 $this->siteDetailsSharedData();
             });

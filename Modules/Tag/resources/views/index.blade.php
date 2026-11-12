@@ -36,7 +36,7 @@
                         @can(config('permissions_list.TAG_STORE', false))
                             <a class="btn btn-sm btn-default btn-round bg-green text-white" rel="tooltip"
                                href="{{ route(config('app.panel_prefix', 'panel') . '.tags.create') }}"
-                               aria-label="ایجاد تگ‌ جدید" data-bs-original-title="ایجاد تگ‌ جدید">
+                               aria-label="Dodaj tag" data-bs-original-title="Dodaj tag">
                                 <i class="icon-plus d-flex justify-content-center align-items-center"></i>
                                 <div class="paper-ripple">
                                     <div class="paper-ripple__background"></div>

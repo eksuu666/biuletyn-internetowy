@@ -1,8 +1,8 @@
 <header class="portal-header">
     <div class="portal-masthead">
         <div class="portal-wrap portal-masthead-row">
-            <a class="portal-brand" href="{{ route('home.index') }}" aria-label="sŁodziak, strona główna">s<span>Ł</span>odziak<span>.</span></a>
-            <p class="portal-masthead-caption">Niezależny biuletyn z Łodzi</p>
+            <a class="portal-brand" href="{{ route('home.index') }}" aria-label="sŁodziaki, strona główna"><x-brand-logo :site="$site_details ?? null"/></a>
+            <p class="portal-masthead-caption">Portal o zwierzętach</p>
             <form class="portal-search" action="{{ route('search.index') }}" role="search">
                 <label class="sr-only" for="portal-search">Szukaj artykułów</label>
                 <input id="portal-search" name="query" type="search" maxlength="200" placeholder="Szukaj artykułów" value="{{ request()->routeIs('search.index') ? request('query', request('text')) : '' }}">

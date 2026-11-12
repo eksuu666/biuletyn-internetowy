@@ -3,7 +3,7 @@
         @csrf
         @method('delete')
         <button class="btn btn-sm btn-danger btn-icon round d-flex justify-content-center align-items-center"
-                rel="tooltip" aria-label="حذف" data-bs-original-title="حذف">
+                rel="tooltip" aria-label="Usuń" data-bs-original-title="Usuń">
             <i class="icon-trash fa-flip-horizontal"></i>
         </button>
     </form>
