@@ -51,6 +51,7 @@
                         <p>{{ panel_date_format($article->published_at) }}</p>
                     </div>
                     <div class="editorial-row-actions">
+                        <a class="btn btn-sm btn-primary" href="{{ route(config('app.panel_prefix').'.articles.review', $article) }}">Obieg redakcyjny</a>
                         @if($canEdit && auth()->user()->can(config('permissions_list.ARTICLE_UPDATE')))
                             <a class="btn btn-sm btn-outline-secondary" href="{{ route(config('app.panel_prefix').'.articles.edit', $article) }}">Edytuj</a>
                             @can(config('permissions_list.SEO_MANAGEMENT'))

@@ -85,13 +85,14 @@ class NewsroomWorkflowTest extends TestCase
     public function test_admin_can_upload_publish_and_edit_without_taking_authorship(): void
     {
         $this->actingAs($this->admin)->get(route('panel.articles.create'))->assertOk()->assertSee('datetime-local')->assertSee('Wiadomość');
-        $this->actingAs($this->admin)->post(route('panel.articles.store'), [
+        $response = $this->actingAs($this->admin)->post(route('panel.articles.store'), [
             'title' => 'Nowa wiadomość z Łodzi', 'slug' => 'Nowa wiadomość z Łodzi', 'body' => '<p>Treść wiadomości</p>',
             'published_at' => now()->subMinute()->format('Y-m-d H:i:s'), 'category_id' => $this->category->id,
             'type' => Article::NEWS, 'status' => 'on', 'image' => UploadedFile::fake()->image('wiadomosc.jpg'),
-        ])->assertSessionHasNoErrors()->assertRedirect(route('panel.articles.index'));
+        ])->assertSessionHasNoErrors();
         $article = Article::where('slug', 'nowa-wiadomosc-z-lodzi')->firstOrFail();
-        $this->get(route('panel.articles.index'))->assertOk()->assertSee($article->title);
+        $response->assertRedirect(route('panel.articles.review', $article));
+        $this->get(route('panel.articles.index'))->assertOk()->assertSee($article->title)->assertSeeText('Obieg redakcyjny');
         $this->get(route('panel.articles.edit', $article))->assertOk();
         Storage::disk('public')->assertExists($article->image->file_path);
         $author = User::factory()->active()->create();

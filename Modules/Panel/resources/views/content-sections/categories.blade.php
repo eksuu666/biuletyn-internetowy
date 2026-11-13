@@ -50,7 +50,11 @@
                             <tr>
                                 <td>{{ $category->id }}</td>
                                 <td>
-                                    <img src="{{ asset('storage/' . $category->image->file_path) }}" alt="{{ $category->image->alt_text }}" width="100px" style="max-height: 90px">
+                                    @if($category->image)
+                                        <img src="{{ $category->image->url() }}" alt="{{ $category->image->alt_text }}" width="100" style="max-height: 90px">
+                                    @else
+                                        <span class="text-muted">Brak zdjęcia</span>
+                                    @endif
                                 </td>
                                 <td>{{ $category->name }}</td>
                                 <td>{{ $category->slug }}</td>

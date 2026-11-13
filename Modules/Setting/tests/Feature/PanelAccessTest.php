@@ -5,6 +5,7 @@ namespace Modules\Setting\tests\Feature;
 use Database\Seeders\ProductionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase;
+use Modules\Category\App\Models\Category;
 use Modules\User\App\Models\User;
 use Tests\CreatesApplication;
 
@@ -34,5 +35,9 @@ class PanelAccessTest extends TestCase
         $response->assertSee('Kokpit');
         $response->assertSee('Artykuły');
         $response->assertSee('Kategorie');
+        $response->assertSeeText('Brak zdjęcia');
+        $this->get(route('panel.categories.index'))->assertOk()->assertSeeText('Reportaże');
+        $category = Category::where('slug', 'reportaze')->firstOrFail();
+        $this->get(route('panel.categories.edit', $category))->assertOk()->assertSeeText('Brak zdjęcia');
     }
 }

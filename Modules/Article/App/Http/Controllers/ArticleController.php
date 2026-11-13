@@ -42,9 +42,9 @@ class ArticleController extends Controller
 
     public function store(ArticleRequest $request): RedirectResponse
     {
-        $this->articleService->store($request);
+        $article = $this->articleService->store($request);
 
-        return to_route(config('app.panel_prefix', 'panel').'.articles.index')
+        return to_route(config('app.panel_prefix', 'panel').'.articles.review', $article)
             ->with('success', __('entity_created', ['entity' => __('article')]));
     }
 

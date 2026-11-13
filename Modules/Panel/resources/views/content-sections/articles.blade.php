@@ -56,12 +56,16 @@
                             <tr>
                                 <td>{{ $article->id }}</td>
                                 <td>
-                                    <img src="{{ asset('storage/' . $article->image->file_path) }}" alt="{{ $article->image->alt_text }}" width="100px" style="max-height: 90px">
+                                    @if($article->image)
+                                        <img src="{{ $article->image->url() }}" alt="{{ $article->image->alt_text }}" width="100" style="max-height: 90px">
+                                    @else
+                                        <span class="text-muted">Brak zdjęcia</span>
+                                    @endif
                                 </td>
                                 <td>{{ $article->title }}</td>
                                 <td>{{ $article->slug }}</td>
-                                <td>{{ $article->user->full_name }}</td>
-                                <td>{{ $article->category->name }}</td>
+                                <td>{{ $article->user?->full_name ?? '—' }}</td>
+                                <td>{{ $article->category?->name ?? '—' }}</td>
                                 <td class="nowrap">{{ str(nullable_value($article->tagNames()))->limit(50) }}</td>
                                 <td>{{ $article->likeCount }}</td>
                                 <td class="nowrap">{{ panel_date_format($article->published_at) }}</td>

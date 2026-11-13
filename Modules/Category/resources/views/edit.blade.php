@@ -70,12 +70,12 @@
                                     <div class="help-block"></div>
                                 </div>
                                 <div class="form-group col-12 text-center">
-                                    <img class="mb-2" src="{{ asset('storage/' . $category->image->file_path) }}" alt="{{ $category->image->alt_text }}" style="max-width: 300px;
-                                    max-height:
-                                    300px">
-                                    <div>
-                                        {{ asset('storage/' . $category->image->file_path) }}
-                                    </div>
+                                    @if($category->image)
+                                        <img class="mb-2 img-fluid" src="{{ $category->image->url() }}" alt="{{ $category->image->alt_text }}" style="max-width: min(100%, 300px); max-height: 300px">
+                                        <div>{{ $category->image->url() }}</div>
+                                    @else
+                                        <span class="text-muted">Brak zdjęcia</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="form-group text-center">
