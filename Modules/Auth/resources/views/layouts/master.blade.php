@@ -9,7 +9,7 @@
 </head>
 <body class="account-page">
     <header class="account-header">
-        <a href="{{ route('home.index') }}"><x-brand-logo :site="$siteDetails ?? null"/></a>
+        <a href="{{ route('home.index') }}"><x-public-wordmark illustrated/></a>
         <a class="account-back" href="{{ route('home.index') }}">← Wróć do portalu</a>
     </header>
     <main class="account-shell">

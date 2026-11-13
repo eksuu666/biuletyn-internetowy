@@ -1,4 +1,14 @@
 :root {
+    --public-ink: #252336;
+    --public-muted: #625D72;
+    --public-paper: #FAF9F6;
+    --public-line: #DCD7E4;
+    --public-accent: #513B7A;
+    --public-accent-hover: #3c2b5c;
+    --public-lavender: #F0EBFA;
+    --public-yellow: #FFE495;
+    --public-coral: #FFB4A3;
+    --public-serif: "Times New Roman", Georgia, serif;
     --brand-red: #bc181a;
     --brand-red-hover: #961114;
     --brand-ink: #211c1a;
@@ -26,24 +36,43 @@
     top: -150%;
 }
 .brand-logo--custom img { inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.public-brand { display: inline-flex; align-items: center; white-space: nowrap; }
+.public-brand .public-wordmark { color: var(--public-ink); font: 700 clamp(29px, 4vw, 44px)/1 var(--public-serif); letter-spacing: -.025em; }
+.public-brand .public-spark {
+    color: var(--public-coral);
+    -webkit-text-stroke: 1px var(--public-ink);
+    align-self: flex-start;
+    margin: -3px 26px 0 -4px;
+    font-size: 31px;
+    line-height: 1;
+}
+.public-cat { flex: none; }
+@media (max-width: 767px) {
+    .public-cat { width: 48px; height: auto; }
+    .public-brand .public-spark { margin-right: 8px; font-size: 22px; }
+}
+@media (max-width: 359px) {
+    .public-cat { display: none; }
+}
 .account-page, .account-page * { box-sizing: border-box; }
 .account-page {
     margin: 0;
-    background: var(--brand-paper);
-    color: var(--brand-ink);
+    background: var(--public-paper);
+    color: var(--public-ink);
     font: 16px/1.55 var(--brand-font);
 }
-.account-page a { color: var(--brand-red); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-.account-page a:hover { color: var(--brand-red-hover); }
-.account-page :focus-visible { outline: 3px solid var(--brand-red); outline-offset: 4px; }
+.account-page a { color: var(--public-accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.account-page a:hover { color: var(--public-accent-hover); }
+.account-page :focus-visible { outline: 3px solid var(--public-accent); outline-offset: 4px; }
 .account-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 14px;
-    padding: 18px max(22px, calc((100% - 1120px) / 2));
+    padding: 18px max(16px, calc((100% - 1216px) / 2));
     background: #fff;
-    border-bottom: 1px solid var(--brand-line);
+    border-top: 8px solid var(--public-lavender);
+    border-bottom: 2px solid var(--public-ink);
 }
 .account-back { font-size: 14px; font-weight: 700; }
 .account-shell {
@@ -53,8 +82,8 @@
     min-height: 510px;
     margin: clamp(24px, 6vw, 68px) auto 0;
     overflow: hidden;
-    border: 1px solid var(--brand-line);
-    border-radius: 22px;
+    border: 1px solid var(--public-line);
+    border-radius: 0;
     background: #fff;
 }
 .account-card { display: grid; place-items: center; padding: clamp(24px, 5vw, 56px); }
@@ -63,9 +92,10 @@
     margin: 0 0 10px;
     font-size: clamp(30px, 4vw, 48px);
     line-height: 1.05;
-    letter-spacing: -.045em;
+    font-family: var(--public-serif);
+    letter-spacing: 0;
 }
-.account-intro { margin: 0 0 22px; color: var(--brand-muted); }
+.account-intro { margin: 0 0 22px; color: var(--public-muted); }
 .account-photo {
     background: #d7c6a9 url('/brand/zwierzaki.webp') 78% center / cover no-repeat;
 }
@@ -75,8 +105,8 @@
     width: 100%;
     padding: 11px 12px;
     margin-bottom: 8px;
-    border: 1px solid #bfb4a9;
-    border-radius: 8px;
+    border: 1px solid var(--public-line);
+    border-radius: 0;
     background: #fff;
     color: inherit;
     font: inherit;
@@ -84,37 +114,37 @@
 .account-field-label { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; }
 .account-field-label a { font-size: 13px; font-weight: 600; }
 .account-check { display: flex; align-items: center; gap: 8px; margin: 5px 0 8px; }
-.account-check input { width: 16px; height: 16px; accent-color: var(--brand-red); }
+.account-check input { width: 16px; height: 16px; accent-color: var(--public-accent); }
 .account-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     padding: 11px 17px;
-    border: 0;
-    border-radius: 8px;
-    background: var(--brand-red);
-    color: #fff;
+    border: 1px solid var(--public-ink);
+    box-shadow: 3px 3px var(--public-ink);
+    background: var(--public-yellow);
+    color: var(--public-ink);
     font: 700 15px/1.45 var(--brand-font);
     cursor: pointer;
 }
-.account-page a.account-button { color: #fff; text-decoration: none; }
-.account-button:hover { background: var(--brand-red-hover); }
-.account-switch { margin: 18px 0 0; color: var(--brand-muted); font-size: 14px; }
+.account-page a.account-button { color: var(--public-ink); text-decoration: none; }
+.account-button:hover { background: #ffda75; }
+.account-switch { margin: 18px 0 0; color: var(--public-muted); font-size: 14px; }
 .account-link {
     border: 0;
     padding: 0;
     background: transparent;
-    color: var(--brand-red);
+    color: var(--public-accent);
     font: inherit;
     text-decoration: underline;
     cursor: pointer;
 }
-.account-errors, .account-status { border-radius: 8px; margin: 0 0 16px; }
+.account-errors, .account-status { border-radius: 0; margin: 0 0 16px; }
 .account-errors { background: #ffedec; color: #801b1e; padding: 11px 12px 11px 28px; }
 .account-status { background: #edf4e8; color: #355329; padding: 11px 12px; }
-.account-footer { text-align: center; color: var(--brand-muted); font-size: 13px; padding: 20px; }
+.account-footer { text-align: center; color: var(--public-muted); font-size: 13px; padding: 20px; }
 .account-error { max-width: 650px; margin: 10vh auto; padding: 0 22px; text-align: center; }
-.account-error-code { color: var(--brand-red); font-size: clamp(44px, 12vw, 100px); font-weight: 900; line-height: 1; margin: 0 0 12px; }
+.account-error-code { color: var(--public-accent); font-size: clamp(44px, 12vw, 100px); font-weight: 900; line-height: 1; margin: 0 0 12px; }
 .account-error .account-button { margin-top: 14px; }
 @media (max-width: 720px) {
     .brand-logo { width: 160px; }

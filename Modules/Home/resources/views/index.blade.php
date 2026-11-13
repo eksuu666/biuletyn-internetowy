@@ -1,98 +1,96 @@
 @extends('front::layouts.master')
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('home/css/slodziaki-home.css') }}?v={{ filemtime(public_path('home/css/slodziaki-home.css')) }}">
+@endpush
+
 @section('content')
+    @php
+        $adoptions = $homeCategories->get('adopcje');
+        $adoptionsUrl = $adoptions ? route('categories.show', $adoptions->slug) : route('search.index', ['query' => 'Adopcje']);
+        $guidesCategory = $homeCategories->get('poradniki');
+    @endphp
     <div class="portal-wrap portal-home">
         @include('front::partials.portal-ads', ['placements' => $ads['header']])
-        <div class="portal-top-grid">
-            <section aria-labelledby="portal-featured">
-                <h1 class="portal-column-title" id="portal-featured">Polecane</h1>
-                @if($featured)
-                    <article class="portal-hero">
-                        <img src="{{ $featured->image ? asset('storage/' . $featured->image->file_path) : asset('brand/zwierzaki.webp') }}" alt="{{ $featured->image?->alt_text ?? '' }}" fetchpriority="high">
-                        <div class="portal-hero-copy">
-                            <a class="portal-hero-tag" href="{{ route('categories.show', $featured->category->slug) }}">{{ $featured->category->name }}</a>
-                            <h2><a href="{{ $featured->getUrl() }}">{{ $featured->title }}</a></h2>
-                            <p>{{ $featured->bodyText(160) }}</p>
-                            <div class="portal-meta">
-                                @if($featured->user)
-                                    <a href="{{ route('author.index', $featured->user->username) }}">{{ $featured->user->full_name }}</a>
-                                @endif
-                                <time datetime="{{ $featured->published_at->toAtomString() }}">{{ $featured->published_at->locale('pl')->translatedFormat('j M Y') }}</time>
-                            </div>
-                        </div>
-                    </article>
-                @else
-                    <section class="portal-hero portal-hero-intro">
-                        <img src="{{ asset('brand/zwierzaki.webp') }}" alt="Pies i kot na ławce w ogrodzie" fetchpriority="high">
-                        <div class="portal-hero-copy">
-                            <h2>Życie ze zwierzętami</h2>
-                            <p>Porady dla opiekunów, historie adopcji i wiadomości ze świata zwierząt.</p>
-                            <a class="portal-button" href="{{ route('about-us.index') }}">Poznaj redakcję <span aria-hidden="true">↗</span></a>
-                        </div>
-                    </section>
-                @endif
+        <div class="home-columns">
+            <section aria-labelledby="home-featured">
+                <h1 class="home-heading" id="home-featured">Polecane</h1>
+                <article class="home-feature">
+                    <a href="{{ $featured ? $featured->getUrl() : route('about-us.index') }}" tabindex="-1" aria-hidden="true">
+                        <img src="{{ $featured?->image ? asset('storage/' . $featured->image->file_path) : asset('brand/zwierzaki.webp') }}" alt="" width="578" height="296" fetchpriority="high">
+                    </a>
+                    @if($featured)
+                        <a class="home-label home-label-feature" href="{{ route('categories.show', $featured->category->slug) }}">{{ $featured->category->name }}</a>
+                    @endif
+                    <h2><a href="{{ $featured ? $featured->getUrl() : route('about-us.index') }}">{{ $featured?->title ?? 'Życie ze zwierzętami' }}</a></h2>
+                    <p>{{ $featured?->bodyText(160) ?? 'Porady dla opiekunów, historie adopcji i wiadomości ze świata zwierząt.' }}</p>
+                </article>
             </section>
 
-            <aside class="portal-brief" aria-labelledby="portal-brief-heading">
-                <h2 class="portal-column-title" id="portal-brief-heading">Najnowsze</h2>
-                @if($latest->isNotEmpty())
-                    <ol>
-                        @foreach($latest as $story)
-                            <li>
-                                <a href="{{ $story->getUrl() }}" class="portal-latest-story">
-                                    <img src="{{ $story->image ? asset('storage/' . $story->image->file_path) : asset('brand/zwierzaki.webp') }}" alt="" width="72" height="64" loading="lazy">
-                                    <span><small>{{ $story->category->name }}</small>{{ $story->title }}</span>
-                                </a>
-                            </li>
-                        @endforeach
-                    </ol>
-                    <a class="portal-text-link" href="{{ route('home.latest') }}">Wszystkie artykuły <span aria-hidden="true">→</span></a>
-                @else
-                    <div class="portal-brief-empty">
-                        <span class="portal-kicker">Od redakcji</span>
-                        <h3>Pracujemy nad pierwszym wydaniem.</h3>
-                        <p>Znasz historię zwierzaka, którą warto opowiedzieć? Daj nam znać.</p>
-                        <a class="portal-text-link" href="{{ url('/contact-us') }}">Napisz do nas <span aria-hidden="true">→</span></a>
-                    </div>
-                @endif
-            </aside>
-
-            <aside class="portal-home-aside" aria-labelledby="portal-adoptions">
-                <h2 class="portal-column-title" id="portal-adoptions">Adopcje</h2>
-                <div class="portal-home-promo">
-                    @if($adoption?->image)
-                        <img src="{{ asset('storage/' . $adoption->image->file_path) }}" alt="{{ $adoption->image->alt_text }}" width="320" height="180" loading="lazy">
+            <section aria-labelledby="home-latest">
+                <h2 class="home-heading" id="home-latest">Najnowsze</h2>
+                <div class="home-latest">
+                    @if($latest->isNotEmpty())
+                        <ul>
+                            @foreach($latest as $story)
+                                <li>
+                                    <a href="{{ $story->getUrl() }}">
+                                        @if($loop->index < 3 && $story->image)
+                                            <img src="{{ asset('storage/' . $story->image->file_path) }}" alt="" width="74" height="67" loading="lazy">
+                                        @endif
+                                        <span><small>{{ $story->category->name }}</small>{{ $story->title }}</span>
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <p>Pierwsze wiadomości pojawią się tutaj po publikacji.</p>
                     @endif
-                    <h3>{{ $adoption?->title ?? 'Szukają domu' }}</h3>
-                    @unless($adoption)
-                        <p>Psy i koty do adopcji</p>
-                    @endunless
-                    <a class="portal-button" href="{{ $adoption?->getUrl() ?? route('search.index', ['query' => 'Adopcje']) }}">{{ $adoption ? 'Przeczytaj artykuł' : 'Szukaj materiałów o adopcji' }}</a>
+                    <a class="home-section-link" href="{{ route('home.latest') }}">Wszystkie artykuły <span aria-hidden="true">→</span></a>
                 </div>
-                @if($bulletin)
-                    <div class="portal-home-promo portal-bulletin">
-                        <h3>{{ $bulletin->title }}</h3>
-                        <a class="portal-text-link" href="{{ $bulletin->url() }}">Czytaj biuletyn <span aria-hidden="true">→</span></a>
+            </section>
+
+            <section aria-labelledby="home-adoptions">
+                <h2 class="home-heading" id="home-adoptions">Adopcje</h2>
+                <div class="home-side">
+                    <div class="home-adoption">
+                        @if($adoptions?->image)
+                            <img src="{{ asset('storage/' . $adoptions->image->file_path) }}" alt="{{ $adoptions->image->alt_text }}" width="258" height="155" loading="lazy">
+                        @endif
+                        <h3>Szukają domu</h3>
+                        <p>Psy i koty do adopcji</p>
+                        <a class="home-adoption-link" href="{{ $adoptionsUrl }}">{{ $adoptions ? 'Zobacz ogłoszenia' : 'Szukaj materiałów o adopcji' }}</a>
                     </div>
-                @endif
-            </aside>
+                    @if($bulletin)
+                        <div class="home-bulletin">
+                            @if($bulletin->image)
+                                <img src="{{ asset('storage/' . $bulletin->image->file_path) }}" alt="{{ $bulletin->image->alt_text }}" width="74" height="109" loading="lazy">
+                            @endif
+                            <div>
+                                <p class="home-bubble">Z papieru do sieci!</p>
+                                <h3>{{ $bulletin->title }}</h3>
+                                <a class="home-section-link" href="{{ $bulletin->url() }}">Czytaj biuletyn <span aria-hidden="true">→</span></a>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            </section>
         </div>
 
         @include('front::partials.portal-ads', ['placements' => $ads['first_section']])
         @if($guides->isNotEmpty())
-            <section class="portal-section" aria-labelledby="portal-stories">
-                <div class="portal-section-heading">
-                    <h2 id="portal-stories">Poradniki</h2>
-                    <a href="{{ route('categories.show', 'poradniki') }}">Wszystkie poradniki <span aria-hidden="true">↗</span></a>
+            <section class="home-guides" aria-labelledby="home-guides-heading">
+                <div class="home-guides-header">
+                    <h2 class="home-heading" id="home-guides-heading">Poradniki</h2>
+                    <a class="home-section-link" href="{{ route('categories.show', 'poradniki') }}">Wszystkie poradniki <span aria-hidden="true">→</span></a>
                 </div>
                 <div class="portal-cards">
                     @foreach($guides as $story)
-                        @include('front::partials.portal-card')
+                        @include('front::partials.portal-card', ['compact' => true])
                     @endforeach
                 </div>
             </section>
         @endif
         @include('front::partials.portal-ads', ['placements' => $ads['second_section']->concat($ads['third_section'])->concat($ads['fourth_section'])->concat($ads['first_sidebar'])->concat($ads['second_sidebar'])])
-        @include('front::partials.portal-newsletter')
     </div>
 @endsection

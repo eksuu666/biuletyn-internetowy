@@ -5,6 +5,7 @@ namespace Modules\Home\App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\View\View;
+use Modules\Category\App\Models\Category;
 use Modules\Home\App\Services\HomeService;
 use Modules\PageBuilder\App\Models\Page;
 use Modules\SEOManager\App\Services\Front\SEOService;
@@ -21,14 +22,15 @@ class HomeController extends Controller
         $featured = $this->homeService->baseQuery()->editorChoice()->first() ?? $latest->first();
         $latest = $latest->where('id', '!=', $featured?->id)->take(4);
         $guides = $this->homeService->baseQuery()
-            ->whereHas('category', fn ($query) => $query->where('slug', 'poradniki'))
+            ->whereHas('category', fn ($query) => $query->where('slug', 'poradniki')
+                ->orWhereHas('category', fn ($parent) => $parent->active()->where('slug', 'poradniki')))
             ->limit(3)->get();
-        $adoption = $this->homeService->baseQuery()
-            ->whereHas('category', fn ($query) => $query->where('slug', 'adopcje'))
-            ->first();
-        $bulletin = Page::query()->active()->where('slug', 'biuletyn')->first();
+        $homeCategories = Category::query()->active()->with('image')
+            ->whereIn('slug', ['adopcje', 'poradniki'])
+            ->get()->keyBy('slug');
+        $bulletin = Page::query()->active()->with('image')->where('slug', 'biuletyn')->first();
 
-        return view('home::index', compact('featured', 'latest', 'guides', 'adoption', 'bulletin'));
+        return view('home::index', compact('featured', 'latest', 'guides', 'homeCategories', 'bulletin'));
     }
 
     public function latest(): View

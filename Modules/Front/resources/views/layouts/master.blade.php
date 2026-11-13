@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ asset('home/css/portal.css') }}?v={{ filemtime(public_path('home/css/portal.css')) }}">
     @stack('styles')
 </head>
-<body class="news-portal">
+<body @class(['news-portal', 'slodziaki-home' => request()->routeIs('home.index')])>
     <a class="portal-skip" href="#main-content">Przejdź do treści</a>
     @include('front::partials.portal-header')
     <main id="main-content" class="portal-main">

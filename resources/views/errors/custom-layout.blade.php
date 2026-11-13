@@ -9,7 +9,7 @@
 </head>
 <body class="account-page">
     <header class="account-header">
-        <a href="{{ url('/') }}"><x-brand-logo/></a>
+        <a href="{{ url('/') }}"><x-public-wordmark illustrated/></a>
     </header>
     <main class="account-error">
         <p class="account-error-code">@yield('code')</p>

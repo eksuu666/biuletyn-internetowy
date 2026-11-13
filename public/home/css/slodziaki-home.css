@@ -1,0 +1,56 @@
+.slodziaki-home .portal-home { --accent: #513B7A; padding: 24px 0 42px; }
+.home-columns { display: grid; grid-template-columns: minmax(0,578fr) minmax(0,300fr) minmax(0,282fr); gap: 28px; position: relative; }
+.home-columns::before { content: ""; position: absolute; inset: 34px 0 auto; border-top: 1px solid var(--ink); }
+.home-columns > section { min-width: 0; }
+.slodziaki-home .home-heading {
+    display: flex; align-items: center; gap: 10px; margin: 0 0 23px;
+    font: 700 25px/27px "DM Sans", "Segoe UI", Arial, sans-serif; letter-spacing: 0;
+}
+.home-heading::before { content: ""; width: 5px; height: 22px; background: var(--coral); }
+#home-latest::before { background: #DAD0F4; }
+#home-adoptions::before, #home-guides-heading::before { background: var(--yellow); }
+.home-latest, .home-side { position: relative; min-height: 468px; }
+.home-latest::before, .home-side::before {
+    content: ""; position: absolute; top: 0; bottom: 0; left: -15px; border-left: 1px solid var(--line);
+}
+.home-feature > a:first-child { display: block; }
+.home-feature img { display: block; width: 100%; height: auto; aspect-ratio: 578 / 296; object-fit: cover; outline: 1px solid var(--ink); outline-offset: -1px; }
+.home-label { display: inline-block; text-transform: uppercase; font-size: 11px; font-weight: 700; line-height: 15px; letter-spacing: .02em; }
+.home-label-feature { background: var(--coral); border: 1px solid var(--ink); box-shadow: 2px 2px var(--ink); padding: 3px 8px; margin-top: 16px; }
+.slodziaki-home .home-feature h2 { font: 700 clamp(29px, 3vw, 36px)/1.08 var(--serif); letter-spacing: 0; max-width: 19ch; margin: 11px 0 5px; }
+.home-feature p { color: var(--muted); margin: 0; }
+.home-latest ul { list-style: none; padding: 0; margin: 0 0 25px; }
+.home-latest li { padding: 16px 0 12px; min-height: 96px; border-bottom: 1px solid var(--line); }
+.home-latest li:first-child { padding-top: 3px; min-height: 83px; }
+.home-latest li a { display: flex; gap: 12px; align-items: flex-start; font-weight: 700; line-height: 1.32; overflow-wrap: anywhere; }
+.home-latest li a span { max-width: 20ch; }
+.home-latest small { display: block; margin-bottom: 5px; color: #A83745; text-transform: uppercase; font-size: 11px; }
+.home-latest img { width: 74px; height: 67px; flex: none; object-fit: cover; }
+.home-adoption, .home-bulletin { border: 1px solid var(--ink); padding: 11px; }
+.home-adoption { background: var(--lavender); }
+.home-adoption img { display: block; width: 100%; height: auto; aspect-ratio: 258/155; object-fit: cover; }
+.slodziaki-home .home-adoption h3 { font-size: 23px; letter-spacing: 0; margin: 14px 0 4px; }
+.home-adoption p { color: var(--muted); font-size: 14px; margin: 0 0 10px; }
+.slodziaki-home .home-adoption-link { display: block; width: calc(100% - 8px); padding: 4px 6px; background: var(--yellow); border: 1px solid var(--ink); box-shadow: 3px 3px var(--ink); text-align: center; font-weight: 700; font-size: 13px; margin-bottom: 2px; }
+.home-bulletin { display: flex; align-items: center; gap: 10px; min-height: 152px; margin-top: 16px; background: white; }
+.home-bulletin img { flex: none; width: 74px; height: 109px; padding: 4px; border: 1px solid var(--line); object-fit: contain; }
+.home-bulletin > div { flex: 1; min-width: 0; }
+.slodziaki-home .home-bulletin h3 { font-size: 16px; letter-spacing: 0; margin: 17px 0 10px; }
+.home-bubble { position: relative; margin: 0; padding: 4px 9px; background: var(--coral); border: 1px solid var(--ink); box-shadow: 3px 3px var(--ink); font-size: 13px; text-align: center; font-weight: 700; }
+.home-bubble::after { content: ""; position: absolute; left: 10px; bottom: -7px; width: 10px; height: 10px; background: var(--coral); border-left: 1px solid var(--ink); border-bottom: 1px solid var(--ink); transform: skewY(-43deg); box-shadow: -2px 3px var(--ink); }
+.home-guides { border-top: 2px solid var(--ink); margin-top: 18px; padding-top: 14px; }
+.home-guides-header { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 18px; }
+.slodziaki-home .home-guides-header .home-heading { margin: 0; }
+.home-guides .portal-card { border-radius: 0; box-shadow: none; }
+.home-guides .portal-card-media img { aspect-ratio: 390/148; }
+.home-guides .portal-card-content { padding: 9px 12px 10px; }
+.home-guides .portal-kicker { display: inline-block; background: var(--lavender); color: var(--ink); padding: 3px 8px; font-size: 11px; }
+.slodziaki-home .home-guides .portal-card h3 { font-size: 19px; letter-spacing: 0; margin: 7px 0 0; }
+@media (max-width: 767px) {
+    .home-columns { grid-template-columns: minmax(0, 1fr); gap: 25px; }
+    .home-columns::before, .home-side::before, .home-latest::before { content: none; }
+    .slodziaki-home .home-heading { margin-bottom: 13px; }
+    .home-latest, .home-side { min-height: 0; }
+    .home-adoption img { max-height: 210px; }
+    .home-guides .portal-cards { grid-template-columns: minmax(0, 1fr); gap: 15px; }
+}
