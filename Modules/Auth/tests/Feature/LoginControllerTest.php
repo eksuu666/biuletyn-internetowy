@@ -46,7 +46,24 @@ class LoginControllerTest extends TestCase
             'password' => 'password2',
         ]);
 
-        $response->assertSessionHasErrors();
+        $response->assertRedirect(route('login'))
+            ->assertSessionHasErrors(['credentials' => __('auth::messages.login_failed')])
+            ->assertSessionHasInput('email', $user->email)
+            ->assertSessionMissing('_old_input.password');
+
+        $this->get(route('login'))->assertSee(__('auth::messages.login_failed'));
+
+        $this->assertGuest();
+    }
+
+    public function test_unknown_email_shows_the_same_login_error(): void
+    {
+        $this->from(route('home.index'))->post(route('login'), [
+            'email' => 'unknown@example.com',
+            'password' => 'wrong',
+        ])->assertRedirect(route('login'))
+            ->assertSessionHasErrors(['credentials' => __('auth::messages.login_failed')])
+            ->assertSessionHasInput('email', 'unknown@example.com');
 
         $this->assertGuest();
     }

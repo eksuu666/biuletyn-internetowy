@@ -4,7 +4,7 @@
     <h1 id="account-heading">Zaloguj się</h1>
     <p class="account-intro">Wejdź na swoje konto w sŁodziakach.</p>
 
-    <form class="account-form" action="{{ route('login') }}" method="post">
+    <form class="account-form" action="{{ route('login', [], false) }}" method="post">
         @csrf
         <label for="email">Adres e-mail</label>
         <input id="email" name="email" type="email" value="{{ old('email') }}" required autocomplete="username">

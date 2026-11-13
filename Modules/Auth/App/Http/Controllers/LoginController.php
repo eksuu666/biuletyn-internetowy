@@ -24,7 +24,9 @@ class LoginController extends Controller
 
             return to_route($request->user()->can('article::index') ? config('app.panel_prefix').'.articles.index' : 'home.index')->with('success', __('auth::messages.login_success'));
         } catch (FailedLoginException $e) {
-            return back()->withErrors($e->getMessage());
+            return to_route('login')
+                ->withErrors(['credentials' => $e->getMessage()])
+                ->withInput($request->only('email', 'remember-me'));
         }
     }
 }
