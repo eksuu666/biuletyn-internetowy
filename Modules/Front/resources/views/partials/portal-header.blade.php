@@ -26,33 +26,40 @@
     <div class="portal-nav">
         <div class="portal-wrap portal-nav-row">
             <nav aria-label="Główna nawigacja">
-                <a href="{{ route('home.latest') }}" @class(['is-current' => request()->routeIs('home.*')])>Najnowsze</a>
+                @php
+                    $activeTopic = trim($__env->yieldContent('portal-topic'));
+                    $latestActive = request()->routeIs('home.*');
+                    $aboutActive = request()->routeIs('about-us.index');
+                @endphp
+                <a href="{{ route('home.latest') }}" @class(['is-current' => $latestActive]) @if($latestActive) aria-current="{{ request()->routeIs('home.latest') ? 'page' : 'true' }}" @endif>Najnowsze</a>
                 @foreach(\Modules\Front\App\View\Composers\SharedDataComposer::PORTAL_TOPICS as $slug => $topic)
+                    @php
+                        $categoryPage = request()->routeIs('categories.show') && request()->route('category')->slug === $slug;
+                        $topicSearch = ! $portal_topics->has($slug) && request()->routeIs('search.index') && request('query') === $topic;
+                        $active = $categoryPage || $topicSearch || $activeTopic === $slug;
+                    @endphp
                     <a href="{{ $portal_topics->has($slug) ? route('categories.show', $slug) : route('search.index', ['query' => $topic]) }}"
-                        @class(['is-current' => request()->routeIs('categories.show') && request()->route('category')->slug === $slug])>{{ $topic }}</a>
+                        @class(['is-current' => $active]) @if($active) aria-current="{{ $categoryPage || $topicSearch ? 'page' : 'true' }}" @endif>{{ $topic }}</a>
                 @endforeach
-                <a href="{{ route('about-us.index') }}" @class(['is-current' => request()->routeIs('about-us.index')])>O redakcji</a>
-                @unless(request()->routeIs('home.index'))
-                    @foreach($main_nav['menus'] as $menu)
-                        @if($menu->isMainMenuWithChildren())
-                            <details class="portal-nav-menu">
-                                <summary>{{ $menu->getName() }}</summary>
-                                <div>
-                                    <a href="{{ $menu->getUrl() }}">{{ $menu->getName() }}</a>
-                                    @foreach($menu->children->filter('status') as $childMenu)
-                                        <a href="{{ $childMenu->getUrl() }}">{{ $childMenu->getName() }}</a>
-                                    @endforeach
-                                </div>
-                            </details>
-                        @elseif(! $menu->category || ! $portal_topics->has($menu->category->slug))
-                            <a href="{{ $menu->getUrl() }}">{{ $menu->getName() }}</a>
-                        @endif
-                    @endforeach
-                    <a href="{{ route('categories.index') }}" @class(['is-current' => request()->routeIs('categories.index')])>Wszystkie działy</a>
-                @endunless
+                <a href="{{ route('about-us.index') }}" @class(['is-current' => $aboutActive]) @if($aboutActive) aria-current="page" @endif>O redakcji</a>
+                @foreach($main_nav['menus'] as $menu)
+                    @if($menu->isMainMenuWithChildren())
+                        <details class="portal-nav-menu">
+                            <summary>{{ $menu->getName() }}</summary>
+                            <div>
+                                <a href="{{ $menu->getUrl() }}">{{ $menu->getName() }}</a>
+                                @foreach($menu->children->filter('status') as $childMenu)
+                                    <a href="{{ $childMenu->getUrl() }}">{{ $childMenu->getName() }}</a>
+                                @endforeach
+                            </div>
+                        </details>
+                    @elseif(! $menu->category || ! $portal_topics->has($menu->category->slug))
+                        <a href="{{ $menu->getUrl() }}">{{ $menu->getName() }}</a>
+                    @endif
+                @endforeach
             </nav>
             @if($bulletin_page)
-                <a class="portal-nav-bulletin" href="{{ $bulletin_page->url() }}">Biuletyn <span aria-hidden="true">→</span></a>
+                <a href="{{ $bulletin_page->url() }}" @class(['portal-nav-bulletin', 'is-current' => request()->routeIs('pages.show') && request()->route('page')->is($bulletin_page)]) @if(request()->routeIs('pages.show') && request()->route('page')->is($bulletin_page)) aria-current="page" @endif>Biuletyn <span aria-hidden="true">→</span></a>
             @endif
         </div>
     </div>

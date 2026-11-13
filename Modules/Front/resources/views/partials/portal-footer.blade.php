@@ -8,9 +8,7 @@
                 <p>Portal o zwierzętach i ich ludziach</p>
             </div>
             <nav aria-label="Stopka">
-                @unless(request()->routeIs('home.index'))
-                    <a href="{{ route('home.latest') }}">Najnowsze</a>
-                @endunless
+                <a href="{{ route('categories.index') }}" @if(request()->routeIs('categories.index')) aria-current="page" @endif>Wszystkie działy</a>
                 <a href="{{ route('about-us.index') }}">O redakcji</a>
                 <a href="{{ url('/contact-us') }}">Kontakt</a>
                 @if($bulletin_page)
@@ -18,9 +16,7 @@
                 @endif
                 <a href="{{ url('/feed') }}">RSS</a>
                 @guest
-                    @unless(request()->routeIs('home.index'))
-                        <a href="{{ route('register') }}">Załóż konto</a>
-                    @endunless
+                    <a href="{{ route('register') }}">Załóż konto</a>
                 @endguest
                 @auth
                     <form action="{{ route('logout') }}" method="post">@csrf<button type="submit">Wyloguj się</button></form>

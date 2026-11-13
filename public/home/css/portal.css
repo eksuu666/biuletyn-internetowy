@@ -353,7 +353,10 @@
 .portal-nav-row { min-height: 47px; }
 .portal-nav nav { flex-wrap: wrap; gap: 0; }
 .portal-nav nav > a { padding: 11px 24px 12px; border: 0; font-size: 15px; }
-.portal-nav nav > .is-current { background: var(--yellow); color: var(--ink); }
+.portal-nav nav > a:hover, .portal-nav-menu > summary:hover { background: #e6ddf5; }
+.portal-nav nav > .is-current, .portal-nav-bulletin.is-current { background: var(--yellow); color: var(--ink); }
+.portal-nav-bulletin { padding: 10px 12px; }
+.portal-footer nav [aria-current] { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
 .portal-nav-bulletin, .home-section-link { color: var(--accent); font-weight: 700; font-size: 14px; }
 .portal-nav-bulletin { flex: none; white-space: nowrap; }
 .home-section-link span, .portal-nav-bulletin span { padding-left: 9px; font-size: 19px; line-height: 0; }
@@ -387,9 +390,8 @@
     .portal-masthead-row { grid-template-columns: minmax(0, 1fr) auto; gap: 10px; padding-block: 14px; min-height: 0; }
     .portal-nav-row { flex-wrap: wrap; gap: 0 12px; }
     .portal-nav nav { flex-wrap: wrap; }
-    .slodziaki-home .portal-nav-row { overflow-x: auto; flex-wrap: nowrap; gap: 12px; }
-    .slodziaki-home .portal-nav nav { flex: none; flex-wrap: nowrap; }
-    .slodziaki-home .portal-nav-bulletin { padding-right: 12px; }
+    .portal-nav-row:not(:has(.portal-nav-menu)) { overflow-x: auto; flex-wrap: nowrap; gap: 12px; }
+    .portal-nav-row:not(:has(.portal-nav-menu)) nav { flex: none; flex-wrap: nowrap; }
     .news-portal .portal-account { min-width: 0; padding-inline: 8px; }
     .portal-footer-row { gap: 8px; }
 }

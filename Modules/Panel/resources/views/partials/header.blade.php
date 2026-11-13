@@ -2,7 +2,7 @@
 <div class="navbar navbar-fixed-top" id="main-navbar">
     <div class="header-right d-md-flex justify-content-center align-items-center">
         <a href="{{ route(config('app.panel_prefix', 'panel') . '.index') }}" class="editorial-brand" aria-label="sŁodziaki, panel redakcji">
-            <x-brand-logo :site="$siteDetails ?? null"/>
+            <x-public-wordmark/>
         </a>
     </div><!-- /.header-right -->
     <div class="header-left">

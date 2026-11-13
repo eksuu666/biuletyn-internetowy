@@ -1,5 +1,7 @@
 @extends('front::layouts.master')
 
+@section('portal-topic', $article->category->category?->slug ?? $article->category->slug)
+
 @section('content')
     <div class="portal-wrap portal-reading">
         <article>

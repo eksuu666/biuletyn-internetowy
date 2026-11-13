@@ -1,5 +1,7 @@
 @extends('front::article-list', ['heading' => $category->name])
 
+@section('portal-topic', $category->category?->slug ?? $category->slug)
+
 @section('list-intro')
     @if($subCategories->isNotEmpty())
         <nav class="portal-pills" aria-label="Poddziały">
