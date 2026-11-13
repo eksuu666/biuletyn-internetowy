@@ -33,8 +33,9 @@ class ProductionSeeder extends Seeder
             UserHelper::firstOrCreateAdminUser();
         }
 
-        foreach (Category::PORTAL_TOPICS as $slug => $name) {
-            $category = Category::query()->where('slug', $slug)->orWhere('name', $name);
+        $defaultCategories = Category::PORTAL_TOPICS + array_map(fn (array $format) => $format[0], Category::EDITORIAL_FORMATS);
+        foreach ($defaultCategories as $slug => $name) {
+            $category = Category::query()->where(fn ($query) => $query->where('slug', $slug)->orWhere('name', $name));
             if (! $category->exists()) {
                 Category::query()->firstOrCreate(['slug' => $slug], ['name' => $name, 'status' => true]);
             }

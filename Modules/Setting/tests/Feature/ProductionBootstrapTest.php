@@ -35,7 +35,7 @@ class ProductionBootstrapTest extends TestCase
         $this->assertSame('Własny opis redakcji', AboutUs::first()->content);
         $this->assertSame(1, User::count());
         $this->assertSame('Historie adopcji', Category::where('slug', 'adopcje')->firstOrFail()->name);
-        $this->assertSame(3, Category::active()->count());
+        $this->assertSame(3 + count(Category::EDITORIAL_FORMATS), Category::active()->count());
     }
 
     public function test_blank_admin_password_is_rejected(): void
@@ -53,6 +53,7 @@ class ProductionBootstrapTest extends TestCase
         $this->get('/up')->assertOk();
         $this->actingAs(User::getFirstAdmin())->get(route('panel.articles.create'))
             ->assertOk()->assertSeeText('Aktualności')->assertSeeText('Adopcje')
-            ->assertSeeText('Poradniki')->assertSeeText('Reportaże');
+            ->assertSeeText('Poradniki')->assertSeeText('Reportaże')
+            ->assertSeeText('Felietony')->assertSeeText('Bajki');
     }
 }

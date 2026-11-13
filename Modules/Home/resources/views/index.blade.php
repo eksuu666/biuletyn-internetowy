@@ -8,10 +8,11 @@
     @php
         $adoptions = $homeCategories->get('adopcje');
         $adoptionsUrl = $adoptions ? route('categories.show', $adoptions->slug) : route('search.index', ['query' => 'Adopcje']);
+        $formatLabel = \Modules\Category\App\Models\Category::EDITORIAL_FORMATS[$featured?->category->slug][1] ?? null;
         $featureLabel = match ($featured?->category->slug) {
             'reportaze', 'reportaz' => 'Reportaż',
             'aktualnosci' => __('article::types.' . $featured->type),
-            default => $featured?->category->name ?? 'Od redakcji',
+            default => $formatLabel ?? $featured?->category->name ?? 'Od redakcji',
         };
     @endphp
     <div class="portal-wrap portal-home">

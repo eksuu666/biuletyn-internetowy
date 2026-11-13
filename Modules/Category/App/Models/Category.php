@@ -29,6 +29,16 @@ class Category extends Model
         'reportaze' => 'Reportaże',
     ];
 
+    public const EDITORIAL_FORMATS = [
+        'felietony' => ['Felietony', 'Felieton'],
+        'bajki' => ['Bajki', 'Bajka'],
+        'wywiady' => ['Wywiady', 'Wywiad'],
+        'opowiadania' => ['Opowiadania', 'Opowiadanie'],
+        'recenzje' => ['Recenzje', 'Recenzja'],
+        'fotoreportaze' => ['Fotoreportaże', 'Fotoreportaż'],
+        'relacje' => ['Relacje', 'Relacja'],
+    ];
+
     protected $fillable = [
         'name',
         'slug',
