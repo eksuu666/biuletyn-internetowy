@@ -24,7 +24,7 @@
 .home-latest li:first-child { padding-top: 3px; min-height: 83px; }
 .home-latest li a { display: flex; gap: 12px; align-items: flex-start; font-weight: 700; line-height: 1.32; overflow-wrap: anywhere; }
 .home-latest li a span { max-width: 20ch; }
-.home-latest small { display: block; margin-bottom: 5px; color: #A83745; text-transform: uppercase; font-size: 11px; }
+.home-latest small { display: table; margin-bottom: 5px; padding: 1px 6px; background: var(--lavender); color: #84323d; text-transform: uppercase; font-size: 11px; }
 .home-latest img { width: 74px; height: 67px; flex: none; object-fit: cover; }
 .home-adoption, .home-bulletin { border: 1px solid var(--ink); padding: 11px; }
 .home-adoption { background: var(--lavender); }

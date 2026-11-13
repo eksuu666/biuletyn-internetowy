@@ -63,7 +63,7 @@
                                 <td>{{ $visitCounts['yearly'] }}</td>
                             </tr>
                             <tr>
-                                <td>Wszystkie odsłony</td>
+                                <td>Odsłony publiczne od zmiany licznika</td>
                                 <td>{{ $visitCounts['all'] }}</td>
                             </tr>
                             </tbody>

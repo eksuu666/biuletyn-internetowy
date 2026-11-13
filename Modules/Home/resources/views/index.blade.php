@@ -8,7 +8,11 @@
     @php
         $adoptions = $homeCategories->get('adopcje');
         $adoptionsUrl = $adoptions ? route('categories.show', $adoptions->slug) : route('search.index', ['query' => 'Adopcje']);
-        $guidesCategory = $homeCategories->get('poradniki');
+        $featureLabel = match ($featured?->category->slug) {
+            'reportaze', 'reportaz' => 'Reportaż',
+            'aktualnosci' => __('article::types.' . $featured->type),
+            default => $featured?->category->name ?? 'Od redakcji',
+        };
     @endphp
     <div class="portal-wrap portal-home">
         @include('front::partials.portal-ads', ['placements' => $ads['header']])
@@ -20,7 +24,9 @@
                         <img src="{{ $featured?->image ? asset('storage/' . $featured->image->file_path) : asset('brand/zwierzaki.webp') }}" alt="" width="578" height="296" fetchpriority="high">
                     </a>
                     @if($featured)
-                        <a class="home-label home-label-feature" href="{{ route('categories.show', $featured->category->slug) }}">{{ $featured->category->name }}</a>
+                        <a class="home-label home-label-feature" href="{{ route('categories.show', $featured->category->slug) }}">{{ $featureLabel }}</a>
+                    @else
+                        <span class="home-label home-label-feature">{{ $featureLabel }}</span>
                     @endif
                     <h2><a href="{{ $featured ? $featured->getUrl() : route('about-us.index') }}">{{ $featured?->title ?? 'Życie ze zwierzętami' }}</a></h2>
                     <p>{{ $featured?->bodyText(160) ?? 'Porady dla opiekunów, historie adopcji i wiadomości ze świata zwierząt.' }}</p>

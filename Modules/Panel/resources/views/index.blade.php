@@ -52,9 +52,9 @@
         Morris.Donut({
             element: 'site-visits-yearly',
             data: [
-                {value: {{ $visitsCount['yearly'] }}, label: 'Rok', formatted: '{{ $visitsCount['yearly'] }} odsłon'},
-                {value: {{ $visitsCount['monthly'] }}, label: 'Miesiąc', formatted: '{{ $visitsCount['monthly'] }} odsłon'},
-                {value: {{ $visitsCount['weekly'] }}, label: 'Tydzień', formatted: '{{ $visitsCount['weekly'] }} odsłon'},
+                {value: {{ $visitsCount['yearly'] - $visitsCount['monthly'] }}, label: 'Miesiąc–rok temu'},
+                {value: {{ $visitsCount['monthly'] - $visitsCount['weekly'] }}, label: 'Tydzień–miesiąc temu'},
+                {value: {{ $visitsCount['weekly'] }}, label: 'Ostatni tydzień'},
             ],
             colors: [
                 '#1e4572',
@@ -62,7 +62,7 @@
                 '#6da1f1',
             ],
             formatter: function (x, data) {
-                return data.formatted;
+                return x + ' odsłon';
             },
             resize: true
         });
@@ -70,9 +70,9 @@
         Morris.Donut({
             element: 'site-visits-daily',
             data: [
-                {value: {{ $visitsCount['daily'] }}, label: 'Dziś', formatted: '{{ $visitsCount['daily'] }} odsłon'},
-                {value: {{ $visitsCount['ten_hours'] }}, label: '10 godz.', formatted: '{{ $visitsCount['ten_hours'] }} odsłon'},
-                {value: {{ $visitsCount['hourly'] }}, label: '1 godz.', formatted: '{{ $visitsCount['hourly'] }} odsłon'},
+                {value: {{ $visitsCount['daily'] - $visitsCount['ten_hours'] }}, label: '10–24 godz. temu'},
+                {value: {{ $visitsCount['ten_hours'] - $visitsCount['hourly'] }}, label: '1–10 godz. temu'},
+                {value: {{ $visitsCount['hourly'] }}, label: 'Ostatnia godzina'},
             ],
             colors: [
                 '#ffc107',
@@ -80,7 +80,7 @@
                 '#d50000',
             ],
             formatter: function (x, data) {
-                return data.formatted;
+                return x + ' odsłon';
             },
             resize: true
         });

@@ -8,6 +8,7 @@ use Modules\AdManager\App\Models\Ad;
 use Modules\FileManager\App\Models\Video;
 use Modules\Role\App\Models\Role;
 use Modules\User\App\Models\User;
+use Modules\UserActivity\App\Models\RequestTrack;
 use Tests\TestCase;
 
 class PortalOperationsTest extends TestCase
@@ -56,5 +57,25 @@ class PortalOperationsTest extends TestCase
         $this->assertDatabaseMissing('user_tracks', ['id' => $old]);
         $this->assertDatabaseHas('request_tracks', ['url' => '/recent']);
         $this->assertSame($users, User::count());
+    }
+
+    public function test_page_views_exclude_health_checks_and_legacy_traffic(): void
+    {
+        $browser = ['User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'];
+        $this->get('/up', $browser)->assertOk();
+        $this->get('/login', $browser)->assertOk();
+        $this->head('/', $browser)->assertOk();
+        $this->get('/', ['User-Agent' => 'curl/8.0'])->assertOk();
+        $this->assertDatabaseCount('request_tracks', 0);
+
+        $this->get('/', $browser)->assertOk();
+        $view = RequestTrack::sole();
+        $this->assertSame(RequestTrack::PAGE_VIEW, $view->tag);
+        RequestTrack::create(['user_track_id' => $view->user_track_id, 'url' => '/up', 'tag' => 'front']);
+        $view->forceFill(['created_at' => now()->subHours(25)])->save();
+        $counts = RequestTrack::getVisitCounts();
+        $this->assertSame(1, $counts['all']);
+        $this->assertSame(0, $counts['daily']);
+        $this->assertSame(1, $counts['weekly']);
     }
 }

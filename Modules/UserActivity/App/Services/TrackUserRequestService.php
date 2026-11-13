@@ -8,6 +8,7 @@ use DeviceDetector\Parser\Device\AbstractDeviceParser;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Modules\UserActivity\App\Models\RequestTrack;
 use Modules\UserActivity\App\Models\UserTrack;
 
@@ -26,9 +27,9 @@ class TrackUserRequestService
     {
         RequestTrack::create([
             'user_track_id' => $this->getUserTracking()->id,
-            'url' => $request->fullUrl(),
-            'referer' => $request->header('referer'),
-            'tag' => $this->getTag($request),
+            'url' => Str::take($request->fullUrl(), 255),
+            'referer' => $request->hasHeader('referer') ? Str::take($request->header('referer'), 255) : null,
+            'tag' => RequestTrack::PAGE_VIEW,
         ]);
     }
 
@@ -84,15 +85,5 @@ class TrackUserRequestService
             ['user_id' => $userId, 'ip' => $currentIp],
             $deviceInfo
         );
-    }
-
-    /**
-     * Get the tag based on the request URL.
-     */
-    private function getTag(Request $request): string
-    {
-        $panelPrefix = config('app.panel_prefix', 'panel');
-
-        return $request->is("{$panelPrefix}*") ? $panelPrefix : 'front';
     }
 }

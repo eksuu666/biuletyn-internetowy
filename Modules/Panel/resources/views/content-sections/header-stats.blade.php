@@ -46,7 +46,7 @@
                     <a>
                         <div class="stat">
                             <div class="counter-down" data-value="{{ $visitsCount['all'] }}"></div>
-                            <div class="h3">Wszystkie odsłony</div>
+                            <div class="h3">Odsłony publiczne</div>
                         </div><!-- /.stat -->
                         <div class="visual">
                             <i class="icon-eye"></i>

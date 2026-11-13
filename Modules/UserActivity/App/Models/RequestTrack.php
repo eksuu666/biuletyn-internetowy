@@ -2,14 +2,16 @@
 
 namespace Modules\UserActivity\App\Models;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Carbon;
 use Laravel\Scout\Searchable;
 
 class RequestTrack extends Model
 {
     use Searchable;
+
+    public const PAGE_VIEW = 'page_view';
 
     protected $fillable = [
         'user_track_id',
@@ -20,27 +22,25 @@ class RequestTrack extends Model
 
     public static function getVisitCounts(): array
     {
-        $now = Carbon::now();
-
-        $hourCount = self::where('created_at', '>=', $now->subHour())->count();
-        $tenHoursCount = self::where('created_at', '>=', $now->subHours(10))->count();
-        $dayCount = self::where('created_at', '>=', $now->subDay())->count();
-
-        $weekCount = self::where('created_at', '>=', $now->subWeek())->count();
-        $monthCount = self::where('created_at', '>=', $now->subMonth())->count();
-        $yearCount = self::where('created_at', '>=', $now->subYear())->count();
-
-        $allCount = self::count();
-
-        return [
-            'hourly' => $hourCount,
-            'ten_hours' => $tenHoursCount,
-            'daily' => $dayCount,
-            'weekly' => $weekCount,
-            'monthly' => $monthCount,
-            'yearly' => $yearCount,
-            'all' => $allCount,
+        $now = CarbonImmutable::now();
+        $periods = [
+            'hourly' => $now->subHour(),
+            'ten_hours' => $now->subHours(10),
+            'daily' => $now->subDay(),
+            'weekly' => $now->subWeek(),
+            'monthly' => $now->subMonth(),
+            'yearly' => $now->subYear(),
         ];
+        $views = self::query()->toBase()->where('tag', self::PAGE_VIEW)->selectRaw('COUNT(*) AS total');
+        foreach ($periods as $period => $start) {
+            $views->selectRaw("COUNT(CASE WHEN created_at >= ? THEN 1 END) AS {$period}", [$start]);
+        }
+
+        $counts = (array) $views->first();
+        $counts['all'] = $counts['total'];
+        unset($counts['total']);
+
+        return array_map('intval', $counts);
     }
 
     public function toSearchableArray(): array
