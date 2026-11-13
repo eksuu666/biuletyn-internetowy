@@ -22,6 +22,13 @@ class Category extends Model
     use Searchable;
     use SEOAble;
 
+    public const PORTAL_TOPICS = [
+        'aktualnosci' => 'Aktualności',
+        'adopcje' => 'Adopcje',
+        'poradniki' => 'Poradniki',
+        'reportaze' => 'Reportaże',
+    ];
+
     protected $fillable = [
         'name',
         'slug',

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Cache;
+use Modules\Category\App\Models\Category;
 use Modules\ContactUs\App\Models\ContactInfo;
 use Modules\FileManager\App\Helpers\ImageHelper;
 use Modules\Role\Database\Seeders\PermissionSeeder;
@@ -30,6 +31,13 @@ class ProductionSeeder extends Seeder
 
         if (! User::getFirstAdmin()) {
             UserHelper::firstOrCreateAdminUser();
+        }
+
+        foreach (Category::PORTAL_TOPICS as $slug => $name) {
+            $category = Category::query()->where('slug', $slug)->orWhere('name', $name);
+            if (! $category->exists()) {
+                Category::query()->firstOrCreate(['slug' => $slug], ['name' => $name, 'status' => true]);
+            }
         }
 
         $siteDetails = SiteDetail::query()->first();

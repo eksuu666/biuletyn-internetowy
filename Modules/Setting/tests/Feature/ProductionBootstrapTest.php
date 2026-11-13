@@ -5,6 +5,7 @@ namespace Modules\Setting\tests\Feature;
 use Database\Seeders\ProductionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase;
+use Modules\Category\App\Models\Category;
 use Modules\ContactUs\App\Models\ContactInfo;
 use Modules\Setting\App\Models\AboutUs;
 use Modules\Setting\App\Models\SiteDetail;
@@ -27,11 +28,14 @@ class ProductionBootstrapTest extends TestCase
         SiteDetail::first()->update(['title' => 'Tytuł redakcji']);
         ContactInfo::first()->update(['email' => 'kontakt@example.test']);
         AboutUs::first()->update(['content' => 'Własny opis redakcji']);
+        Category::where('slug', 'adopcje')->update(['name' => 'Historie adopcji', 'status' => false]);
         $this->seed(ProductionSeeder::class);
         $this->assertSame('Tytuł redakcji', SiteDetail::first()->title);
         $this->assertSame('kontakt@example.test', ContactInfo::first()->email);
         $this->assertSame('Własny opis redakcji', AboutUs::first()->content);
         $this->assertSame(1, User::count());
+        $this->assertSame('Historie adopcji', Category::where('slug', 'adopcje')->firstOrFail()->name);
+        $this->assertSame(3, Category::active()->count());
     }
 
     public function test_blank_admin_password_is_rejected(): void
@@ -47,5 +51,8 @@ class ProductionBootstrapTest extends TestCase
         $this->get('/')->assertOk();
         $this->get('/contact-us')->assertOk();
         $this->get('/up')->assertOk();
+        $this->actingAs(User::getFirstAdmin())->get(route('panel.articles.create'))
+            ->assertOk()->assertSeeText('Aktualności')->assertSeeText('Adopcje')
+            ->assertSeeText('Poradniki')->assertSeeText('Reportaże');
     }
 }

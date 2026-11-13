@@ -33,7 +33,7 @@ class ArticleController extends Controller
 
     public function create(): View
     {
-        $categories = Category::query()->active()->latest()->get();
+        $categories = Category::query()->active()->orderBy('name')->get();
         $tags = Tag::query()->active()->latest()->get();
         $types = Article::TYPES;
 
@@ -51,7 +51,7 @@ class ArticleController extends Controller
     public function edit(Article $article): View
     {
         abort_unless(app(EditorialWorkflow::class)->canEdit(auth()->user(), $article), 403);
-        $categories = Category::query()->active()->latest()->get();
+        $categories = Category::query()->active()->orderBy('name')->get();
         $tags = Tag::query()->active()->latest()->get();
 
         return view('article::edit', compact(['categories', 'tags', 'article']));

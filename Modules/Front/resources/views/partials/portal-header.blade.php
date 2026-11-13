@@ -32,7 +32,7 @@
                     $aboutActive = request()->routeIs('about-us.index');
                 @endphp
                 <a href="{{ route('home.latest') }}" @class(['is-current' => $latestActive]) @if($latestActive) aria-current="{{ request()->routeIs('home.latest') ? 'page' : 'true' }}" @endif>Najnowsze</a>
-                @foreach(\Modules\Front\App\View\Composers\SharedDataComposer::PORTAL_TOPICS as $slug => $topic)
+                @foreach(\Modules\Category\App\Models\Category::PORTAL_TOPICS as $slug => $topic)
                     @php
                         $categoryPage = request()->routeIs('categories.show') && request()->route('category')->slug === $slug;
                         $topicSearch = ! $portal_topics->has($slug) && request()->routeIs('search.index') && request('query') === $topic;

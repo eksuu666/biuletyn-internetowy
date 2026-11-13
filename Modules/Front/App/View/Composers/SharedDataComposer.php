@@ -12,13 +12,6 @@ use Modules\Setting\App\Services\SocialNetworkService;
 
 class SharedDataComposer
 {
-    public const PORTAL_TOPICS = [
-        'aktualnosci' => 'Aktualności',
-        'adopcje' => 'Adopcje',
-        'poradniki' => 'Poradniki',
-        'reportaze' => 'Reportaże',
-    ];
-
     public function __construct(
         private readonly StaticContentService $staticContentService,
         private readonly SocialNetworkService $socialNetworkService,
@@ -30,7 +23,7 @@ class SharedDataComposer
             $view->with($this->staticContentService->composeViewData() + [
                 'site_details' => SiteDetail::with(['mainLogo', 'favicon'])->latest()->first(),
                 'portal_topics' => Category::query()->active()
-                    ->whereIn('slug', array_keys(self::PORTAL_TOPICS))->pluck('slug', 'slug'),
+                    ->whereIn('slug', array_keys(Category::PORTAL_TOPICS))->pluck('slug', 'slug'),
                 'bulletin_page' => Page::query()->active()->where('slug', 'biuletyn')->first(),
                 'social_networks' => $this->socialNetworkService->getSocialNetworksWithTag(SocialNetworkService::TAG),
             ]);
