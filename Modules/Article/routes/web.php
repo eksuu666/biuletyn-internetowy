@@ -24,10 +24,11 @@ Route::get('articles/{article:slug}', [FrontArticleController::class, 'show'])->
 Route::prefix('news/{article:slug}')
     ->controller(FrontArticleController::class)
     ->name('news.')
-    ->middleware(ProtectAgainstSpam::class)
+    ->middleware([ProtectAgainstSpam::class, 'throttle:30,1'])
     ->group(function () {
-        Route::patch('/like', 'like')->name('like');
-        Route::patch('/unlike', 'unlike')->name('unlike');
+        Route::patch('/reaction', 'react')->name('react')->block(10, 10);
+        Route::patch('/like', 'like')->name('like')->block(10, 10);
+        Route::patch('/unlike', 'unlike')->name('unlike')->block(10, 10);
     });
 
 Route::feeds();

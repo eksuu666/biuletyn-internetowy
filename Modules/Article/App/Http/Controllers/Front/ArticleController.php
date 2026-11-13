@@ -5,14 +5,20 @@ namespace Modules\Article\App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Modules\Article\App\Models\Article;
+use Modules\Article\App\Services\Front\ArticleReactionService;
 use Modules\Article\App\Services\Front\ShareService;
 use Modules\SEOManager\App\Services\Front\SEOService;
 
 class ArticleController extends Controller
 {
-    public function __construct(private readonly SEOService $seoService, private readonly ShareService $shareService) {}
+    public function __construct(
+        private readonly SEOService $seoService,
+        private readonly ShareService $shareService,
+        private readonly ArticleReactionService $reactions,
+    ) {}
 
     // For news
     public function showNews(Request $request, string $date, Article $article): View
@@ -33,21 +39,33 @@ class ArticleController extends Controller
         $related_articles = $article->relatedArticles();
         visits($article)->increment();
 
-        return view('front::single-article.show', compact(['article', 'shared_links', 'previous_article', 'next_article', 'related_articles']));
+        $reactions = $this->reactions->summary($article, $request);
+        $threads = $article->publicCommentThreads();
+
+        return view('front::single-article.show', compact('article', 'shared_links', 'previous_article', 'next_article', 'related_articles', 'reactions', 'threads'));
     }
 
-    public function like(Article $article): RedirectResponse
+    public function react(Request $request, Article $article): RedirectResponse
     {
         abort_unless($article->isPubliclyVisible(), 404);
-        $article->like();
+        $validated = $request->validate(['reaction' => ['present', 'nullable', 'string', Rule::in(array_keys(ArticleReactionService::OPTIONS))]]);
+        $this->reactions->set($article, $request, $validated['reaction']);
+
+        return redirect($article->getUrl().'#reactions');
+    }
+
+    public function like(Request $request, Article $article): RedirectResponse
+    {
+        abort_unless($article->isPubliclyVisible(), 404);
+        $this->reactions->set($article, $request, 'like');
 
         return redirect()->back()->with('success', __('article::messages.liked'));
     }
 
-    public function unlike(Article $article): RedirectResponse
+    public function unlike(Request $request, Article $article): RedirectResponse
     {
         abort_unless($article->isPubliclyVisible(), 404);
-        $article->unlike();
+        $this->reactions->set($article, $request, null);
 
         return redirect()->back()->with('success', __('article::messages.unliked'));
     }

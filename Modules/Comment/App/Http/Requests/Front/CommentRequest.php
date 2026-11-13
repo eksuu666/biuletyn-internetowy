@@ -9,6 +9,10 @@ use Modules\Article\App\Models\Article;
 
 class CommentRequest extends FormRequest
 {
+    public const MAX_LENGTH = 2000;
+
+    protected $errorBag = 'discussion';
+
     /**
      * Get the validation rules that apply to the request.
      */
@@ -24,7 +28,7 @@ class CommentRequest extends FormRequest
         $rules = [
             'commentable_type' => ['required', Rule::in([Article::class])],
             'commentable_id' => 'required|integer|min:1',
-            'comment' => 'required|string|max:700',
+            'comment' => 'required|string|max:'.self::MAX_LENGTH,
         ];
 
         return array_merge($guest_rules ?? [], $rules);
@@ -33,11 +37,11 @@ class CommentRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'guest_name' => __('comment::attributes.guest_name'),
-            'guest_email' => __('comment::attributes.guest_email'),
-            'commentable_type' => __('comment::attributes.commentable_type'),
-            'commentable_id' => __('comment::attributes.commentable_id'),
-            'comment' => __('comment::attributes.comment'),
+            'guest_name' => 'nazwa',
+            'guest_email' => 'adres e-mail',
+            'commentable_type' => 'typ publikacji',
+            'commentable_id' => 'publikacja',
+            'comment' => 'treść komentarza',
         ];
     }
 
@@ -47,5 +51,12 @@ class CommentRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
+    }
+
+    protected function getRedirectUrl(): string
+    {
+        $article = Article::publiclyVisible()->find($this->integer('commentable_id'));
+
+        return $article ? $article->getUrl().'#comments' : parent::getRedirectUrl();
     }
 }

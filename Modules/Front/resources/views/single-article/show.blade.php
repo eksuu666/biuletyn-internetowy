@@ -3,6 +3,7 @@
 @section('portal-topic', $article->category->category?->slug ?? $article->category->slug)
 
 @section('content')
+    @php($commentCount = $threads->sum(fn ($thread) => 1 + $thread['replies']->count()))
     <div class="portal-wrap portal-reading">
         <article>
             <header class="portal-story-heading">
@@ -37,16 +38,18 @@
                         </nav>
                     @endif
 
-                    <div class="portal-story-actions">
-                        <form action="{{ route($article->liked() ? 'news.unlike' : 'news.like', $article->slug) }}" method="post">
+                    <div class="portal-story-actions" id="reactions">
+                        <form class="portal-reactions" action="{{ route('news.react', $article->slug) }}" method="post" aria-label="Reakcje na artykuł">
                             @csrf
                             @method('patch')
-                            @honeypot
-                            <button class="portal-outline" type="submit" aria-pressed="{{ $article->liked() ? 'true' : 'false' }}">
-                                <span aria-hidden="true">♥</span> {{ $article->liked() ? 'Cofnij polubienie' : 'Polub' }} · {{ $article->likeCount }}
-                            </button>
+                            @foreach(\Modules\Article\App\Services\Front\ArticleReactionService::OPTIONS as $key => [$icon, $label])
+                                @php($selected = $reactions['selected'] === $key)
+                                <button type="submit" name="reaction" value="{{ $selected ? '' : $key }}" aria-pressed="{{ $selected ? 'true' : 'false' }}" aria-label="{{ $label }} ({{ $reactions['counts'][$key] ?? 0 }})" title="{{ $label }}">
+                                    <span aria-hidden="true">{{ $icon }}</span> {{ $reactions['counts'][$key] ?? 0 }}
+                                </button>
+                            @endforeach
                         </form>
-                        <a href="#comments">Komentarze ({{ $article->approvedComments->count() }})</a>
+                        <a href="#comments">Komentarze ({{ $commentCount }})</a>
                         @if(count($shared_links))
                             <details class="portal-share">
                                 <summary>Udostępnij</summary>
@@ -74,9 +77,8 @@
                         </nav>
                     @endif
 
-                    <section class="portal-comments" aria-label="Komentarze">
+                    <section id="comments" class="portal-comments" aria-labelledby="discussion-heading">
                         @include('front::single-article.partials.comments-area')
-                        @include('front::single-article.partials.comment-form')
                     </section>
                 </div>
 
@@ -97,8 +99,3 @@
         </article>
     </div>
 @endsection
-
-@push('scripts')
-    <script src="{{ asset('home/js/jquery.js') }}" defer></script>
-    <script src="{{ asset('home/js/bootstrap.min.js') }}" defer></script>
-@endpush

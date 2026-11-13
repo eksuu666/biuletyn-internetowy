@@ -75,8 +75,8 @@
                         <img class="editorial-cover" src="{{ $article->image->url() }}" alt="{{ $article->image->alt_text }}">
                     @endif
                     <label for="article-image">{{ $editing ? 'Zmień zdjęcie' : 'Wybierz zdjęcie' }} @unless($editing)<span class="editorial-required">*</span>@endunless</label>
-                    <input id="article-image" class="form-control" name="image" type="file" accept="image/*" @required(!$editing)>
-                    <small>Maksymalnie 5 MB. Pola oznaczone * są wymagane.</small>
+                    <input id="article-image" class="form-control" name="image" type="file" accept="image/*" aria-describedby="article-image-help" @required(!$editing)>
+                    <small id="article-image-help">Najlepiej 1600 × 900 px (poziomo, 16:9), maksymalnie 5 MB. Trzymaj główny motyw blisko środka, bo miniatury przycinają krawędzie.</small>
                 </section>
             </div>
         </div>

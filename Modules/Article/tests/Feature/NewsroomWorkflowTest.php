@@ -114,17 +114,74 @@ class NewsroomWorkflowTest extends TestCase
         $this->get(route('panel.articles.edit', $article))->assertForbidden();
     }
 
-    public function test_comments_require_public_article_and_wait_for_moderation(): void
+    public function test_short_comments_and_replies_are_public_but_long_or_link_heavy_messages_wait(): void
     {
         $article = $this->article();
         $payload = ['commentable_type' => Article::class, 'commentable_id' => $article->id, 'comment' => 'Głos mieszkańca', 'guest_name' => 'Czytelnik', 'guest_email' => 'czytelnik@example.test'];
-        $this->post(route('comments.store'), $payload)->assertSessionHasNoErrors()->assertRedirect();
-        $this->assertSame(Comment::PENDING, Comment::firstOrFail()->status);
-        $this->get($article->getUrl())->assertDontSee('Głos mieszkańca');
+        $this->post(route('comments.store'), $payload)->assertRedirect($article->getUrl().'#comments');
+        $root = Comment::firstOrFail();
+        $this->assertSame(Comment::APPROVED, $root->status);
+        $this->post(route('comments.reply', $root), array_replace($payload, ['comment' => 'Odpowiedź czytelnika']))->assertRedirect($article->getUrl().'#comments');
+        $reply = $root->children()->firstOrFail();
+        $this->assertSame(Comment::APPROVED, $reply->status);
+        $this->post(route('comments.reply', $reply), array_replace($payload, ['comment' => 'Odpowiedź na odpowiedź']))->assertRedirect();
+        $long = str_repeat('ą', 501);
+        $links = 'Czytaj https://example.test/a i https://example.test/b';
+        $this->post(route('comments.reply', $root), array_replace($payload, ['comment' => $long]))->assertSessionHas('discussion_status', 'Zapisano. Pojawi się po sprawdzeniu przez redakcję.');
+        $this->post(route('comments.store'), array_replace($payload, ['comment' => $links]))->assertRedirect();
+        $this->assertDatabaseHas('comments', ['comment' => $long, 'parent_id' => $root->id, 'status' => Comment::PENDING]);
+        $this->assertDatabaseHas('comments', ['comment' => $links, 'status' => Comment::PENDING]);
+        $this->get($article->getUrl())
+            ->assertSeeInOrder(['Głos mieszkańca', 'Odpowiedź czytelnika', 'Odpowiedź na odpowiedź'])
+            ->assertDontSee($long)->assertDontSee($links)->assertDontSee($payload['guest_email']);
+        $other = $this->article();
+        $this->post(route('comments.reply', $root), array_replace($payload, ['commentable_id' => $other->id]))->assertNotFound();
+        $this->postJson(route('comments.store'), array_replace($payload, ['comment' => str_repeat('a', 2001)]))->assertUnprocessable();
         $article->update(['status' => false]);
         $this->post(route('comments.store'), $payload)->assertNotFound();
         $payload['commentable_type'] = User::class;
         $this->postJson(route('comments.store'), $payload)->assertUnprocessable();
-        $this->assertSame(1, Comment::count());
+        $this->assertSame(5, Comment::count());
+        $article->update(['status' => true]);
+        $heldReply = $root->children()->pending()->firstOrFail();
+        $this->actingAs($this->admin)->patch(route(config('app.panel_prefix').'.comments.approve', $heldReply))->assertRedirect();
+        $this->get($article->getUrl())->assertSee($long);
+    }
+
+    public function test_comment_author_can_edit_and_delete_their_comment(): void
+    {
+        $article = $this->article();
+        $payload = ['commentable_type' => Article::class, 'commentable_id' => $article->id, 'comment' => 'Tekst autora'];
+        $this->actingAs($this->admin)->post(route('comments.store'), $payload)->assertRedirect();
+        $comment = Comment::firstOrFail();
+        $this->put(route('comments.update', $comment), array_replace($payload, ['comment' => 'Poprawiony komentarz']))->assertRedirect();
+        $this->get($article->getUrl())->assertSee('Poprawiony komentarz');
+        $this->delete(route('comments.destroy', $comment))->assertRedirect();
+        $this->get($article->getUrl())->assertDontSee('Poprawiony komentarz');
+    }
+
+    public function test_article_editor_shows_recommended_cover_size(): void
+    {
+        $this->actingAs($this->admin)->get(route(config('app.panel_prefix').'.articles.create'))
+            ->assertOk()->assertSee('1600 × 900 px');
+    }
+
+    public function test_article_reaction_can_be_added_changed_and_removed_and_preserves_old_likes(): void
+    {
+        $article = $this->article();
+        $article->like($this->admin->id);
+        $article->like();
+        $url = route('news.react', $article->slug);
+        $this->get($article->getUrl())->assertSee('Lubię to (2)');
+        $this->patch($url, ['reaction' => 'love'])->assertRedirect($article->getUrl().'#reactions');
+        $this->get($article->getUrl())->assertSee('Uwielbiam (1)')->assertSee('aria-pressed="true"', false);
+        $this->patch($url, ['reaction' => 'wow'])->assertRedirect();
+        $this->patch($url, ['reaction' => 'wow'])->assertRedirect();
+        $this->get($article->getUrl())->assertSee('Zaskoczyło mnie (1)')->assertSee('Uwielbiam (0)');
+        $this->assertSame(3, (int) $article->fresh()->likeCount);
+        $this->patchJson($url, ['reaction' => 'invalid'])->assertUnprocessable();
+        $this->patch($url, ['reaction' => ''])->assertRedirect();
+        $this->get($article->getUrl())->assertSee('Zaskoczyło mnie (0)')->assertSee('Lubię to (2)');
+        $this->assertSame(2, (int) $article->fresh()->likeCount);
     }
 }

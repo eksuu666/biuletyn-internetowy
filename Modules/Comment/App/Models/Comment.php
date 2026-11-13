@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Collection;
 use Laravel\Scout\Searchable;
 
 class Comment extends Model
@@ -42,18 +41,6 @@ class Comment extends Model
         'approved' => 'boolean',
         'guest_data' => 'array',
     ];
-
-    public static function getAllDescendants(Comment $comment): Collection
-    {
-        $descendants = collect();
-
-        foreach ($comment->approvedChildren as $child) {
-            $descendants->push($child);
-            $descendants = $descendants->merge(self::getAllDescendants($child));
-        }
-
-        return $descendants->sortBy('created_at');
-    }
 
     public function toSearchableArray(): array
     {
@@ -110,7 +97,7 @@ class Comment extends Model
 
     public function commenterName(): string
     {
-        return $this->isGuest() ? $this->getGuestName() : $this->commenter->full_name;
+        return $this->isGuest() ? $this->getGuestName() : ($this->commenter?->full_name ?? 'Czytelnik');
     }
 
     public function isGuest(): bool
@@ -125,9 +112,7 @@ class Comment extends Model
 
     public function commenterImageLink(): string
     {
-        return $this->isGuest() ?
-            config('user.default_profile_picture.file_link') :
-            asset('storage/'.$this->commenter->image->file_path);
+        return $this->commenter?->avatarUrl() ?? asset('seeders/images/profile_picture.jpg');
     }
 
     public function getStatus(): string
