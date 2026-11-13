@@ -39,7 +39,6 @@
                         {{--                        @can('store', $imageClassName)--}}
                         {{--                            <a class="btn btn-sm btn-default btn-round bg-green text-white" rel="tooltip"--}}
                         {{--                               href="{{ route(config('app.panel_prefix', 'panel') . '.images.create') }}"--}}
-                        {{--                               aria-label="ایجاد تصویر‌ جدید" data-bs-original-title="ایجاد تصویر‌ جدید">--}}
                         {{--                                <i class="icon-plus d-flex justify-content-center align-items-center"></i>--}}
                         {{--                                <div class="paper-ripple">--}}
                         {{--                                    <div class="paper-ripple__background"></div>--}}
@@ -97,7 +96,7 @@
                                         <td>{{ $image->file_path }}</td>
                                         <td>{{ nullable_value($image->alt_text) }}</td>
                                         <td>{{ $image->user_full_name }}</td>
-                                        <td class="ltr text-right nowrap">{{ jalalian()->forge($image->created_at)->format(config('common.datetime_format')) }}</td>
+                                        <td class="ltr text-right nowrap">{{ panel_date_format($image->created_at) }}</td>
                                         @can('operations', $imageClassName)
                                             <td>
                                                 <div class="d-flex gap-2">

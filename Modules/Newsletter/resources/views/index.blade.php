@@ -53,7 +53,7 @@
                                 <tr>
                                     <td>{{ $newsletter->id }}</td>
                                     <td>{{ $newsletter->email }}</td>
-                                    <td class="ltr text-right subscribed-at">{{ jalalian()->forge($newsletter->subscribed_at)->format(config('common.datetime_format')) }}</td>
+                                    <td class="ltr text-right subscribed-at">{{ panel_date_format($newsletter->subscribed_at) }}</td>
                                     @can(config('permissions_list.NEWSLETTER_DESTROY'))
                                         <td>
                                             <div class="d-flex gap-2">

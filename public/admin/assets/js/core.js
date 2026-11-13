@@ -17,7 +17,7 @@
         // Check old IE browsers and show appropriate notice
         this.checkOldIE = function(){
             if ($.browser.msie && $.browser.version < 9) {
-               $("#page-content").prepend('<p class="alert alert-warning">مرورگر شما منسوخ و تاریخ گذشته است. از سایت  <a href="http://browsehappy.com/">browsehappy(مرور شاد اینترنت)</a> ، اقدام به به روز رسانی کنید</p>');
+               $("#page-content").prepend('<p class="alert alert-warning">Zaktualizuj przeglądarkę, aby korzystać z panelu redakcji.</p>');
             }
         };
 

@@ -88,7 +88,7 @@
 
     <!-- BEGIN PAGE JAVASCRIPT -->
     <script src="{{ asset('admin/assets/plugins/select2/dist/js/select2.full.min.js') }}"></script>
-    <script src="{{ asset('admin/assets/plugins/select2/dist/js/i18n/fa.js') }}"></script>
+    <script src="{{ asset('admin/assets/js/select2-pl.js') }}"></script>
     <script src="{{ asset('admin/assets/js/pages/select2.js') }}"></script>
     <!-- END PAGE JAVASCRIPT -->
 
@@ -113,7 +113,7 @@
         $("#main-form").validate();
 
         $(".select2.curve").select2({
-            rtl: true,
+            language: "pl",
             containerCssClass: "curve"
         });
     </script>

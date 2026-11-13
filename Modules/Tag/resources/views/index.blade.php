@@ -72,7 +72,7 @@
                                     <td>{{ $tag->id }}</td>
                                     <td>{{ $tag->name }}</td>
                                     <td>{{ $tag->slug }}</td>
-                                    <td class="ltr text-right nowrap">{{ jalalian()->forge($tag->created_at)->format(config('common.datetime_format')) }}</td>
+                                    <td class="ltr text-right nowrap">{{ panel_date_format($tag->created_at) }}</td>
                                     <td class="{{ status_class($tag->isHot()) }}">{{ status_message($tag->isHot()) }}</td>
                                     <td class="{{ status_class($tag->status) }}">{{ status_message($tag->status) }}</td>
                                     @canany([

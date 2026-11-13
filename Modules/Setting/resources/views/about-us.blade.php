@@ -71,7 +71,7 @@
 
 @push('scripts')
     <script src="{{ asset('admin/assets/plugins/ckeditor5-document-editor/ckeditor.js') }}"></script>
-    <script src="{{ asset('admin/assets/plugins/ckeditor5-document-editor/translations/fa.js') }}"></script>
+    <script src="{{ asset('admin/assets/plugins/ckeditor5-document-editor/translations/pl.js') }}"></script>
     <script src="{{ asset('admin/assets/js/pages/UploadAdapter.js') }}"></script>
     <script>
         function CustomUploadAdapterPlugin(editor) {
@@ -88,14 +88,10 @@
             DecoupledEditor
                 .create(document.querySelector('#editor'), {
                     extraPlugins: [CustomUploadAdapterPlugin],
-                    language: 'fa',
-                    direction: 'rtl',
-                    fontFamily: {
-                        'default': 'IranSans, Arial, sans-serif',
-                    },
+                    language: 'pl',
                 })
                 .then(editor => {
-                    editor.setData('{!! old('content', trim(json_encode($about?->content), '"')) !!}');
+                    editor.setData({{ Illuminate\Support\Js::from(old('content', $about?->content ?? '')) }});
                     editor.model.document.on('change:data', () => {
                         document.querySelector('input[name="content"]').value = editor.getData();
                     });
@@ -135,7 +131,7 @@
         }
 
         #toolbar-container * {
-            font-family: 'IranSans';
+            font-family: var(--brand-font);
         }
 
         #editor {

@@ -82,7 +82,7 @@
 
 @push('scripts')
     <script src="{{ asset('admin/assets/plugins/select2/dist/js/select2.full.min.js') }}"></script>
-    <script src="{{ asset('admin/assets/plugins/select2/dist/js/i18n/fa.js') }}"></script>
+    <script src="{{ asset('admin/assets/js/select2-pl.js') }}"></script>
     <script src="{{ asset('admin/assets/js/pages/select2.js') }}"></script>
 
     @include('common::partials.tinymce-scripts')

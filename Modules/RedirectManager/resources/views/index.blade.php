@@ -64,7 +64,7 @@
                                     <td>{{ $redirect->source_url }}</td>
                                     <td>{{ $redirect->destination_url }}</td>
                                     <td>{{ $redirect->status_code }}</td>
-                                    <td class="ltr text-right nowrap">{{ jalalian()->forge($redirect->created_at)->format(config('common.datetime_format')) }}</td>
+                                    <td class="ltr text-right nowrap">{{ panel_date_format($redirect->created_at) }}</td>
                                     <td class="{{ status_class($redirect->status) }}">{{ status_message($redirect->status) }}</td>
                                     @canany([
                                         config('permissions_list.REDIRECT_UPDATE', false),

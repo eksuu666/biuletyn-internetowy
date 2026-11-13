@@ -9,7 +9,7 @@
 <link href="{{ asset('admin/assets/plugins/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
 <link href="{{ asset('admin/assets/plugins/paper-ripple/dist/paper-ripple.min.css') }}" rel="stylesheet">
 <link href="{{ asset('admin/assets/plugins/iCheck/skins/square/_all.css') }}" rel="stylesheet">
-<link href="{{ asset('admin/assets/css/style.css') }}" rel="stylesheet">
-<link href="{{ asset('admin/assets/css/custom-styles.css') }}" rel="stylesheet">
+<link href="{{ asset('admin/assets/css/style.css') }}?v={{ filemtime(public_path('admin/assets/css/style.css')) }}" rel="stylesheet">
+<link href="{{ asset('admin/assets/css/custom-styles.css') }}?v={{ filemtime(public_path('admin/assets/css/custom-styles.css')) }}" rel="stylesheet">
 <link href="{{ asset('admin/assets/css/colors.css') }}" rel="stylesheet">
 <!-- END CSS -->

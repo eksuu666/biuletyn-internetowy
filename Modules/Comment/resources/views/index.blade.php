@@ -93,7 +93,7 @@
                                     <td class="{{ $comment->setStatusClass() }} status">{{ $comment->getStatus() }}</td>
                                     <td class="reply">{{ $comment->parent ? "{$comment->parent->commenterName()} (id: {$comment->parent->id})" : 'Nie' }}</td>
                                     <td>{{ $comment->commentable_type }}</td>
-                                    <td class="ltr text-right nowrap">{{ jalalian()->forge($comment->created_at)->format(config('common.datetime_format')) }}</td>
+                                    <td class="ltr text-right nowrap">{{ panel_date_format($comment->created_at) }}</td>
                                     @canany([
                                         config('permissions_list.COMMENT_APPROVE', false),
                                         config('permissions_list.COMMENT_REJECT', false),

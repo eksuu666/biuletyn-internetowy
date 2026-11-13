@@ -8,7 +8,7 @@
             {{ $slot }}
         </ul>
         <div class="breadcrumb-left">
-            {{ jalalian()->now()->format('l, d.m.Y') }}
+            {{ panel_date_format(now(), 'l, d.m.Y') }}
             <i class="icon-calendar"></i>
         </div><!-- /.breadcrumb-left -->
     </div><!-- /.breadcrumb-box -->

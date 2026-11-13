@@ -1,78 +1,12 @@
-/*-------------------------- Fonts Start -------------------------*/
-@font-face {
-    font-family: IranSansEn;
-    font-style: normal;
-    font-weight: normal;
-    src: url('../fonts/iransans/eot/IRANSansWeb(NoEn.html).eot');
-    src: url('../fonts/iransans/eot/IRANSansWeb(NoEn.html).eot?#iefix') format('embedded-opentype'),
-        url('../fonts/iransans/woff2/IRANSansWeb(NoEn.html).woff2') format('woff2'),
-        url('../fonts/iransans/woff/IRANSansWeb(NoEn.html).woff') format('woff'),
-        url('../fonts/iransans/ttf/IRANSansWeb(NoEn.html).ttf') format('truetype');
-}
-@font-face {
-    font-family: IranSansEn;
-    font-style: normal;
-    font-weight: bold;
-    src: url('../fonts/iransans/eot/IRANSansWeb(NoEn.html)_Bold.eot');
-    src: url('../fonts/iransans/eot/IRANSansWeb(NoEn.html)_Bold.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/iransans/woff2/IRANSansWeb(NoEn.html)_Bold.woff2') format('woff2'),
-        url('../fonts/iransans/woff/IRANSansWeb(NoEn.html)_Bold.woff') format('woff'),
-        url('../fonts/iransans/ttf/IRANSansWeb(NoEn.html)_Bold.ttf') format('truetype');
-}
-@font-face {
-    font-family: IranSansEn;
-    font-style: normal;
-    font-weight: 300;
-    src: url('../fonts/iransans/eot/IRANSansWeb(NoEn.html)_Light.eot');
-    src: url('../fonts/iransans/eot/IRANSansWeb(NoEn.html)_Light.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
-        url('../fonts/iransans/woff2/IRANSansWeb(NoEn.html)_Light.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
-        url('../fonts/iransans/woff/IRANSansWeb(NoEn.html)_Light.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
-        url('../fonts/iransans/ttf/IRANSansWeb(NoEn.html)_Light.ttf') format('truetype');
-}
-
-@font-face {
-    font-family: IranSans;
-    font-style: normal;
-    font-weight: normal;
-    src: url('../fonts/iransans-fanum/eot/IRANSansWeb(FaNum).eot');
-    src: url('../fonts/iransans-fanum/eot/IRANSansWeb(FaNum).eot?#iefix') format('embedded-opentype'),
-        url('../fonts/iransans-fanum/woff2/IRANSansWeb(FaNum).woff2') format('woff2'),
-        url('../fonts/iransans-fanum/woff/IRANSansWeb(FaNum).woff') format('woff'),
-        url('../fonts/iransans-fanum/ttf/IRANSansWeb(FaNum.html).ttf') format('truetype');
-}
-@font-face {
-    font-family: IranSans;
-    font-style: normal;
-    font-weight: bold;
-    src: url('../fonts/iransans-fanum/eot/IRANSansWeb(FaNum)_Bold.eot');
-    src: url('../fonts/iransans-fanum/eot/IRANSansWeb(FaNum)_Bold.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/iransans-fanum/woff2/IRANSansWeb(FaNum.html)_Bold.woff2') format('woff2'),
-        url('../fonts/iransans-fanum/woff/IRANSansWeb(FaNum.html)_Bold.woff') format('woff'),
-        url('../fonts/iransans-fanum/ttf/IRANSansWeb(FaNum.html)_Bold.ttf') format('truetype');
-}
-@font-face {
-    font-family: IranSans;
-    font-style: normal;
-    font-weight: lighter;
-    src: url('../fonts/iransans-fanum/eot/IRANSansWeb(FaNum)_Light.eot');
-    src: url('../fonts/iransans-fanum/eot/IRANSansWeb(FaNum)_Light.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/iransans-fanum/woff2/IRANSansWeb(FaNum)_Light.woff2') format('woff2'),
-        url('../fonts/iransans-fanum/woff/IRANSansWeb(FaNum)_Light.woff') format('woff'),
-        url('../fonts/iransans-fanum/ttf/IRANSansWeb(FaNum.html)_Light.ttf') format('truetype');
-}
-/*--------------------------- Fonts End --------------------------*/
-
-
-
 /*------------------------- General Start ------------------------*/
 input, select
 {
-    font-family: IranSans, tahoma;
+    font-family: var(--brand-font), tahoma;
 }
 ul{list-style:none;padding:0}
 ul li{padding-right:0}
 body{
-    font-family: IranSans, Tahoma;
+    font-family: var(--brand-font), Tahoma;
     font-size: 14px;
     text-align: justify;
     color: #777;
@@ -108,15 +42,14 @@ a:hover, a:focus {
 .pull-left{float:left}
 .pull-right{float:right}
 h1, h2, h3, h4, h5, h6{margin: 0px auto;}
-h1, .h1{font: 15pt IranSans}
-h2, .h2{font: 13pt IranSans}
-h3, .h3{font: 12pt IranSans}
-h4, .h4{font: 11pt IranSans}
-h5, .h5{font: 10pt IranSans}
-h6, .h6{font: 9pt IranSans}
+h1, .h1{font: 15pt var(--brand-font)}
+h2, .h2{font: 13pt var(--brand-font)}
+h3, .h3{font: 12pt var(--brand-font)}
+h4, .h4{font: 11pt var(--brand-font)}
+h5, .h5{font: 10pt var(--brand-font)}
+h6, .h6{font: 9pt var(--brand-font)}
 p{margin:0}
 .tahoma{font-family: tahoma !important}
-.iransans-en{font-family: IranSansEn !important}
 i{vertical-align: middle}
 .fluid{
     margin: 0;
@@ -1047,13 +980,13 @@ button.close{outline:none}
 .bs-tooltip-auto[x-placement^=right] .arrow,.bs-tooltip-left .arrow {left: 2px}
 .tooltip-inner{
     border-radius: 15px;
-    font: 10px IranSans;
+    font: 10px var(--brand-font);
     min-width: 50px;
 }
 .popover{
     min-width: 150px;
     border-radius: 0;
-    font-family: IranSans;
+    font-family: var(--brand-font);
 }
 .popover-title {
     border-radius: 0;
@@ -1478,11 +1411,11 @@ body.dark .select2-container--default .select2-search--inline .select2-search__f
 
 /*-------------------------- SiteDetail Start -------------------------*/
 .morris-chart *, .morris-hover.morris-default-style{
-    font-family: IranSans, Tahoma !important
+    font-family: var(--brand-font), Tahoma !important
 }
 .morris-chart svg{width:100% !important}
 .amcharts-chart-div * {
-    font-family: IranSans, Tahoma !important;
+    font-family: var(--brand-font), Tahoma !important;
 }
 .ammap-box{
     height: 500px;
@@ -1503,7 +1436,7 @@ body.dark .select2-container--default .select2-search--inline .select2-search__f
     text-align: center;
 }
 .knob, .knob-animate{
-    font-family: IranSans !important;
+    font-family: var(--brand-font) !important;
     font-size: 16px !important;
     outline: none;
 }
@@ -1543,7 +1476,7 @@ body.dark .select2-container--default .select2-search--inline .select2-search__f
     border: none !important;
     box-shadow: 0 0 30px 0 #dddddd !important;
     border-radius: 5px !important;
-    font: 13px "IranSansEn" !important;
+    font: 13px var(--brand-font) !important;
 }
 .datepicker-plot-area .datepicker-day-view .table-days td.selected span, .datepicker-plot-area .datepicker-month-view .month-item.selected{
     background-color: #4527a0 !important;
@@ -2391,7 +2324,7 @@ body.sidebar-extra .metismenu>li>a.dropdown-toggle:before {
     border-radius: 5px;
     font-size: 14px;
     cursor: pointer;
-    font-family: "IranSansEn";
+    font-family: var(--brand-font);
 }
 .icon-box .item:hover{
     background: #eee;
@@ -3235,7 +3168,7 @@ h1.page-error sup{
     text-transform: none;
 }
 .swal2-content, .swal2-buttonswrapper button {
-    font-family: IranSans;
+    font-family: var(--brand-font);
 }
 .swal2-buttonswrapper button {
     -webkit-border-radius: 25px !important;

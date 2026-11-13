@@ -3,7 +3,7 @@
 }
 
 .tox {
-    font-family: 'IranSans', Arial, sans-serif !important;
+    font-family: var(--brand-font, Arial), sans-serif !important;
 }
 
 .tox-textarea {

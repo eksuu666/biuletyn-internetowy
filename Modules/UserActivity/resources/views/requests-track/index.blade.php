@@ -59,7 +59,7 @@
                                     <td>{{ $requestTrack->url }}</td>
                                     <td>{{ nullable_value($requestTrack->referer) }}</td>
                                     <td>{{ nullable_value($requestTrack->tag) }}</td>
-                                    <td class="ltr text-right">{{ jalalian()->forge($requestTrack->created_at)->format(config('common.datetime_format')) }}</td>
+                                    <td class="ltr text-right">{{ panel_date_format($requestTrack->created_at) }}</td>
                                     @can('permissions_list.REQUEST_TRACKS_DESTROY')
                                         <td>
                                             <div class="d-flex gap-2">

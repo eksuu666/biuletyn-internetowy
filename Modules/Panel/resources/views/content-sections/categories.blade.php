@@ -55,7 +55,7 @@
                                 <td>{{ $category->name }}</td>
                                 <td>{{ $category->slug }}</td>
                                 <td>{{ $category->parentCategoryTitle() }}</td>
-                                <td class="nowrap">{{ jalalian()->forge($category->created_at)->format(config('common.datetime_format')) }}</td>
+                                <td class="nowrap">{{ panel_date_format($category->created_at) }}</td>
                                 <td class="{{ status_class($category->status) }}">{{ status_message($category->status) }}</td>
                                 @canany([
                                     config('permissions_list.CATEGORY_UPDATE'),

@@ -79,7 +79,7 @@
                                     <td>{{ $page->slug }}</td>
                                     <td>{{ $page->user?->full_name }}</td>
                                     <td class="{{ status_class($page->status) }}">{{ status_message($page->status) }}</td>
-                                    <td class="ltr text-right nowrap">{{ jalalian()->forge($page->created_at)->format(config('common.datetime_format')) }}</td>
+                                    <td class="ltr text-right nowrap">{{ panel_date_format($page->created_at) }}</td>
                                     @canany([
                                         config('permissions_list.PAGE_UPDATE'),
                                         config('permissions_list.PAGE_DESTROY'),

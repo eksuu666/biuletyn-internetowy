@@ -90,7 +90,7 @@
                                     <td>{{ nullable_value($userMessage->phone) }}</td>
                                     <td>{{ str($userMessage->message)->limit(30) }}</td>
                                     <td class="{{ status_class($userMessage->isSeen()) }}">{{ $userMessage->getSeenStatus() }}</td>
-                                    <td class="ltr text-right nowrap">{{ jalalian()->forge($userMessage->created_at)->format(config('common.datetime_format')) }}</td>
+                                    <td class="ltr text-right nowrap">{{ panel_date_format($userMessage->created_at) }}</td>
                                     <td>
                                         <div class="d-flex gap-2">
                                             <a class="btn btn-sm btn-info btn-icon round d-flex justify-content-center align-items-center"

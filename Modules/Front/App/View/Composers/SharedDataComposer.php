@@ -5,6 +5,7 @@ namespace Modules\Front\App\View\Composers;
 use Illuminate\View\View;
 use Modules\AdManager\App\Models\Ad;
 use Modules\Front\App\Services\StaticContentService;
+use Modules\PageBuilder\App\Models\Page;
 use Modules\Setting\App\Models\SiteDetail;
 use Modules\Setting\App\Services\SocialNetworkService;
 
@@ -20,6 +21,7 @@ class SharedDataComposer
         if ($view->name() === 'front::layouts.master') {
             $view->with($this->staticContentService->composeViewData() + [
                 'site_details' => SiteDetail::with(['mainLogo', 'favicon'])->latest()->first(),
+                'bulletin_page' => Page::query()->active()->where('slug', 'biuletyn')->first(),
                 'social_networks' => $this->socialNetworkService->getSocialNetworksWithTag(SocialNetworkService::TAG),
             ]);
 

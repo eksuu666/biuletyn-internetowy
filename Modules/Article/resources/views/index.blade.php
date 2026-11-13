@@ -89,8 +89,8 @@
                                     <td class="nowrap">{{ str(nullable_value($article->tagNames()))->limit(50) }}</td>
                                     <td>{{ $article->likeCount }}</td>
                                     <td>{{ __('article::types.' . $article->type) }}</td>
-                                    <td class="ltr text-right nowrap">{{ jalalian()->forge($article->published_at)->format(config('common.datetime_format')) }}</td>
-                                    <td class="ltr text-right nowrap">{{ jalalian()->forge($article->created_at)->format(config('common.datetime_format')) }}</td>
+                                    <td class="ltr text-right nowrap">{{ panel_date_format($article->published_at) }}</td>
+                                    <td class="ltr text-right nowrap">{{ panel_date_format($article->created_at) }}</td>
                                     <td class="{{ status_class($article->editor_choice) }}">{{ status_message($article->editor_choice) }}</td>
                                     <td class="{{ status_class($article->isHot()) }}">{{ status_message($article->isHot()) }}</td>
                                     <td>{{ \Modules\Article\App\Models\Article::WORKFLOW_LABELS[$article->workflow_state] }}{{ $article->workflow_state === 'published' && $article->published_at->isFuture() ? ' — zaplanowany' : '' }}</td>

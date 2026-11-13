@@ -1,8 +1,14 @@
 <header class="portal-header">
+    <div class="portal-utility">
+        <div class="portal-wrap portal-utility-row">
+            <span>Portal o zwierzętach i ich ludziach</span>
+            <a href="{{ url('/contact-us') }}">Kontakt</a>
+            <a href="{{ url('/feed') }}">RSS</a>
+        </div>
+    </div>
     <div class="portal-masthead">
         <div class="portal-wrap portal-masthead-row">
             <a class="portal-brand" href="{{ route('home.index') }}" aria-label="sŁodziaki, strona główna"><x-brand-logo :site="$site_details ?? null"/></a>
-            <p class="portal-masthead-caption">Portal o zwierzętach</p>
             <form class="portal-search" action="{{ route('search.index') }}" role="search">
                 <label class="sr-only" for="portal-search">Szukaj artykułów</label>
                 <input id="portal-search" name="query" type="search" maxlength="200" placeholder="Szukaj artykułów" value="{{ request()->routeIs('search.index') ? request('query', request('text')) : '' }}">
@@ -22,6 +28,12 @@
                 @foreach($main_nav['categories']->take(6) as $navCategory)
                     <a href="{{ route('categories.show', $navCategory->slug) }}" @class(['is-current' => request()->routeIs('categories.show') && request()->route('category')->is($navCategory)])>{{ $navCategory->name }}</a>
                 @endforeach
+                @foreach(['Adopcje', 'Poradniki', 'Reportaże'] as $topic)
+                    @unless($main_nav['categories']->take(6)->contains('slug', Str::slug($topic)))
+                        <a href="{{ route('search.index', ['query' => $topic]) }}">{{ $topic }}</a>
+                    @endunless
+                @endforeach
+                <a href="{{ route('about-us.index') }}" @class(['is-current' => request()->routeIs('about-us.index')])>O redakcji</a>
                 @foreach($main_nav['menus'] as $menu)
                     @if($menu->isMainMenuWithChildren())
                         <details class="portal-nav-menu">
@@ -38,8 +50,10 @@
                     @endif
                 @endforeach
                 <a href="{{ route('categories.index') }}" @class(['is-current' => request()->routeIs('categories.index')])>Wszystkie działy</a>
+                @if($bulletin_page)
+                    <a href="{{ $bulletin_page->url() }}">Biuletyn</a>
+                @endif
             </nav>
-            <time datetime="{{ now()->toDateString() }}">{{ now()->locale('pl')->translatedFormat('j F Y') }}</time>
         </div>
     </div>
 </header>

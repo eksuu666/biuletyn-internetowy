@@ -93,7 +93,7 @@
                                     <td class="nowrap">{{ __('menu-builder::types.' . $menu->type) }}</td>
                                     <td>{{ $menu->parentMenuName() }}</td>
                                     <td>{{ nullable_value($menu->category?->name) }}</td>
-                                    <td class="ltr text-right nowrap">{{ jalalian()->forge($menu->created_at)->format(config('common.datetime_format')) }}</td>
+                                    <td class="ltr text-right nowrap">{{ panel_date_format($menu->created_at) }}</td>
                                     <td class="{{ status_class($menu->status) }}">{{ status_message($menu->status) }}</td>
                                     @canany([
                                         config('permissions_list.MENU_UPDATE', false),

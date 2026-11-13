@@ -106,7 +106,7 @@
                                         <td class="ltr">{{ $video->video_size }}</td>
                                         <td>{{ $video->video_type }}</td>
                                         <td>{{ $video->user_full_name }}</td>
-                                        <td class="ltr text-right nowrap">{{ jalalian()->forge($video->created_at)->format(config('common.datetime_format')) }}</td>
+                                        <td class="ltr text-right nowrap">{{ panel_date_format($video->created_at) }}</td>
                                         {{--@can('operations', $videoClassName)--}}
                                         <td>
                                             <div class="d-flex gap-2">

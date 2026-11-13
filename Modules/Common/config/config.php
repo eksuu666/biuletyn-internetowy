@@ -2,7 +2,7 @@
 
 return [
     'name' => 'Common',
-    'datetime_format' => 'Y/m/d H:i:s',
+    'datetime_format' => 'd.m.Y, H:i',
     'front_date_format' => 'd.m.Y',
     'front_datetime_format' => 'd.m.Y, H:i',
     'default_image' => [

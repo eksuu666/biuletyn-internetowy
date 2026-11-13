@@ -64,8 +64,8 @@
                                 <td>{{ $article->category->name }}</td>
                                 <td class="nowrap">{{ str(nullable_value($article->tagNames()))->limit(50) }}</td>
                                 <td>{{ $article->likeCount }}</td>
-                                <td class="nowrap">{{ jalalian()->forge($article->published_at)->format(config('common.datetime_format')) }}</td>
-                                <td class="nowrap">{{ jalalian()->forge($article->created_at)->format(config('common.datetime_format')) }}</td>
+                                <td class="nowrap">{{ panel_date_format($article->published_at) }}</td>
+                                <td class="nowrap">{{ panel_date_format($article->created_at) }}</td>
                                 <td class="{{ status_class($article->editor_choice) }}">{{ status_message($article->editor_choice) }}</td>
                                 <td class="{{ status_class($article->isHot()) }}">{{ status_message($article->isHot()) }}</td>
                                 <td class="{{ status_class($article->status) }}">{{ status_message($article->status) }}</td>

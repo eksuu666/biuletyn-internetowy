@@ -39,7 +39,7 @@
                             </a>
                             <span class="float-end text-muted">
                             <i class="icon-clock"></i>
-                            <span class="rtl" style="display: inline-block">{{ jalalian()->forge($comment->created_at)->ago() }}</span>
+                            <span>{{ $comment->created_at->locale('pl')->diffForHumans() }}</span>
                         </span>
                             <p class="my-3 mx-5">
                                 <x-markdown class="my-2 mx-5">

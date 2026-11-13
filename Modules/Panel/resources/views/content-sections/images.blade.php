@@ -55,7 +55,7 @@
                                     <td>{{ $image->file_path }}</td>
                                     <td>{{ nullable_value($image->alt_text) }}</td>
                                     <td>{{ $image->user_full_name }}</td>
-                                    <td class="nowrap">{{ jalalian()->forge($image->created_at)->format(config('common.datetime_format')) }}</td>
+                                    <td class="nowrap">{{ panel_date_format($image->created_at) }}</td>
                                     @can('operations', $imageClassName)
                                         <td>
                                             <div class="d-flex gap-2">

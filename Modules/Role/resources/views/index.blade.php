@@ -59,10 +59,10 @@
                                     <td>{{ $role->id }}</td>
                                     <td>{{ $role->name }}</td>
                                     <td>{{ $role->local_name }}</td>
-                                    <td class="nowrap" title="{{ $role->getPermissionLocalNames()->implode('، ') }}">
-                                        {{ str($role->getPermissionLocalNames()->implode('، '))->limit() }}
+                                    <td class="nowrap" title="{{ $role->getPermissionLocalNames()->implode(', ') }}">
+                                        {{ str($role->getPermissionLocalNames()->implode(', '))->limit() }}
                                     </td>
-                                    <td class="ltr text-right nowrap">{{ jalalian()->forge($role->created_at)->format(config('common.datetime_format')) }}</td>
+                                    <td class="ltr text-right nowrap">{{ panel_date_format($role->created_at) }}</td>
                                     @canany([config('permissions_list.ROLE_UPDATE'), config('permissions_list.ROLE_DESTROY')])
                                         <td>
                                             <div class="d-flex gap-2">

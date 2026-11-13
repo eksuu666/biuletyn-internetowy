@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Carbon;
-use Modules\Common\App\Helpers\JalalianHelper;
 
 function active_menu($menu, $class = 'current'): string
 {
@@ -21,9 +20,16 @@ function active_menu($menu, $class = 'current'): string
     return '';
 }
 
-function jalalian(): JalalianHelper
+function panel_date_format($date, ?string $format = null): string
 {
-    return new JalalianHelper;
+    if ($date === null) {
+        return '–';
+    }
+
+    return Carbon::parse($date)
+        ->timezone(config('app.timezone'))
+        ->locale('pl')
+        ->translatedFormat($format ?? config('common.datetime_format'));
 }
 
 function status_class($status): string

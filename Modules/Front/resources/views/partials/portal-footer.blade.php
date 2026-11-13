@@ -9,6 +9,9 @@
                 <a href="{{ route('home.latest') }}">Najnowsze</a>
                 <a href="{{ route('about-us.index') }}">O redakcji</a>
                 <a href="{{ url('/contact-us') }}">Kontakt</a>
+                @if($bulletin_page)
+                    <a href="{{ $bulletin_page->url() }}">Biuletyn</a>
+                @endif
                 <a href="{{ url('/feed') }}">RSS</a>
                 @guest <a href="{{ route('register') }}">Załóż konto</a> @endguest
                 @auth
