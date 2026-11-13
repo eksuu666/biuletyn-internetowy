@@ -127,7 +127,8 @@ class NewsroomWorkflowTest extends TestCase
         $this->post(route('comments.reply', $reply), array_replace($payload, ['comment' => 'Odpowiedź na odpowiedź']))->assertRedirect();
         $long = str_repeat('ą', 501);
         $links = 'Czytaj https://example.test/a i https://example.test/b';
-        $this->post(route('comments.reply', $root), array_replace($payload, ['comment' => $long]))->assertSessionHas('discussion_status', 'Zapisano. Pojawi się po sprawdzeniu przez redakcję.');
+        $this->postJson(route('comments.reply', $root), array_replace($payload, ['comment' => $long]))
+            ->assertOk()->assertJsonPath('message', 'Czeka na moderację.')->assertJsonPath('count', 3)->assertJsonPath('commentId', null);
         $this->post(route('comments.store'), array_replace($payload, ['comment' => $links]))->assertRedirect();
         $this->assertDatabaseHas('comments', ['comment' => $long, 'parent_id' => $root->id, 'status' => Comment::PENDING]);
         $this->assertDatabaseHas('comments', ['comment' => $links, 'status' => Comment::PENDING]);
@@ -175,7 +176,8 @@ class NewsroomWorkflowTest extends TestCase
         $this->get($article->getUrl())->assertSee('Lubię to (2)');
         $this->patch($url, ['reaction' => 'love'])->assertRedirect($article->getUrl().'#reactions');
         $this->get($article->getUrl())->assertSee('Uwielbiam (1)')->assertSee('aria-pressed="true"', false);
-        $this->patch($url, ['reaction' => 'wow'])->assertRedirect();
+        $this->patchJson($url, ['reaction' => 'wow'])->assertOk()
+            ->assertJsonPath('selected', 'wow')->assertJsonPath('counts.wow', 1);
         $this->patch($url, ['reaction' => 'wow'])->assertRedirect();
         $this->get($article->getUrl())->assertSee('Zaskoczyło mnie (1)')->assertSee('Uwielbiam (0)');
         $this->assertSame(3, (int) $article->fresh()->likeCount);

@@ -19,8 +19,7 @@
     @endif
 
     <label for="text-{{ $formKey }}">{{ str_starts_with($formKey, 'reply-') ? 'Twoja odpowiedź' : 'Twój komentarz' }}</label>
-    <textarea id="text-{{ $formKey }}" name="comment" rows="3" required maxlength="{{ \Modules\Comment\App\Http\Requests\Front\CommentRequest::MAX_LENGTH }}" aria-describedby="help-{{ $formKey }}">{{ $submitted ? old('comment') : ($editingComment->comment ?? '') }}</textarea>
-    <small id="help-{{ $formKey }}">Do 2000 znaków. Wpisy powyżej 500 znaków lub z co najmniej dwoma linkami sprawdza redakcja.</small>
+    <textarea id="text-{{ $formKey }}" name="comment" rows="3" required maxlength="{{ \Modules\Comment\App\Http\Requests\Front\CommentRequest::MAX_LENGTH }}">{{ $submitted ? old('comment') : ($editingComment->comment ?? '') }}</textarea>
 
     @guest
         <div class="discussion-guest-fields">

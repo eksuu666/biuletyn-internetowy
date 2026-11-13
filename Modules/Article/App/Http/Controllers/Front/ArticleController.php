@@ -3,6 +3,7 @@
 namespace Modules\Article\App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -45,11 +46,18 @@ class ArticleController extends Controller
         return view('front::single-article.show', compact('article', 'shared_links', 'previous_article', 'next_article', 'related_articles', 'reactions', 'threads'));
     }
 
-    public function react(Request $request, Article $article): RedirectResponse
+    public function react(Request $request, Article $article): RedirectResponse|JsonResponse
     {
         abort_unless($article->isPubliclyVisible(), 404);
         $validated = $request->validate(['reaction' => ['present', 'nullable', 'string', Rule::in(array_keys(ArticleReactionService::OPTIONS))]]);
         $this->reactions->set($article, $request, $validated['reaction']);
+
+        if ($request->expectsJson()) {
+            $summary = $this->reactions->summary($article, $request);
+            $summary['counts'] = (object) $summary['counts']->all();
+
+            return response()->json($summary);
+        }
 
         return redirect($article->getUrl().'#reactions');
     }

@@ -1,4 +1,4 @@
-<article class="discussion-comment" id="comment-{{ $comment->id }}" aria-labelledby="comment-author-{{ $comment->id }}">
+<article class="discussion-comment" id="comment-{{ $comment->id }}" tabindex="-1" aria-labelledby="comment-author-{{ $comment->id }}">
     <header class="discussion-meta">
         <img src="{{ $comment->commenterImageLink() }}" alt="" width="40" height="40" loading="lazy">
         <div>

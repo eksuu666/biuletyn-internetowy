@@ -44,12 +44,12 @@
                             @method('patch')
                             @foreach(\Modules\Article\App\Services\Front\ArticleReactionService::OPTIONS as $key => [$icon, $label])
                                 @php($selected = $reactions['selected'] === $key)
-                                <button type="submit" name="reaction" value="{{ $selected ? '' : $key }}" aria-pressed="{{ $selected ? 'true' : 'false' }}" aria-label="{{ $label }} ({{ $reactions['counts'][$key] ?? 0 }})" title="{{ $label }}">
-                                    <span aria-hidden="true">{{ $icon }}</span> {{ $reactions['counts'][$key] ?? 0 }}
+                                <button type="submit" name="reaction" value="{{ $selected ? '' : $key }}" data-reaction="{{ $key }}" aria-pressed="{{ $selected ? 'true' : 'false' }}" aria-label="{{ $label }} ({{ $reactions['counts'][$key] ?? 0 }})" title="{{ $label }}">
+                                    <span aria-hidden="true">{{ $icon }}</span> <span data-reaction-count>{{ $reactions['counts'][$key] ?? 0 }}</span>
                                 </button>
                             @endforeach
                         </form>
-                        <a href="#comments">Komentarze ({{ $commentCount }})</a>
+                        <a href="#comments">Komentarze (<span data-comment-count>{{ $commentCount }}</span>)</a>
                         @if(count($shared_links))
                             <details class="portal-share">
                                 <summary>Udostępnij</summary>
@@ -61,6 +61,7 @@
                             </details>
                         @endif
                     </div>
+                    <p class="portal-reaction-status" role="status" data-reaction-status></p>
 
                     @if($article->user)
                         @include('front::partials.portal-author', ['profile' => $article->user])
@@ -99,3 +100,7 @@
         </article>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('home/js/article-interactions.js') }}?v={{ filemtime(public_path('home/js/article-interactions.js')) }}" defer></script>
+@endpush
