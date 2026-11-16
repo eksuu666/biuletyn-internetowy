@@ -30,6 +30,10 @@ class CampaignController
 
     public function send(Campaign $campaign)
     {
+        if (config('mail.default') === 'log') {
+            throw ValidationException::withMessages(['newsletter' => 'Wysyłka jest niedostępna do czasu podłączenia poczty.']);
+        }
+
         DB::transaction(function () use ($campaign) {
             $campaign = Campaign::lockForUpdate()->findOrFail($campaign->id);
             abort_unless($campaign->status === 'draft', 409);

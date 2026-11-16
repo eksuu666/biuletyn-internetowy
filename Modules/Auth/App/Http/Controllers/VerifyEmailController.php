@@ -23,6 +23,10 @@ class VerifyEmailController extends Controller
 
     public function send(): RedirectResponse
     {
+        if (config('mail.default') === 'log') {
+            return to_route('verification.notice')->withErrors('Wysyłanie linku jest obecnie niedostępne.');
+        }
+
         auth()->user()->sendEmailVerificationNotification();
 
         return back()->with('success', __('auth::messages.email_verification_sent'));

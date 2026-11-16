@@ -22,5 +22,7 @@
         <button class="account-button" type="submit">Zaloguj się</button>
     </form>
 
-    <p class="account-switch">Nie masz konta? <a href="{{ route('register') }}">Załóż konto</a></p>
+    @if(config('mail.default') !== 'log')
+        <p class="account-switch">Nie masz konta? <a href="{{ route('register') }}">Załóż konto</a></p>
+    @endif
 @endsection

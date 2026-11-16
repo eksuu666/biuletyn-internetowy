@@ -4,6 +4,9 @@
     <h1>Newsletter — wydania i wysyłka</h1>
     <p>Potwierdzeni odbiorcy: {{ $confirmedCount }}. Wysyłamy tylko do aktywnych, potwierdzonych subskrybentów.</p>
     <x-common-error-messages/>
+    @if(config('mail.default') === 'log')
+        <p class="alert alert-info">Wysyłka jest niedostępna do czasu podłączenia poczty.</p>
+    @endif
     <form action="{{ route(config('app.panel_prefix').'.campaigns.store') }}" method="POST" class="card p-3 mb-4">
         @csrf
         <label>Temat <input class="form-control" name="subject" maxlength="200" required value="{{ old('subject') }}"></label>
@@ -15,7 +18,7 @@
             <summary>{{ $campaign->subject }} · {{ ['draft'=>'Szkic','queued'=>'W kolejce','sent'=>'Wysłane','failed'=>'Błędy wysyłki'][$campaign->status] }}</summary>
             <pre style="white-space:pre-wrap">{{ $campaign->body }}</pre>
             @foreach($deliveryCounts->get($campaign->id, collect()) as $count)<span>{{ $count->status }}: {{ $count->total }}</span> @endforeach
-            @if($campaign->status === 'draft')
+            @if($campaign->status === 'draft' && config('mail.default') !== 'log')
                 <form action="{{ route(config('app.panel_prefix').'.campaigns.send', $campaign) }}" method="POST">@csrf<button class="btn btn-success mt-2">Wyślij to wydanie do potwierdzonych odbiorców</button></form>
             @endif
         </details>

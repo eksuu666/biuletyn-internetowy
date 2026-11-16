@@ -35,26 +35,30 @@
                         </div>
                     @endif
 
-                    <form id="main-form" role="form" action="{{ route(config('app.panel_prefix', 'panel') . '.profile.email.update') }}" method="post">
-                        @csrf
-                        @method('PATCH')
-                        <x-common-error-messages/>
+                    @if(config('mail.default') === 'log')
+                        <p class="alert alert-info">Zmiana adresu e-mail jest obecnie niedostępna.</p>
+                    @else
+                        <form id="main-form" role="form" action="{{ route(config('app.panel_prefix', 'panel') . '.profile.email.update') }}" method="post">
+                            @csrf
+                            @method('PATCH')
+                            <x-common-error-messages/>
 
-                        <fieldset class="row justify-content-center">
-                            <div class="form-group col-lg-6">
-                                <label for="email">E-mail</label>
-                                <input id="email" class="form-control" name="email" type="email" required value="{{ old('email', $user->email) }}">
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-6 col-sm-offset-4 mx-auto">
-                                    <button class="btn btn-success btn-block">
-                                        <i class="icon-check"></i>
-                                        Zmień E-mail
-                                    </button>
+                            <fieldset class="row justify-content-center">
+                                <div class="form-group col-lg-6">
+                                    <label for="email">E-mail</label>
+                                    <input id="email" class="form-control" name="email" type="email" required value="{{ old('email', $user->email) }}">
                                 </div>
-                            </div>
-                        </fieldset>
-                    </form>
+                                <div class="form-group">
+                                    <div class="col-sm-6 col-sm-offset-4 mx-auto">
+                                        <button class="btn btn-success btn-block">
+                                            <i class="icon-check"></i>
+                                            Zmień E-mail
+                                        </button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    @endif
                 </div><!-- /.portlet-body -->
             </div><!-- /.portlet -->
         </div>

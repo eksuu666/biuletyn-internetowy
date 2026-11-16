@@ -20,6 +20,7 @@ Route::prefix(config('app.panel_prefix', 'panel').'/newsletters')
         Route::delete('/{newsletter}', 'destroy')->name('destroy');
     });
 
+Route::view('newsletter', 'newsletter::public-index')->name('newsletters.index');
 Route::post('newsletters/subscribe', [FrontNewsletterController::class, 'subscribe'])->middleware('throttle:5,1')->name('newsletters.subscribe');
 Route::get('newsletters/confirm/{newsletter}/{token}', [FrontNewsletterController::class, 'confirm'])->middleware('signed')->name('newsletters.confirm');
 Route::get('newsletters/unsubscribe/{newsletter}', [FrontNewsletterController::class, 'unsubscribeForm'])->middleware('signed')->name('newsletters.unsubscribe');

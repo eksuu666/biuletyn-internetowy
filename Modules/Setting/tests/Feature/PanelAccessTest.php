@@ -40,4 +40,17 @@ class PanelAccessTest extends TestCase
         $category = Category::where('slug', 'reportaze')->firstOrFail();
         $this->get(route('panel.categories.edit', $category))->assertOk()->assertSeeText('Brak zdjęcia');
     }
+
+    public function test_dashboard_redirects_readers_to_profile_and_editors_to_articles(): void
+    {
+        $reader = User::factory()->active()->create();
+        $reader->assignRole('Subscriber');
+        $this->actingAs($reader)->get(route('panel.index'))->assertRedirect(route('panel.profile.edit'));
+        $this->get(route('panel.profile.edit'))->assertOk();
+
+        $editor = User::factory()->active()->create();
+        $editor->assignRole('Editor');
+        $this->actingAs($editor)->get(route('panel.index'))->assertRedirect(route('panel.articles.index'));
+        $this->get(route('panel.articles.index'))->assertOk();
+    }
 }

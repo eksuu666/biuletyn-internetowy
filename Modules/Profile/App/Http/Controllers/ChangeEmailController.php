@@ -25,6 +25,11 @@ class ChangeEmailController extends Controller
 
     public function sendChangeEmailVerification(ChangeEmailRequest $request): RedirectResponse
     {
+        if (config('mail.default') === 'log') {
+            return to_route(config('app.panel_prefix').'.profile.email.change')
+                ->withErrors('Zmiana adresu e-mail jest obecnie niedostępna.');
+        }
+
         $this->changeEmailService->sendChangeEmailVerification($request);
 
         return to_route(config('app.panel_prefix', 'panel').'.profile.email.change')

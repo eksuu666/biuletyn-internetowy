@@ -15,6 +15,10 @@ class NewsletterController extends Controller
 {
     public function subscribe(NewsletterRequest $request): RedirectResponse
     {
+        if (config('mail.default') === 'log') {
+            return to_route('newsletters.index');
+        }
+
         $subscriber = Newsletter::firstOrCreate(['email' => strtolower($request->email)]);
         if (! $subscriber->confirmed_at || $subscriber->unsubscribed_at) {
             $token = Str::random(64);
@@ -22,7 +26,7 @@ class NewsletterController extends Controller
             Mail::to($subscriber->email)->queue(new ConfirmSubscription(URL::temporarySignedRoute('newsletters.confirm', now()->addDays(7), ['newsletter' => $subscriber->id, 'token' => $token])));
         }
 
-        return back()->with('success', 'Jeśli zapis wymaga potwierdzenia, wysłaliśmy wiadomość z dalszymi instrukcjami.');
+        return to_route('newsletters.index')->with('newsletter_status', 'Jeśli zapis wymaga potwierdzenia, wysłaliśmy wiadomość z dalszymi instrukcjami.');
     }
 
     public function confirm(Newsletter $newsletter, string $token)

@@ -1,5 +1,20 @@
 # Stan funkcjonalny sŁodziaka — 26 października 2026
 
+## Audyt produkcji — 16 listopada 2026
+
+- Sprawdzono odpowiedzi HTTP strony głównej, listy artykułów i kategorii,
+  wyszukiwania, logowania, RSS i mapy witryny oraz ponad 40 widoków panelu
+  na koncie administratora.
+- Kokpit administratora zawiera statystyki i dane z całej redakcji. Pozostali
+  trafiają z tego adresu do listy artykułów lub do swojego profilu, zależnie
+  od uprawnień.
+- Produkcja nadal używa tymczasowego adresu HTTPS, a poczta pozostaje w trybie
+  `log`. W tym trybie rejestracja, wysyłka związana z kontem i newsletterem
+  są wstrzymane. Publiczna strona newslettera odsyła do RSS.
+- Do publicznej wysyłki pozostaje podłączenie adresu nadawcy i test dostarczenia
+  wiadomości. Własna domena i zatwierdzenie danych wydawcy pozostają osobnymi
+  krokami przed docelowym uruchomieniem.
+
 ## Działający rdzeń
 
 - Laravel 13, PHP 8.4.27+, Nginx, MariaDB 11.4, Redis, worker i scheduler.
@@ -13,7 +28,8 @@
 - Artykuły z kategoriami, tagami, zdjęciami, wyróżnieniami i embargiem.
 - Prywatne i przyszłe publikacje nie trafiają do list, bezpośrednich adresów,
   wyszukiwania, rekomendacji, stron autorów, feedu ani mapy.
-- Moderacja komentarzy; poprawiony komentarz ponownie wymaga akceptacji.
+- Krótkie komentarze i odpowiedzi mogą pojawić się od razu; pozostałe trafiają
+  do moderacji. Reakcje i komentarze aktualizują się bez przeładowania strony.
 - Newsletter: zgoda, potwierdzenie adresu, kampanie w kolejce, podpisana rezygnacja.
 - Wideo: przesłanie pliku, odczyt długości przez FFmpeg, miniatura w kolejce,
   edycja bez ponownego przesyłania, uprawnienia do własnych plików i streaming HTTP.

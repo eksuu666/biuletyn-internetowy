@@ -39,6 +39,16 @@ class PasswordResetControllerTest extends TestCase
             ->assertSessionHas('success', __('auth::messages.password_link_sent_success'));
     }
 
+    public function test_password_reset_does_not_create_tokens_when_email_is_logged(): void
+    {
+        config(['mail.default' => 'log']);
+        $user = User::factory()->active()->create();
+        $this->get(route('password.request'))->assertOk()->assertDontSee('Wyślij link do zmiany hasła');
+        Password::shouldReceive('sendResetLink')->never();
+        $this->post(route('password.email'), ['email' => $user->email])
+            ->assertRedirect(route('password.request'))->assertSessionHasErrors();
+    }
+
     public function test_user_can_view_reset_password_form_with_valid_token_and_email(): void
     {
         $user = User::factory()->active()->create();

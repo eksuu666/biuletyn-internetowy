@@ -15,8 +15,11 @@
                     <a href="{{ $bulletin_page->url() }}">Biuletyn</a>
                 @endif
                 <a href="{{ url('/feed') }}">RSS</a>
+                <a href="{{ route('newsletters.index') }}">Newsletter</a>
                 @guest
-                    <a href="{{ route('register') }}">Załóż konto</a>
+                    @if(config('mail.default') !== 'log')
+                        <a href="{{ route('register') }}">Załóż konto</a>
+                    @endif
                 @endguest
                 @auth
                     <form action="{{ route('logout') }}" method="post">@csrf<button type="submit">Wyloguj się</button></form>

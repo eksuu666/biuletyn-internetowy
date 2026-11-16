@@ -20,6 +20,10 @@ class PasswordResetController extends Controller
 
     public function sendResetLink(SendEmailRequest $request): RedirectResponse
     {
+        if (config('mail.default') === 'log') {
+            return to_route('password.request')->withErrors('Odzyskiwanie hasła przez e-mail jest obecnie niedostępne.');
+        }
+
         $reset_link_sent = Password::sendResetLink($request->only('email'));
 
         return $reset_link_sent === Password::RESET_LINK_SENT ?

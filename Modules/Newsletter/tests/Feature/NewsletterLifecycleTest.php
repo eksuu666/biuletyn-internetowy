@@ -86,4 +86,16 @@ class NewsletterLifecycleTest extends TestCase
         $user->syncRoles('Editor');
         $this->actingAs($user)->get(route('panel.campaigns.index'))->assertForbidden();
     }
+
+    public function test_newsletter_page_offers_rss_when_mail_is_logged_and_does_not_accept_subscriptions(): void
+    {
+        config(['mail.default' => 'log']);
+        Mail::fake();
+
+        $this->get(route('newsletters.index'))->assertOk()->assertSee('Obserwuj przez RSS')->assertDontSee('Zapisz się');
+        $this->post(route('newsletters.subscribe'), ['email' => 'reader@example.test', 'consent' => 1])
+            ->assertRedirect(route('newsletters.index'));
+        $this->assertDatabaseCount('newsletters', 0);
+        Mail::assertNothingQueued();
+    }
 }
