@@ -19,7 +19,10 @@
         @include('front::partials.portal-ads', ['placements' => $ads['header']])
         <div class="home-columns">
             <section aria-labelledby="home-featured">
-                <h1 class="home-heading" id="home-featured">Polecane</h1>
+                <h1 class="home-heading" id="home-featured">
+                    <span class="home-section-icon" aria-hidden="true"><i class="fa fa-bookmark-o"></i></span>
+                    Polecane
+                </h1>
                 <article class="home-feature">
                     <a href="{{ $featured ? $featured->getUrl() : route('about-us.index') }}" tabindex="-1" aria-hidden="true">
                         <img src="{{ $featured?->image ? asset('storage/' . $featured->image->file_path) : asset('brand/zwierzaki.webp') }}" alt="" width="578" height="296" fetchpriority="high">
@@ -35,7 +38,10 @@
             </section>
 
             <section aria-labelledby="home-latest">
-                <h2 class="home-heading" id="home-latest">Najnowsze</h2>
+                <h2 class="home-heading" id="home-latest">
+                    <span class="home-section-icon" aria-hidden="true"><i class="fa fa-clock-o"></i></span>
+                    Najnowsze
+                </h2>
                 <div class="home-latest">
                     @if($latest->isNotEmpty())
                         <ul>
@@ -58,7 +64,10 @@
             </section>
 
             <section aria-labelledby="home-adoptions">
-                <h2 class="home-heading" id="home-adoptions">Adopcje</h2>
+                <h2 class="home-heading" id="home-adoptions">
+                    <span class="home-section-icon" aria-hidden="true"><i class="fa fa-paw"></i></span>
+                    Adopcje
+                </h2>
                 <div class="home-side">
                     <div class="home-adoption">
                         @if($adoptions?->image)
@@ -88,7 +97,10 @@
         @if($guides->isNotEmpty())
             <section class="home-guides" aria-labelledby="home-guides-heading">
                 <div class="home-guides-header">
-                    <h2 class="home-heading" id="home-guides-heading">Poradniki</h2>
+                    <h2 class="home-heading" id="home-guides-heading">
+                        <span class="home-section-icon" aria-hidden="true"><i class="fa fa-compass"></i></span>
+                        Poradniki
+                    </h2>
                     <a class="home-section-link" href="{{ route('categories.show', 'poradniki') }}">Wszystkie poradniki <span aria-hidden="true">→</span></a>
                 </div>
                 <div class="portal-cards">

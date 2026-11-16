@@ -1,14 +1,18 @@
 .slodziaki-home .portal-home { --accent: #513B7A; padding: 24px 0 42px; }
 .home-columns { display: grid; grid-template-columns: minmax(0,578fr) minmax(0,300fr) minmax(0,282fr); gap: 28px; position: relative; }
-.home-columns::before { content: ""; position: absolute; inset: 34px 0 auto; border-top: 1px solid var(--ink); }
+.home-columns::before { content: ""; position: absolute; inset: 37px 0 auto; border-top: 1px solid var(--line); }
 .home-columns > section { min-width: 0; }
 .slodziaki-home .home-heading {
-    display: flex; align-items: center; gap: 10px; margin: 0 0 23px;
-    font: 700 25px/27px "DM Sans", "Segoe UI", Arial, sans-serif; letter-spacing: 0;
+    display: flex; align-items: center; gap: 9px; margin: 0 0 20px;
+    font: 700 24px/30px var(--brand-font); letter-spacing: -.02em;
 }
-.home-heading::before { content: ""; width: 5px; height: 22px; background: var(--coral); }
-#home-latest::before { background: #DAD0F4; }
-#home-adoptions::before, #home-guides-heading::before { background: var(--yellow); }
+.home-section-icon {
+    display: inline-grid; place-items: center; flex: none;
+    width: 30px; height: 30px; border-radius: 8px;
+    color: var(--accent); background: var(--lavender); font-size: 16px;
+}
+#home-featured .home-section-icon { background: #ffebe5; color: #873e30; }
+#home-adoptions .home-section-icon { background: #fff1c8; color: #69501b; }
 .home-latest, .home-side { position: relative; min-height: 468px; }
 .home-latest::before, .home-side::before {
     content: ""; position: absolute; top: 0; bottom: 0; left: -15px; border-left: 1px solid var(--line);
