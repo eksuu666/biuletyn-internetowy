@@ -6,17 +6,16 @@
             <h1>Forum sŁodziaków</h1>
             <p>Wybierz dział, zadaj pytanie albo podziel się swoim doświadczeniem.</p>
         </header>
-        <ul class="forum-sections">
+        <ul class="forum-sections" aria-label="Działy forum">
             @foreach($sections as $slug => $section)
-                <li class="service-card">
+                <li>
                     <a href="{{ route('forum.sections.show', $slug) }}">
                         <img src="{{ asset('home/forum/'.$slug.'.webp') }}" width="640" height="360" alt="">
                         <div class="forum-section-copy">
                             <h2>{{ $section['name'] }}</h2>
-                            <p>{{ $section['intro'] }}</p>
-                            <span class="forum-topic-count">{{ trans_choice('{0} Brak tematów|{1} 1 temat|[2,4] :count tematy|[5,*] :count tematów', $counts[$slug] ?? 0) }}</span>
-                            <span class="forum-card-arrow" aria-hidden="true">→</span>
+                            <span class="forum-topic-count">{{ trans_choice('{0} Dołącz do działu|{1} 1 temat|[2,4] :count tematy|[5,*] :count tematów', $counts[$slug] ?? 0) }}</span>
                         </div>
+                        <span class="forum-card-arrow" aria-hidden="true">→</span>
                     </a>
                 </li>
             @endforeach
