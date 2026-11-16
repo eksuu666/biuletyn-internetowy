@@ -59,7 +59,10 @@
                     @else
                         <p>Pierwsze wiadomości pojawią się tutaj po publikacji.</p>
                     @endif
-                    <a class="home-section-link" href="{{ route('home.latest') }}">Wszystkie artykuły <span aria-hidden="true">→</span></a>
+                    <div class="home-latest-links">
+                        <a class="home-section-link" href="{{ route('home.latest') }}">Wszystkie artykuły <span aria-hidden="true">→</span></a>
+                        <a class="home-section-link" href="{{ route('home.popular') }}">Najczęściej czytane <span aria-hidden="true">→</span></a>
+                    </div>
                 </div>
             </section>
 

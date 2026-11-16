@@ -1,5 +1,5 @@
 @php
-    $portalActive = request()->routeIs('home.*', 'articles.show', 'news.show', 'categories.*', 'tags.*', 'search.index', 'author.index');
+    $portalActive = request()->routeIs('home.*', 'articles.show', 'news.show', 'categories.*', 'tags.*', 'search.index', 'author.index', 'saved.index');
     $aboutActive = request()->routeIs('about-us.index');
     $forumActive = request()->routeIs('forum.*');
 @endphp

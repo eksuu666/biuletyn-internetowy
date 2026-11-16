@@ -30,6 +30,7 @@
 .home-latest li a span { max-width: 20ch; }
 .home-latest small { display: table; margin-bottom: 5px; padding: 1px 6px; background: var(--lavender); color: #84323d; text-transform: uppercase; font-size: 11px; }
 .home-latest img { width: 74px; height: 67px; flex: none; object-fit: cover; border-radius: 6px; }
+.home-latest-links { display: grid; justify-items: start; gap: 6px; }
 .home-adoption, .home-bulletin { border: 1px solid var(--ink); padding: 11px; }
 .home-adoption { background: var(--lavender); }
 .home-adoption img { display: block; width: 100%; height: auto; aspect-ratio: 258/155; object-fit: cover; }

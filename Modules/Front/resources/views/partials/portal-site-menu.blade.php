@@ -2,6 +2,8 @@
     <section aria-labelledby="portal-menu-news">
         <h2 id="portal-menu-news">Portal</h2>
         <a href="{{ route('home.latest') }}" @if(request()->routeIs('home.latest')) aria-current="page" @endif>Najnowsze</a>
+        <a href="{{ route('home.popular') }}" @if(request()->routeIs('home.popular')) aria-current="page" @endif>Najczęściej czytane</a>
+        <a href="{{ route('saved.index') }}" @if(request()->routeIs('saved.index')) aria-current="page" @endif>Zapisane artykuły</a>
         <a href="{{ route('search.index') }}" @if(request()->routeIs('search.index')) aria-current="page" @endif>Szukaj w portalu</a>
         @if($bulletin_page)
             <a href="{{ $bulletin_page->url() }}">Biuletyn</a>

@@ -8,6 +8,7 @@
             @unless($__env->hasSection('list-heading'))
                 <h1>{{ $heading }}</h1>
             @endunless
+            @isset($intro)<p>{{ $intro }}</p>@endisset
             @yield('list-intro')
         </header>
 

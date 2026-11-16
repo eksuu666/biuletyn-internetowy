@@ -18,6 +18,9 @@
                     @endif
                     <time datetime="{{ $article->published_at->toAtomString() }}">{{ $article->published_at->locale('pl')->translatedFormat('j F Y, H:i') }}</time>
                     <a class="portal-story-discussion" href="#comments"><i class="fa fa-comment-o" aria-hidden="true"></i> Komentarze (<span data-comment-count>{{ $commentCount }}</span>)</a>
+                    <button class="portal-outline portal-save-article" type="button" data-save-article="{{ $article->id }}" aria-label="Zapisz na później" aria-pressed="false" hidden>
+                        <i class="fa fa-bookmark-o" aria-hidden="true"></i> <span>Zapisz na później</span>
+                    </button>
                 </div>
             </header>
 
@@ -102,5 +105,6 @@
 @endsection
 
 @push('scripts')
+    <script src="{{ asset('home/js/saved-articles.js') }}?v={{ filemtime(public_path('home/js/saved-articles.js')) }}" defer></script>
     <script src="{{ asset('home/js/article-interactions.js') }}?v={{ filemtime(public_path('home/js/article-interactions.js')) }}" defer></script>
 @endpush

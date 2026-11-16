@@ -13,6 +13,8 @@ use Modules\Category\App\Models\Category;
 use Modules\Comment\App\Models\Comment;
 use Modules\Tag\App\Models\Tag;
 use Modules\User\App\Models\User;
+use Modules\UserActivity\App\Models\RequestTrack;
+use Modules\UserActivity\App\Models\UserTrack;
 use Tests\CreatesApplication;
 
 class NewsroomWorkflowTest extends TestCase
@@ -69,6 +71,44 @@ class NewsroomWorkflowTest extends TestCase
         $this->get($article->getUrl())->assertNotFound();
         $this->travel(61)->minutes();
         $this->get($article->getUrl())->assertOk()->assertSee($article->title);
+    }
+
+    public function test_popular_articles_count_distinct_recent_readers_and_hide_private_articles(): void
+    {
+        $popular = $this->article(['title' => 'Najchętniej czytany tekst']);
+        $repeated = $this->article(['title' => 'Wielokrotne odsłony']);
+        $private = $this->article(['title' => 'Wycofany tekst', 'status' => false]);
+        $old = $this->article(['title' => 'Tekst bez aktualnych odsłon']);
+        $one = UserTrack::create(['ip' => '192.0.2.10']);
+        $two = UserTrack::create(['ip' => '192.0.2.20']);
+        foreach ([[$popular, $one], [$popular, $two], [$repeated, $one], [$repeated, $one], [$repeated, $one], [$private, $two], [$old, $one]] as [$article, $reader]) {
+            $track = RequestTrack::create([
+                'article_id' => $article->id, 'user_track_id' => $reader->id,
+                'tag' => RequestTrack::PAGE_VIEW, 'url' => $article->getUrl(),
+            ]);
+            if ($article->is($old)) {
+                $track->forceFill(['created_at' => now()->subDays(8)])->save();
+            }
+        }
+
+        $this->get(route('home.popular'))->assertOk()
+            ->assertSeeInOrder([$popular->title, $repeated->title])
+            ->assertDontSee($private->title)->assertDontSee($old->title);
+
+        $browser = ['User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'];
+        $this->get($old->getUrl(), $browser)->assertOk();
+        $this->assertSame(2, RequestTrack::where('article_id', $old->id)->count());
+    }
+
+    public function test_saved_list_only_resolves_public_articles(): void
+    {
+        $public = $this->article(['title' => 'Zapisany publiczny artykuł']);
+        $private = $this->article(['title' => 'Nieopublikowany artykuł', 'status' => false]);
+        $url = route('saved.data', ['ids' => [$public->id, $private->id]]);
+        $this->getJson($url)->assertOk()->assertJsonCount(1)
+            ->assertJsonPath('0.id', (string) $public->id)
+            ->assertJsonPath('0.url', $public->getUrl());
+        $this->getJson(route('saved.data', ['ids' => range(1, 51)]))->assertUnprocessable();
     }
 
     public function test_search_filters_and_sorts_public_results(): void

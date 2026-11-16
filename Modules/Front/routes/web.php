@@ -5,6 +5,7 @@ use Modules\Front\App\Http\Controllers\AboutUsController;
 use Modules\Front\App\Http\Controllers\AuthorController;
 use Modules\Front\App\Http\Controllers\CategoryController;
 use Modules\Front\App\Http\Controllers\ForumController;
+use Modules\Front\App\Http\Controllers\SavedArticlesController;
 use Modules\Front\App\Http\Controllers\SearchController;
 use Modules\Front\App\Http\Controllers\SitemapController;
 use Modules\Front\App\Http\Controllers\TagController;
@@ -23,6 +24,8 @@ Route::get('tags/{tag:slug}', [TagController::class, 'show'])->name('tags.show')
 
 Route::get('search', SearchController::class)->name('search.index');
 Route::get('pogoda', WeatherController::class)->name('weather.index');
+Route::get('zapisane', [SavedArticlesController::class, 'index'])->name('saved.index');
+Route::get('zapisane/dane', [SavedArticlesController::class, 'data'])->middleware('throttle:30,1')->name('saved.data');
 Route::prefix('forum')->name('forum.')->controller(ForumController::class)->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/temat/{topic}', 'show')->whereNumber('topic')->name('topics.show');

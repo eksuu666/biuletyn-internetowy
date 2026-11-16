@@ -46,4 +46,19 @@ class HomeController extends Controller
             'emptyMessage' => 'Pierwsze wiadomości pojawią się tutaj po publikacji.',
         ]);
     }
+
+    public function popular(): View
+    {
+        $heading = 'Najczęściej czytane';
+        SEOTools::setTitle($heading);
+        $articles = $this->homeService->popularQuery()->paginate(12);
+        SEOTools::setCanonical($articles->url($articles->currentPage()));
+
+        return view('front::article-list', [
+            'heading' => $heading,
+            'intro' => 'Z ostatnich 7 dni',
+            'articles' => $articles,
+            'emptyMessage' => 'Ranking pojawi się po zebraniu pierwszych odsłon.',
+        ]);
+    }
 }

@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Modules\Article\App\Models\Article;
 use Modules\UserActivity\App\Models\RequestTrack;
 use Modules\UserActivity\App\Models\UserTrack;
 
@@ -25,11 +26,13 @@ class TrackUserRequestService
      */
     public function createRequestTrack(Request $request): void
     {
+        $article = $request->routeIs('articles.show', 'news.show') ? $request->route('article') : null;
         RequestTrack::create([
             'user_track_id' => $this->getUserTracking()->id,
             'url' => Str::take($request->fullUrl(), 255),
             'referer' => $request->hasHeader('referer') ? Str::take($request->header('referer'), 255) : null,
             'tag' => RequestTrack::PAGE_VIEW,
+            'article_id' => $article instanceof Article ? $article->getKey() : null,
         ]);
     }
 

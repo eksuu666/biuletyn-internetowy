@@ -18,6 +18,7 @@ class RequestTrack extends Model
         'url',
         'referer',
         'tag',
+        'article_id',
     ];
 
     public static function getVisitCounts(): array
