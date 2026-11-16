@@ -1,10 +1,7 @@
 @extends('front::article-list', ['heading' => 'Wyniki wyszukiwania', 'emptyMessage' => 'Nie znaleziono wiadomości. Spróbuj wpisać inną frazę.'])
 
 @section('list-intro')
-    @if($searchText !== '')
-        <p>Fraza „{{ $searchText }}”</p>
-    @endif
-    <form class="portal-tools" action="{{ route('search.index') }}" aria-label="Filtry wyników">
+    <form class="portal-tools portal-search-filters service-card" action="{{ route('search.index') }}" aria-label="Filtry wyników">
         <label for="results-query">Fraza
             <input id="results-query" name="query" type="search" maxlength="200" value="{{ $searchText }}">
         </label>
@@ -30,10 +27,12 @@
                 <option value="oldest" @selected($sort === 'oldest')>Od najstarszych</option>
             </select>
         </label>
-        <button class="portal-button">Szukaj</button>
+        <button class="portal-button"><i class="fa fa-search" aria-hidden="true"></i> Szukaj</button>
+    </form>
+    <div class="portal-results-meta">
+        <p class="portal-search-total">Liczba wyników: <strong>{{ $articles->total() }}</strong></p>
         @if($category !== null || $days || $sort === 'oldest')
             <a href="{{ route('search.index', ['query' => $searchText]) }}">Wyczyść filtry</a>
         @endif
-    </form>
-    <p class="portal-search-total">Liczba wyników: {{ $articles->total() }}</p>
+    </div>
 @endsection

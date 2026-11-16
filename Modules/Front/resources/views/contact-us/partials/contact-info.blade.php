@@ -3,7 +3,7 @@
     @if($contact->address)
         <div class="contact-info-box">
             <div class="contact-info-box-content">
-                <h4>Adres redakcji</h4>
+                <h2>Adres redakcji</h2>
                 <p>{{ $contact->address }}</p>
             </div>
         </div>
@@ -12,8 +12,8 @@
     @if($contact->email)
         <div class="contact-info-box">
             <div class="contact-info-box-content">
-                <h4>Napisz do nas</h4>
-                <p>{{ $contact->email }}</p>
+                <h2>E-mail</h2>
+                <p><a class="portal-service-link" href="mailto:{{ $contact->email }}">{{ $contact->email }}</a></p>
             </div>
         </div>
     @endif
@@ -21,8 +21,8 @@
     @if($contact->phone)
         <div class="contact-info-box">
             <div class="contact-info-box-content">
-                <h4>Zadzwoń do nas</h4>
-                <p><span class="ltr_text">{{ $contact->phone }}</span></p>
+                <h2>Telefon</h2>
+                <p><a class="portal-service-link" href="tel:{{ preg_replace('/[^0-9+]/', '', $contact->phone) }}">{{ $contact->phone }}</a></p>
             </div>
         </div>
     @endif

@@ -34,7 +34,7 @@
                 <a href="{{ route('forum.index') }}" @class(['is-current' => $forumActive]) @if($forumActive) aria-current="page" @endif>Forum</a>
             </nav>
             <details class="portal-nav-menu" data-portal-menu>
-                <summary aria-controls="portal-site-menu"><i class="fa fa-bars" aria-hidden="true"></i> Menu</summary>
+                <summary aria-controls="portal-site-menu"><i class="fa fa-bars portal-menu-open" aria-hidden="true"></i><i class="fa fa-times portal-menu-close" aria-hidden="true"></i> Menu</summary>
                 @include('front::partials.portal-site-menu')
             </details>
         </div>

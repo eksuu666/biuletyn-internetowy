@@ -1,7 +1,7 @@
 @extends('front::layouts.master')
 
 @section('content')
-    <div class="portal-wrap portal-list">
+    <div @class(['portal-wrap', 'portal-list', 'portal-service' => request()->routeIs('search.index')])>
         <header class="portal-list-header">
             <a class="portal-back" href="{{ route('home.index') }}">← Strona główna</a>
             @yield('list-heading', '')

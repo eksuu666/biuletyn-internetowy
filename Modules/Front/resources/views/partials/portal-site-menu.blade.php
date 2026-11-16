@@ -29,9 +29,9 @@
 
     <section aria-labelledby="portal-menu-services">
         <h2 id="portal-menu-services">Przydatne</h2>
-        <a href="{{ route('weather.index') }}" @if(request()->routeIs('weather.index')) aria-current="page" @endif>Pogoda</a>
-        <a href="{{ route('contact-us.index') }}" @if(request()->routeIs('contact-us.index')) aria-current="page" @endif>Kontakt</a>
-        <a href="{{ route('newsletters.index') }}" @if(request()->routeIs('newsletters.index')) aria-current="page" @endif>Newsletter</a>
-        <a href="{{ url('/feed') }}">RSS</a>
+        <a href="{{ route('weather.index') }}" @if(request()->routeIs('weather.index')) aria-current="page" @endif><i class="fa fa-sun-o" aria-hidden="true"></i> Pogoda</a>
+        <a href="{{ route('contact-us.index') }}" @if(request()->routeIs('contact-us.index')) aria-current="page" @endif><i class="fa fa-envelope-o" aria-hidden="true"></i> Kontakt</a>
+        <a href="{{ route('newsletters.index') }}" @if(request()->routeIs('newsletters.index')) aria-current="page" @endif><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Newsletter</a>
+        <a href="{{ url('/feed') }}"><i class="fa fa-rss" aria-hidden="true"></i> RSS</a>
     </section>
 </nav>

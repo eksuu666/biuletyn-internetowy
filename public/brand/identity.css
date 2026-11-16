@@ -83,8 +83,9 @@
     margin: clamp(24px, 6vw, 68px) auto 0;
     overflow: hidden;
     border: 1px solid var(--public-line);
-    border-radius: 0;
+    border-radius: 12px;
     background: #fff;
+    box-shadow: 0 3px 12px #25233608;
 }
 .account-card { display: grid; place-items: center; padding: clamp(24px, 5vw, 56px); }
 .account-form-content { width: 100%; max-width: 380px; }
@@ -106,7 +107,7 @@
     padding: 11px 12px;
     margin-bottom: 8px;
     border: 1px solid var(--public-line);
-    border-radius: 0;
+    border-radius: 7px;
     background: #fff;
     color: inherit;
     font: inherit;
@@ -120,15 +121,15 @@
     align-items: center;
     justify-content: center;
     padding: 11px 17px;
-    border: 1px solid var(--public-ink);
-    box-shadow: 3px 3px var(--public-ink);
-    background: var(--public-yellow);
-    color: var(--public-ink);
+    border: 1px solid var(--public-accent);
+    border-radius: 7px;
+    background: var(--public-accent);
+    color: #fff;
     font: 700 15px/1.45 var(--brand-font);
     cursor: pointer;
 }
-.account-page a.account-button { color: var(--public-ink); text-decoration: none; }
-.account-button:hover { background: #ffda75; }
+.account-page a.account-button { color: #fff; text-decoration: none; }
+.account-button:hover { background: var(--public-accent-hover); }
 .account-switch { margin: 18px 0 0; color: var(--public-muted); font-size: 14px; }
 .account-link {
     border: 0;

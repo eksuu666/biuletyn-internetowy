@@ -82,7 +82,7 @@ class NewsroomWorkflowTest extends TestCase
 
         $this->get('/search?query=Spacer&category=lodz&days=7&sort=oldest')
             ->assertOk()->assertSeeInOrder(['Spacer wczorajszy', 'Spacer dzisiejszy'])
-            ->assertSee('Liczba wyników: 2')
+            ->assertSeeText('Liczba wyników: 2')
             ->assertDontSee('Spacer archiwalny')->assertDontSee('Spacer w innym dziale')->assertDontSee('Spacer planowany');
     }
 

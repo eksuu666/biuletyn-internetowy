@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('home/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/portal.css') }}?v={{ filemtime(public_path('home/css/portal.css')) }}">
+    <link rel="stylesheet" href="{{ asset('home/css/portal-services.css') }}?v={{ filemtime(public_path('home/css/portal-services.css')) }}">
     @stack('styles')
 </head>
 <body @class(['news-portal', 'slodziaki-home' => request()->routeIs('home.index')])>
