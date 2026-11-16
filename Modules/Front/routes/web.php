@@ -23,6 +23,22 @@ Route::get('tags/{tag:slug}', [TagController::class, 'show'])->name('tags.show')
 
 Route::get('search', SearchController::class)->name('search.index');
 Route::get('pogoda', WeatherController::class)->name('weather.index');
-Route::get('forum', ForumController::class)->name('forum.index');
+Route::prefix('forum')->name('forum.')->controller(ForumController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/temat/{topic}', 'show')->whereNumber('topic')->name('topics.show');
+    Route::get('/dzial/{section}', 'section')->name('sections.show');
+
+    Route::middleware(['auth', 'verified'])->group(function () {
+        Route::get('/dzial/{section}/nowy', 'create')->name('topics.create');
+        Route::post('/dzial/{section}/nowy', 'store')->middleware('throttle:6,1')->name('topics.store');
+        Route::get('/temat/{topic}/odpowiedz', 'replyForm')->whereNumber('topic')->name('topics.reply-form');
+        Route::post('/temat/{topic}/odpowiedz', 'reply')->whereNumber('topic')->middleware('throttle:12,1')->name('topics.reply');
+
+        Route::middleware('can:comment::reject')->group(function () {
+            Route::delete('/temat/{topic}', 'removeTopic')->whereNumber('topic')->name('topics.destroy');
+            Route::delete('/temat/{topic}/odpowiedz/{reply}', 'removeReply')->whereNumber(['topic', 'reply'])->name('replies.destroy');
+        });
+    });
+});
 
 Route::get('about-us', AboutUsController::class)->name('about-us.index');

@@ -22,7 +22,9 @@ class LoginController extends Controller
             $loginService->login($request);
             $request->session()->regenerate();
 
-            return to_route($request->user()->can('article::index') ? config('app.panel_prefix').'.articles.index' : 'home.index')->with('success', __('auth::messages.login_success'));
+            $destination = $request->user()->can('article::index') ? config('app.panel_prefix').'.articles.index' : 'home.index';
+
+            return redirect()->intended(route($destination))->with('success', __('auth::messages.login_success'));
         } catch (FailedLoginException $e) {
             return to_route('login')
                 ->withErrors(['credentials' => $e->getMessage()])

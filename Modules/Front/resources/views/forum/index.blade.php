@@ -1,32 +1,31 @@
 @extends('front::layouts.master')
 
 @section('content')
-    <div class="portal-wrap portal-list portal-service">
+    <div class="portal-wrap portal-list portal-service forum">
         <header class="portal-list-header">
-            <h1>Forum</h1>
-            <p>Dyskusje pod artykułami</p>
+            <h1>Forum sŁodziaków</h1>
+            <p>Wybierz dział, zadaj pytanie albo podziel się swoim doświadczeniem.</p>
         </header>
-
-        @if($articles->isNotEmpty())
-            <ul class="portal-forum-list service-card">
-                @foreach($articles as $story)
-                    <li>
-                        <span class="portal-service-icon" aria-hidden="true"><i class="fa fa-comments-o"></i></span>
-                        <div>
-                            <a class="portal-kicker" href="{{ route('categories.show', $story->category->slug) }}">{{ $story->category->name }}</a>
-                            <h2><a href="{{ $story->getUrl() }}#comments">{{ $story->title }} <span aria-hidden="true">→</span></a></h2>
+        <ul class="forum-sections">
+            @foreach($sections as $slug => $section)
+                <li class="service-card">
+                    <a href="{{ route('forum.sections.show', $slug) }}">
+                        <img src="{{ asset('home/forum/'.$slug.'.webp') }}" width="640" height="360" alt="">
+                        <div class="forum-section-copy">
+                            <h2>{{ $section['name'] }}</h2>
+                            <p>{{ $section['intro'] }}</p>
+                            <span class="forum-topic-count">{{ trans_choice('{0} Brak tematów|{1} 1 temat|[2,4] :count tematy|[5,*] :count tematów', $counts[$slug] ?? 0) }}</span>
+                            <span class="forum-card-arrow" aria-hidden="true">→</span>
                         </div>
-                    </li>
-                @endforeach
-            </ul>
-            <x-front-listing-page-pagination :paginator="$articles"/>
-        @else
-            <div class="service-card portal-service-empty">
-                <span class="portal-service-icon" aria-hidden="true"><i class="fa fa-comments-o"></i></span>
-                <h2>Nie ma jeszcze dyskusji</h2>
-                <p>Rozmowę możesz zacząć pod dowolnym artykułem.</p>
-                <a class="portal-button" href="{{ route('home.latest') }}">Najnowsze artykuły</a>
-            </div>
+                    </a>
+                </li>
+            @endforeach
+        </ul>
+        @if($latest->isNotEmpty())
+            <section class="forum-recent" aria-labelledby="forum-recent-heading">
+                <h2 id="forum-recent-heading">Ostatnio na forum</h2>
+                @include('front::forum.topic-list', ['topics' => $latest, 'showSection' => true])
+            </section>
         @endif
     </div>
 @endsection

@@ -1,7 +1,7 @@
 @php
     $portalActive = request()->routeIs('home.*', 'articles.show', 'news.show', 'categories.*', 'tags.*', 'search.index', 'author.index');
     $aboutActive = request()->routeIs('about-us.index');
-    $forumActive = request()->routeIs('forum.index');
+    $forumActive = request()->routeIs('forum.*');
 @endphp
 
 <header class="portal-header">
@@ -13,7 +13,7 @@
         <nav class="portal-primary-nav" aria-label="Główna nawigacja">
             <a href="{{ route('home.index') }}" @class(['is-current' => $portalActive]) @if($portalActive) aria-current="{{ request()->routeIs('home.index') ? 'page' : 'true' }}" @endif>Portal</a>
             <a href="{{ route('about-us.index') }}" @class(['is-current' => $aboutActive]) @if($aboutActive) aria-current="page" @endif>O redakcji</a>
-            <a href="{{ route('forum.index') }}" @class(['is-current' => $forumActive]) @if($forumActive) aria-current="page" @endif>Forum</a>
+            <a href="{{ route('forum.index') }}" @class(['is-current' => $forumActive]) @if($forumActive) aria-current="{{ request()->routeIs('forum.index') ? 'page' : 'true' }}" @endif>Forum</a>
         </nav>
 
         <form class="portal-search" action="{{ route('search.index') }}" role="search">
