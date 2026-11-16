@@ -6,6 +6,7 @@ use Database\Seeders\ProductionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Modules\Article\App\Models\Article;
 use Modules\Category\App\Models\Category;
@@ -68,6 +69,41 @@ class NewsroomWorkflowTest extends TestCase
         $this->get($article->getUrl())->assertNotFound();
         $this->travel(61)->minutes();
         $this->get($article->getUrl())->assertOk()->assertSee($article->title);
+    }
+
+    public function test_search_filters_and_sorts_public_results(): void
+    {
+        $other = Category::factory()->create(['slug' => 'inne', 'status' => true]);
+        $this->article(['title' => 'Spacer dzisiejszy']);
+        $this->article(['title' => 'Spacer wczorajszy', 'published_at' => now()->subDay()]);
+        $this->article(['title' => 'Spacer archiwalny', 'published_at' => now()->subDays(60)]);
+        $this->article(['title' => 'Spacer w innym dziale', 'category_id' => $other->id]);
+        $this->article(['title' => 'Spacer planowany', 'published_at' => now()->addDay()]);
+
+        $this->get('/search?query=Spacer&category=lodz&days=7&sort=oldest')
+            ->assertOk()->assertSeeInOrder(['Spacer wczorajszy', 'Spacer dzisiejszy'])
+            ->assertSee('Liczba wyników: 2')
+            ->assertDontSee('Spacer archiwalny')->assertDontSee('Spacer w innym dziale')->assertDontSee('Spacer planowany');
+    }
+
+    public function test_weather_selects_station_and_reuses_the_cached_measurements(): void
+    {
+        Http::fake(['https://danepubliczne.imgw.pl/api/data/synop' => Http::response([
+            ['stacja' => 'Łódź', 'temperatura' => '3.5'],
+            ['stacja' => 'Warszawa', 'temperatura' => '6.2'],
+        ])]);
+
+        $this->get('/pogoda')->assertOk()->assertSee('3,5 °C');
+        $this->get('/pogoda?miasto=warszawa')->assertOk()->assertSee('6,2 °C')->assertDontSee('3,5 °C');
+        Http::assertSentCount(1);
+    }
+
+    public function test_weather_keeps_forecast_link_when_measurements_are_unavailable(): void
+    {
+        Http::fake(['https://danepubliczne.imgw.pl/api/data/synop' => Http::response([], 503)]);
+
+        $this->get('/pogoda')->assertOk()->assertSee('Pomiary są chwilowo niedostępne.')
+            ->assertSee('Prognoza i ostrzeżenia IMGW');
     }
 
     public function test_inactive_category_and_withdrawn_news_disappear_immediately(): void

@@ -2,6 +2,7 @@
     <div class="portal-utility">
         <div class="portal-wrap portal-utility-row">
             <span>Portal o zwierzętach i ich ludziach</span>
+            <a href="{{ route('weather.index') }}" @if(request()->routeIs('weather.index')) aria-current="page" @endif>Pogoda</a>
             <a href="{{ url('/contact-us') }}">Kontakt</a>
             <a href="{{ url('/feed') }}">RSS</a>
         </div>
@@ -13,7 +14,7 @@
             </a>
             <form class="portal-search" action="{{ route('search.index') }}" role="search">
                 <label class="sr-only" for="portal-search">Szukaj artykułów</label>
-                <input id="portal-search" name="query" type="search" maxlength="200" placeholder="Szukaj artykułów" value="{{ request()->routeIs('search.index') ? request('query', request('text')) : '' }}">
+                <input id="portal-search" name="query" type="search" maxlength="200" placeholder="Szukaj artykułów" value="{{ $searchText ?? '' }}">
                 <button aria-label="Szukaj"><i class="fa fa-search" aria-hidden="true"></i></button>
             </form>
             @auth

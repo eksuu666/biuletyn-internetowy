@@ -7,6 +7,7 @@ use Modules\Front\App\Http\Controllers\CategoryController;
 use Modules\Front\App\Http\Controllers\SearchController;
 use Modules\Front\App\Http\Controllers\SitemapController;
 use Modules\Front\App\Http\Controllers\TagController;
+use Modules\Front\App\Http\Controllers\WeatherController;
 
 Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');
 Route::get('sitemaps/pages.xml', [SitemapController::class, 'pages'])->name('sitemap.pages');
@@ -20,5 +21,6 @@ Route::get('categories/{category:slug}', [CategoryController::class, 'show'])->n
 Route::get('tags/{tag:slug}', [TagController::class, 'show'])->name('tags.show');
 
 Route::get('search', SearchController::class)->name('search.index');
+Route::get('pogoda', WeatherController::class)->name('weather.index');
 
 Route::get('about-us', AboutUsController::class)->name('about-us.index');
