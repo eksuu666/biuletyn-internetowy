@@ -5,6 +5,13 @@
 - Sprawdzono odpowiedzi HTTP strony głównej, listy artykułów i kategorii,
   wyszukiwania, logowania, RSS i mapy witryny oraz ponad 40 widoków panelu
   na koncie administratora.
+- W Chrome przy szerokości 390 px sprawdzono dziewięć widoków publicznych.
+  Po załadowaniu arkuszy stylów żaden z nich nie przewijał całej strony w poziomie.
+- Zaktualizowano Laravel do 13.42.0 i pakiety Symfony w ramach 8.1. Po
+  aktualizacji audyt pliku `composer.lock` nie wykazał zgłoszonych podatności.
+- Codzienny timer kopii zapasowych działał, a najnowsza kopia podczas audytu
+  pochodziła z 16 listopada. W tym przebiegu sprawdzono wykonanie kopii,
+  bez ponownej próby jej odtworzenia.
 - Kokpit administratora zawiera statystyki i dane z całej redakcji. Pozostali
   trafiają z tego adresu do listy artykułów lub do swojego profilu, zależnie
   od uprawnień.
