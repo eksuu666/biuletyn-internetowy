@@ -41,25 +41,6 @@
 .portal-service-empty { text-align: center; padding-block: 40px; }
 .portal-service-empty p, .portal-weather-head p { color: var(--muted); }
 
-.portal-nav { border-bottom: 1px solid #cdc3e2; }
-.portal-nav-row > nav { gap: 4px; align-items: center; }
-.portal-nav-row > nav a, .portal-nav-menu > summary { border-radius: 7px; min-height: 36px; margin-block: 4px; }
-.portal-nav-menu > summary { border: 1px solid #d9cfea; }
-.portal-nav-menu > summary .portal-menu-close, .portal-nav-menu[open] > summary .portal-menu-open { display: none; }
-.portal-nav-menu[open] > summary .portal-menu-close { display: inline-block; }
-.portal-menu-panel {
-    top: calc(100% + 8px); width: min(720px, 100%);
-    border: 1px solid var(--line); border-radius: 12px;
-    box-shadow: 0 16px 36px #25233626;
-}
-.portal-menu-panel section { padding: clamp(9px, 2vw, 21px); }
-.portal-menu-panel section:last-child { background: #faf7ff; }
-.portal-menu-panel h2 { border-bottom: 1px solid var(--line); padding-bottom: 9px; }
-.portal-menu-panel a { border-radius: 6px; line-height: 1.35; }
-.portal-menu-panel a i { width: 1.25em; color: var(--accent); }
-.news-portal .portal-search, .news-portal .portal-account { border-radius: 7px; }
-.news-portal .portal-account { border-color: var(--line); }
-.news-portal .portal-account:hover, .portal-search button:hover { background: var(--lavender); color: var(--accent); }
 .portal-footer { border-top: 1px solid #cdc3e2; }
 .portal-footer-row nav { margin-right: 0; }
 
@@ -118,8 +99,4 @@
     .portal-service-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
     .portal-search-filters .portal-button { justify-self: stretch; }
     .portal-weather-metrics > div { padding-inline: 6px; }
-}
-@media (max-width: 360px) {
-    .portal-menu-panel a { padding-inline: 3px; }
-    .portal-nav-row > nav { gap: 0; }
 }
