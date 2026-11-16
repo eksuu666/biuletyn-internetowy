@@ -86,6 +86,21 @@ class NewsroomWorkflowTest extends TestCase
             ->assertDontSee('Spacer archiwalny')->assertDontSee('Spacer w innym dziale')->assertDontSee('Spacer planowany');
     }
 
+    public function test_forum_links_only_to_public_articles_with_visible_discussions(): void
+    {
+        $public = $this->article(['title' => 'Rozmowa o adopcji']);
+        $pending = $this->article(['title' => 'Rozmowa przed moderacją']);
+        $private = $this->article(['title' => 'Rozmowa pod szkicem', 'status' => false]);
+        foreach ([[$public, Comment::APPROVED], [$pending, Comment::PENDING], [$private, Comment::APPROVED]] as [$article, $status]) {
+            $article->comments()->create(['comment' => 'Treść rozmowy', 'status' => $status]);
+        }
+
+        $this->get(route('forum.index'))->assertOk()
+            ->assertSee($public->getUrl().'#comments', false)
+            ->assertSee('Rozmowa o adopcji')
+            ->assertDontSee('Rozmowa przed moderacją')->assertDontSee('Rozmowa pod szkicem');
+    }
+
     public function test_weather_selects_station_and_reuses_the_cached_measurements(): void
     {
         Http::fake(['https://danepubliczne.imgw.pl/api/data/synop' => Http::response([

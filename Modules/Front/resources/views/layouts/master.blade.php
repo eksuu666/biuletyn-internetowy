@@ -19,6 +19,7 @@
     </main>
     @include('front::partials.portal-footer')
     @include('sweetalert::alert')
+    <script src="{{ asset('home/js/portal-menu.js') }}?v={{ filemtime(public_path('home/js/portal-menu.js')) }}" defer></script>
     @stack('scripts')
 </body>
 </html>
