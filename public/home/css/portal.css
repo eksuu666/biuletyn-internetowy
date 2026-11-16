@@ -172,16 +172,27 @@
 .portal-list .pagination > .active > span { background: var(--accent); border-color: var(--accent); color: #fff; }
 .portal-list .pagination > li > a { color: var(--accent); }
 
-.portal-story-heading { max-width: 950px; margin-bottom: 24px; }
+.portal-story-heading { max-width: 900px; margin-bottom: clamp(16px, 2.6vw, 28px); }
+.news-portal .portal-story-category {
+    display: inline-block; padding: 4px 10px; border-radius: 5px;
+    color: var(--ink); background: var(--coral); font-size: 12px;
+    font-weight: 750; text-transform: uppercase; letter-spacing: .035em;
+}
+.news-portal .portal-story-category:hover { background: var(--yellow); }
 .portal-story-heading h1 {
-    max-width: 28ch; margin: 8px 0 17px; font-size: clamp(33px, 5.8vw, 67px);
-    line-height: 1.06; overflow-wrap: anywhere;
+    max-width: 32ch; margin: 10px 0 18px; font-size: clamp(32px, 4.9vw, 60px);
+    line-height: 1.1; text-wrap: balance; overflow-wrap: anywhere;
 }
 .portal-story-byline { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 19px; font-size: 14px; color: var(--muted); }
 .portal-story-byline a { display: flex; align-items: center; gap: 8px; font-weight: 750; color: var(--ink); }
+.portal-story-byline .portal-story-discussion { display: inline-block; color: var(--accent); }
+.portal-story-discussion i { margin-right: 4px; }
 .portal-story-byline img, .portal-author img { border-radius: 50%; object-fit: cover; }
-.portal-story-image { display: block; width: 100%; max-height: 570px; object-fit: cover; border-radius: 14px; background: #eee4ee; }
-.portal-reading-grid { display: grid; grid-template-columns: minmax(0, 760px) minmax(0, 320px); justify-content: space-between; gap: 32px; margin-top: 28px; }
+.portal-story-image { display: block; width: 100%; max-height: 510px; aspect-ratio: 16 / 9; object-fit: cover; background: var(--lavender); }
+.portal-reading-grid { display: grid; grid-template-columns: minmax(0, 800px) minmax(0, 300px); gap: clamp(20px, 4vw, 55px); }
+.portal-reading-grid:not(:has(.portal-reading-aside > *)) { grid-template-columns: minmax(0, 800px); }
+.portal-story-image + .portal-prose { margin-top: clamp(18px, 3vw, 32px); }
+.portal-reading-main > .portal-prose { max-width: 72ch; }
 .portal-prose { font-size: clamp(17px, 2vw, 19px); line-height: 1.75; overflow-wrap: anywhere; }
 .portal-prose p { margin: 0 0 1.2em; }
 .portal-prose a { color: var(--accent); text-decoration: underline; }
@@ -189,10 +200,10 @@
 .portal-prose iframe { max-width: 100%; }
 .portal-prose blockquote { border-left: 3px solid var(--accent); }
 .portal-prose table { display: block; max-width: 100%; overflow-x: auto; }
-.portal-story-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin: 20px 0; }
+.portal-story-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin: 20px 0; padding-block: 14px; border-block: 1px solid var(--line); }
 .portal-story-actions > a, .portal-share summary { color: var(--accent); font-size: 14px; font-weight: 750; cursor: pointer; }
 .portal-reactions { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }
-.portal-reactions button { min-width: 49px; min-height: 36px; padding: 4px 8px; color: var(--ink); background: white; border: 1px solid var(--line); font-size: 14px; }
+.portal-reactions button { min-width: 49px; min-height: 36px; padding: 4px 8px; color: var(--ink); background: white; border: 1px solid var(--line); border-radius: 7px; font-size: 14px; }
 .portal-reactions button:hover { background: #f0ebfa; border-color: var(--accent); }
 .portal-reactions button[aria-pressed="true"] { background: #ffe495; border-color: var(--ink); box-shadow: 2px 2px var(--ink); }
 .portal-author {
@@ -432,11 +443,18 @@
     font-family: var(--serif);
     letter-spacing: 0;
 }
-.portal-card, .portal-category, .portal-empty, .portal-story-image,
+.portal-card, .portal-category, .portal-empty,
 .portal-author-card, .portal-story-neighbors a, .portal-comments .comment {
     border-radius: 0;
     box-shadow: none;
 }
+.portal-reading .portal-story-image, .portal-reading .portal-brief,
+.portal-reading .portal-author-card, .portal-reading .portal-story-neighbors a,
+.portal-reading .discussion-comment, .portal-reading .discussion-new { border-radius: 12px; }
+.portal-news-list .portal-card { border-radius: 12px; box-shadow: 0 3px 10px #2523360d; }
+.portal-news-list .portal-card-content { padding: clamp(14px, 2vw, 22px); }
+.portal-news-list .portal-card h3 { font-family: var(--serif); letter-spacing: 0; }
+.portal-news-list .portal-card .portal-kicker { padding: 2px 6px; border-radius: 4px; background: var(--lavender); }
 @media (min-width: 961px) {
     .portal-footer-row nav { margin-right: 12%; }
 }

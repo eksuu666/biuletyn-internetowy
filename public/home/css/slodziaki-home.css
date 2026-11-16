@@ -14,7 +14,7 @@
     content: ""; position: absolute; top: 0; bottom: 0; left: -15px; border-left: 1px solid var(--line);
 }
 .home-feature > a:first-child { display: block; }
-.home-feature img { display: block; width: 100%; height: auto; aspect-ratio: 578 / 296; object-fit: cover; outline: 1px solid var(--ink); outline-offset: -1px; }
+.home-feature img { display: block; width: 100%; height: auto; aspect-ratio: 578 / 296; object-fit: cover; border-radius: 10px; }
 .home-label { display: inline-block; text-transform: uppercase; font-size: 11px; font-weight: 700; line-height: 15px; letter-spacing: .02em; }
 .home-label-feature { background: var(--coral); border: 1px solid var(--ink); box-shadow: 2px 2px var(--ink); padding: 3px 8px; margin-top: 16px; }
 .slodziaki-home .home-feature h2 { font: 700 clamp(29px, 3vw, 36px)/1.08 var(--serif); letter-spacing: 0; max-width: 19ch; margin: 11px 0 5px; }
@@ -25,7 +25,7 @@
 .home-latest li a { display: flex; gap: 12px; align-items: flex-start; font-weight: 700; line-height: 1.32; overflow-wrap: anywhere; }
 .home-latest li a span { max-width: 20ch; }
 .home-latest small { display: table; margin-bottom: 5px; padding: 1px 6px; background: var(--lavender); color: #84323d; text-transform: uppercase; font-size: 11px; }
-.home-latest img { width: 74px; height: 67px; flex: none; object-fit: cover; }
+.home-latest img { width: 74px; height: 67px; flex: none; object-fit: cover; border-radius: 6px; }
 .home-adoption, .home-bulletin { border: 1px solid var(--ink); padding: 11px; }
 .home-adoption { background: var(--lavender); }
 .home-adoption img { display: block; width: 100%; height: auto; aspect-ratio: 258/155; object-fit: cover; }

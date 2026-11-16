@@ -7,7 +7,7 @@
     <div class="portal-wrap portal-reading">
         <article>
             <header class="portal-story-heading">
-                <a class="portal-kicker" href="{{ route('categories.show', $article->category->slug) }}">{{ $article->category->name }}</a>
+                <a class="portal-story-category" href="{{ route('categories.show', $article->category->slug) }}">{{ \Modules\Category\App\Models\Category::EDITORIAL_FORMATS[$article->category->slug][1] ?? $article->category->name }}</a>
                 <h1>{{ $article->title }}</h1>
                 <div class="portal-story-byline">
                     @if($article->user)
@@ -17,15 +17,15 @@
                         </a>
                     @endif
                     <time datetime="{{ $article->published_at->toAtomString() }}">{{ $article->published_at->locale('pl')->translatedFormat('j F Y, H:i') }}</time>
+                    <a class="portal-story-discussion" href="#comments"><i class="fa fa-comment-o" aria-hidden="true"></i> Komentarze (<span data-comment-count>{{ $commentCount }}</span>)</a>
                 </div>
             </header>
 
-            @if($article->image)
-                <img class="portal-story-image" src="{{ asset('storage/' . $article->image->file_path) }}" alt="{{ $article->image->alt_text }}" fetchpriority="high">
-            @endif
-
             <div class="portal-reading-grid">
                 <div class="portal-reading-main">
+                    @if($article->image)
+                        <img class="portal-story-image" src="{{ $article->image->url() }}" alt="{{ $article->image->alt_text }}" fetchpriority="high">
+                    @endif
                     <div class="portal-prose">
                         {!! app(\Modules\Article\App\Services\ContentSanitizer::class)->sanitize($article->body) !!}
                     </div>
