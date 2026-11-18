@@ -7,7 +7,7 @@
                 <div class="portlet-title"><h1 class="title">{{ $issue->exists ? 'Edytuj numer gazety' : 'Dodaj numer gazety' }}</h1></div>
             </div>
             <div class="portlet-body">
-                <form action="{{ $issue->exists ? route(config('app.panel_prefix', 'panel').'.bulletins.update', $issue) : route(config('app.panel_prefix', 'panel').'.bulletins.store') }}" method="post" enctype="multipart/form-data">
+                <form class="bulletin-upload-form" action="{{ $issue->exists ? route(config('app.panel_prefix', 'panel').'.bulletins.update', $issue) : route(config('app.panel_prefix', 'panel').'.bulletins.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @if($issue->exists) @method('PUT') @endif
                     <x-common-error-messages/>
