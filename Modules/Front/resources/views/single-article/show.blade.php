@@ -17,6 +17,10 @@
                         </a>
                     @endif
                     <time datetime="{{ $article->published_at->toAtomString() }}">{{ $article->published_at->locale('pl')->translatedFormat('j F Y, H:i') }}</time>
+                    <span class="portal-story-views" aria-label="Liczba odsłon: {{ $article->page_view_count }}">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                        Odsłony: {{ number_format($article->page_view_count, 0, ',', ' ') }}
+                    </span>
                     <a class="portal-story-discussion" href="#comments"><i class="fa fa-comment-o" aria-hidden="true"></i> Komentarze (<span data-comment-count>{{ $commentCount }}</span>)</a>
                     <button class="portal-outline portal-save-article" type="button" data-save-article="{{ $article->id }}" aria-label="Zapisz na później" aria-pressed="false" hidden>
                         <i class="fa fa-bookmark-o" aria-hidden="true"></i> <span>Zapisz na później</span>

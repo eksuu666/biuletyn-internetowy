@@ -73,6 +73,24 @@ class NewsroomWorkflowTest extends TestCase
         $this->get($article->getUrl())->assertOk()->assertSee($article->title);
     }
 
+    public function test_article_counter_counts_browser_views_and_survives_analytics_pruning(): void
+    {
+        $article = $this->article();
+        $before = $article->updated_at;
+        $browser = ['User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'];
+        $this->get($article->getUrl(), $browser)->assertOk()->assertSee('Odsłony: 0');
+        $this->get($article->getUrl(), $browser)->assertOk()->assertSee('Odsłony: 1');
+        $this->assertSame(2, (int) $article->fresh()->page_view_count);
+        $this->assertTrue($before->equalTo($article->fresh()->updated_at));
+
+        $this->head($article->getUrl(), $browser)->assertOk();
+        $this->get($article->getUrl(), ['User-Agent' => 'curl/8.0'])->assertOk();
+        $this->actingAs($this->admin)->get($article->getUrl(), $browser)->assertOk();
+        $this->assertSame(2, (int) $article->fresh()->page_view_count);
+        RequestTrack::query()->delete();
+        $this->get($article->getUrl(), $browser)->assertSee('Odsłony: 2');
+    }
+
     public function test_popular_articles_count_distinct_recent_readers_and_hide_private_articles(): void
     {
         $popular = $this->article(['title' => 'Najchętniej czytany tekst']);

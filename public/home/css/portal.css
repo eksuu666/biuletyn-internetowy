@@ -184,6 +184,7 @@
     line-height: 1.1; text-wrap: balance; overflow-wrap: anywhere;
 }
 .portal-story-byline { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 19px; font-size: 14px; color: var(--muted); }
+.portal-story-views { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .portal-story-byline a { display: flex; align-items: center; gap: 8px; font-weight: 750; color: var(--ink); }
 .portal-story-byline .portal-story-discussion { display: inline-block; color: var(--accent); }
 .portal-story-discussion i { margin-right: 4px; }

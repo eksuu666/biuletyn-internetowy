@@ -8,6 +8,7 @@ use DeviceDetector\Parser\Device\AbstractDeviceParser;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Modules\Article\App\Models\Article;
 use Modules\UserActivity\App\Models\RequestTrack;
@@ -27,13 +28,21 @@ class TrackUserRequestService
     public function createRequestTrack(Request $request): void
     {
         $article = $request->routeIs('articles.show', 'news.show') ? $request->route('article') : null;
-        RequestTrack::create([
+        $data = [
             'user_track_id' => $this->getUserTracking()->id,
             'url' => Str::take($request->fullUrl(), 255),
             'referer' => $request->hasHeader('referer') ? Str::take($request->header('referer'), 255) : null,
             'tag' => RequestTrack::PAGE_VIEW,
             'article_id' => $article instanceof Article ? $article->getKey() : null,
-        ]);
+        ];
+
+        DB::transaction(function () use ($data, $article) {
+            RequestTrack::create($data);
+            if ($article instanceof Article) {
+                // Avoid changing the article's editorial modification date.
+                DB::table('articles')->where('id', $article->getKey())->increment('page_view_count');
+            }
+        });
     }
 
     /**
