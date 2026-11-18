@@ -74,9 +74,16 @@ class Article extends Model implements Feedable
         'status',
         'category_id',
         'user_id',
+        'is_sponsored',
+        'sponsor_name',
+        'sponsored_card_size',
+        'image_focus_x',
+        'image_focus_y',
     ];
 
     protected $casts = [
+        'is_sponsored' => 'boolean',
+        'editor_choice' => 'boolean',
         'published_at' => 'datetime',
     ];
 

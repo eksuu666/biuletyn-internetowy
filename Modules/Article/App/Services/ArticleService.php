@@ -80,7 +80,7 @@ class ArticleService
         $data = $request->safe()->except(['status', 'hotness', 'tag_ids', 'image', 'workflow_version']);
         $data['body'] = app(ContentSanitizer::class)->sanitize($data['body']);
         if (! $request->user()->can('article::editor_choice')) {
-            unset($data['editor_choice']);
+            unset($data['editor_choice'], $data['is_sponsored'], $data['sponsor_name'], $data['sponsored_card_size']);
         }
 
         return $data;

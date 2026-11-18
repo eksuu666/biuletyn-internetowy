@@ -196,6 +196,14 @@ body.brand-panel.dark {
 .editorial-details { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 10px 0 0; overflow-wrap: anywhere; }
 .editorial-details dd { margin: 0; }
 .editorial-pagination { margin-top: 16px; }
+.editorial-crop { margin-top: 16px; }
+.editorial-crop input[type="range"] { width: 100%; accent-color: var(--public-accent); }
+.editorial-crop-previews { display: grid; gap: 12px; margin-top: 12px; }
+.editorial-crop-previews[hidden] { display: none; }
+.editorial-crop figure { margin: 0; }
+.editorial-crop img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 5px; }
+.editorial-crop figure:last-child img { aspect-ratio: 620 / 282; }
+.editorial-crop figcaption { color: var(--editorial-muted); font-size: 12px; margin-top: 4px; }
 .brand-panel .bulletin-upload-form input[type="file"] { position: static; inset: auto; opacity: 1; z-index: auto; width: 100%; height: auto; }
 @media (max-width: 1150px) {
     .editorial-article-row { grid-template-columns: minmax(0, 1fr) minmax(145px, 200px); }

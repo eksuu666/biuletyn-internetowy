@@ -42,7 +42,7 @@ class EditorialWorkflow
         $article->revisions()->create([
             'user_id' => auth()->id(), 'action' => $action, 'from_state' => $from,
             'to_state' => $article->workflow_state, 'note' => $note,
-            'snapshot' => $article->only(['title', 'slug', 'body', 'category_id', 'user_id', 'published_at', 'status', 'workflow_state', 'workflow_version']) + ['tag_ids' => $article->tags()->pluck('tags.id')->all(), 'actor_name' => auth()->user()?->full_name, 'actor_role' => auth()->user()?->publicRoleName()],
+            'snapshot' => $article->only(['title', 'slug', 'body', 'category_id', 'user_id', 'published_at', 'status', 'workflow_state', 'workflow_version', 'editor_choice', 'is_sponsored', 'sponsor_name', 'sponsored_card_size', 'image_focus_x', 'image_focus_y']) + ['tag_ids' => $article->tags()->pluck('tags.id')->all(), 'actor_name' => auth()->user()?->full_name, 'actor_role' => auth()->user()?->publicRoleName()],
         ]);
     }
 

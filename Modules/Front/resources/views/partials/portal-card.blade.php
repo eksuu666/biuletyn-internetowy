@@ -1,8 +1,9 @@
 <article class="portal-card">
     <a class="portal-card-media" href="{{ $story->getUrl() }}" tabindex="-1" aria-hidden="true">
-        <img src="{{ $story->image ? asset('storage/' . $story->image->file_path) : asset('brand/zwierzaki.webp') }}" alt="" loading="lazy" decoding="async">
+        <img src="{{ $story->image ? asset('storage/' . $story->image->file_path) : asset('brand/zwierzaki.webp') }}" alt="" style="object-position: {{ (int) $story->image_focus_x }}% {{ (int) $story->image_focus_y }}%" loading="lazy" decoding="async">
     </a>
     <div class="portal-card-content">
+        @if($story->is_sponsored)<p class="portal-sponsored-disclosure">Materiał sponsorowany{{ $story->sponsor_name ? ' · '.$story->sponsor_name : '' }}</p>@endif
         <a class="portal-kicker" href="{{ route('categories.show', $story->category->slug) }}">{{ $story->category->name }}</a>
         <h3><a href="{{ $story->getUrl() }}">{{ $story->title }}</a></h3>
         @empty($compact)

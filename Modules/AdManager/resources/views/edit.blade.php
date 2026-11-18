@@ -59,6 +59,7 @@
                                     @endforeach
                                 </select>
                             </div>
+                            @include('ad-manager::card-settings')
                             <div class="col-12 d-flex flex-column align-items-center">
                                 <div class="form-group relative col-lg-6">
                                     <label>Obraz </label>

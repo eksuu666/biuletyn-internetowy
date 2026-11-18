@@ -61,13 +61,26 @@
                     @canany([config('permissions_list.ARTICLE_EDITOR_CHOICE'), config('permissions_list.ARTICLE_HOTNESS')])
                         <div class="editorial-flags">
                             @can(config('permissions_list.ARTICLE_EDITOR_CHOICE'))
-                                <label><input name="editor_choice" type="checkbox" @checked(old('title') === null ? ($article->editor_choice ?? false) : old('editor_choice'))> Wybór redakcji</label>
+                                <label><input name="editor_choice" type="checkbox" @checked(old('title') === null ? ($article->editor_choice ?? false) : old('editor_choice'))> Wyróżniony na głównej - duży kafelek</label>
                             @endcan
                             @can(config('permissions_list.ARTICLE_HOTNESS'))
                                 <label><input name="hotness" type="checkbox" @checked(old('title') === null ? ($editing && $article->isHot()) : old('hotness'))> Pilne</label>
                             @endcan
                         </div>
                     @endcanany
+                    @can(config('permissions_list.ARTICLE_EDITOR_CHOICE'))
+                        <details class="editorial-advanced" @if(old('is_sponsored', $article->is_sponsored ?? false)) open @endif>
+                            <summary>Materiał sponsorowany</summary>
+                            <label><input type="checkbox" name="is_sponsored" value="1" @checked(old('title') === null ? ($article->is_sponsored ?? false) : old('is_sponsored'))> Oznacz jako materiał sponsorowany</label>
+                            <label for="sponsor-name">Partner materiału</label>
+                            <input class="form-control" id="sponsor-name" name="sponsor_name" maxlength="120" value="{{ old('sponsor_name', $article->sponsor_name ?? '') }}">
+                            <label for="sponsored-card-size">Kafelek materiału sponsorowanego</label>
+                            <select class="form-select" id="sponsored-card-size" name="sponsored_card_size">
+                                <option value="small" @selected(old('sponsored_card_size', $article->sponsored_card_size ?? 'small') === 'small')>Mały - jedna kolumna</option>
+                                <option value="large" @selected(old('sponsored_card_size', $article->sponsored_card_size ?? 'small') === 'large')>Duży - dwie kolumny</option>
+                            </select>
+                        </details>
+                    @endcan
                 </section>
                 <section class="editorial-card" aria-labelledby="compose-cover">
                     <h2 id="compose-cover">Zdjęcie główne</h2>
@@ -77,6 +90,16 @@
                     <label for="article-image">{{ $editing ? 'Zmień zdjęcie' : 'Wybierz zdjęcie' }} @unless($editing)<span class="editorial-required">*</span>@endunless</label>
                     <input id="article-image" class="form-control" name="image" type="file" accept="image/*" aria-describedby="article-image-help" @required(!$editing)>
                     <small id="article-image-help">Najlepiej 1600 × 900 px (poziomo, 16:9), maksymalnie 5 MB. Trzymaj główny motyw blisko środka, bo miniatury przycinają krawędzie.</small>
+                    <div class="editorial-crop" data-crop-editor>
+                        <label for="image-focus-x">Kadr w poziomie</label>
+                        <input id="image-focus-x" name="image_focus_x" type="range" min="0" max="100" value="{{ old('image_focus_x', $article->image_focus_x ?? 50) }}">
+                        <label for="image-focus-y">Kadr w pionie</label>
+                        <input id="image-focus-y" name="image_focus_y" type="range" min="0" max="100" value="{{ old('image_focus_y', $article->image_focus_y ?? 50) }}">
+                        <div class="editorial-crop-previews" @if(!($editing && $article->image)) hidden @endif>
+                            <figure><img data-crop-preview src="{{ $editing && $article->image ? $article->image->url() : '' }}" alt="Podgląd małego kafelka"><figcaption>Mały kafelek</figcaption></figure>
+                            <figure><img data-crop-preview src="{{ $editing && $article->image ? $article->image->url() : '' }}" alt="Podgląd dużego kafelka"><figcaption>Duży kafelek</figcaption></figure>
+                        </div>
+                    </div>
                 </section>
             </div>
         </div>
@@ -88,6 +111,7 @@
 </div>
 
 @push('scripts')
+    <script src="{{ asset('admin/assets/js/article-crop.js') }}?v={{ filemtime(public_path('admin/assets/js/article-crop.js')) }}" defer></script>
     <script src="{{ asset('admin/assets/plugins/select2/dist/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('admin/assets/js/select2-pl.js') }}"></script>
     <script src="{{ asset('admin/assets/js/pages/select2.js') }}"></script>

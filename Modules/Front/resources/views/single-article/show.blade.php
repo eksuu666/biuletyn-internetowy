@@ -7,6 +7,7 @@
     <div class="portal-wrap portal-reading">
         <article>
             <header class="portal-story-heading">
+                @if($article->is_sponsored)<p class="portal-sponsored-disclosure">Materiał sponsorowany{{ $article->sponsor_name ? ' · '.$article->sponsor_name : '' }}</p>@endif
                 <a class="portal-story-category" href="{{ route('categories.show', $article->category->slug) }}">{{ \Modules\Category\App\Models\Category::EDITORIAL_FORMATS[$article->category->slug][1] ?? $article->category->name }}</a>
                 <h1>{{ $article->title }}</h1>
                 <div class="portal-story-byline">

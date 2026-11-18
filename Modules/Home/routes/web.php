@@ -14,6 +14,7 @@ Route::prefix(config('app.panel_prefix', 'panel'))->name(config('app.panel_prefi
 
 Route::name('home.')->group(function () {
     Route::get('/', HomeController::class)->name('index');
+    Route::get('/portal/artykuly', [HomeController::class, 'feed'])->middleware('throttle:60,1')->name('feed');
     Route::get('/najnowsze', [HomeController::class, 'latest'])->name('latest');
     Route::get('/najczesciej-czytane', [HomeController::class, 'popular'])->name('popular');
 });

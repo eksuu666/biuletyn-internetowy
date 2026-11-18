@@ -58,6 +58,7 @@
                                     @endforeach
                                 </select>
                             </div>
+                            @include('ad-manager::card-settings')
                             <div class="form-group relative col-lg-6">
                                 <label>Obraz <small>(wymagane)</small></label>
                                 <div class="input-group round">

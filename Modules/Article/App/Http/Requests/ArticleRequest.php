@@ -23,6 +23,11 @@ class ArticleRequest extends FormRequest
             'editor_choice' => 'required|boolean',
             'hotness' => 'required|bool',
             'status' => 'required|boolean',
+            'is_sponsored' => 'sometimes|boolean',
+            'sponsor_name' => 'nullable|string|max:120',
+            'sponsored_card_size' => 'sometimes|in:small,large',
+            'image_focus_x' => 'sometimes|integer|between:0,100',
+            'image_focus_y' => 'sometimes|integer|between:0,100',
         ];
 
         if ($this->isMethod('put') || $this->isMethod('patch')) {
@@ -58,6 +63,7 @@ class ArticleRequest extends FormRequest
             'editor_choice' => $this->boolean('editor_choice'),
             'hotness' => $this->boolean('hotness'),
             'status' => $this->boolean('status'),
+            'is_sponsored' => $this->boolean('is_sponsored'),
         ]);
     }
 }

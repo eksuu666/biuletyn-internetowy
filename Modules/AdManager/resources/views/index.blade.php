@@ -55,6 +55,7 @@
                                 <th>Tytuł</th>
                                 <th>Adres docelowy</th>
                                 <th>Miejsce emisji</th>
+                                <th>Kafelek</th>
                                 <th>Początek emisji</th>
                                 <th>Koniec emisji</th>
                                 <th>Utworzono</th>
@@ -74,6 +75,7 @@
                                     <td>{{ $ad->title }}</td>
                                     <td>{{ $ad->link }}</td>
                                     <td>{{ nullable_value( __($ad->getSection()) ) }}</td>
+                                    <td>{{ $ad->getSection() === \Modules\AdManager\App\Models\Ad::HOMEPAGE_FEED ? ($ad->card_size === 'large' ? 'Duży' : 'Mały') : '-' }}</td>
                                     <td class="ltr text-right nowrap">{{ $ad->published_at->format('d.m.Y H:i') }}</td>
                                     <td class="ltr text-right nowrap">
                                         @if($ad->expired_at)

@@ -72,6 +72,12 @@
             link.textContent = article.title;
             title.append(link);
             copy.append(category, title);
+            if (article.is_sponsored) {
+                const disclosure = document.createElement('p');
+                disclosure.className = 'portal-sponsored-disclosure';
+                disclosure.textContent = 'Materiał sponsorowany' + (article.sponsor_name ? ' · ' + article.sponsor_name : '');
+                copy.prepend(disclosure);
+            }
             const remove = document.createElement('button');
             remove.type = 'button';
             remove.className = 'portal-outline';

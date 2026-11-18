@@ -5,8 +5,11 @@ namespace Modules\Home\App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Modules\Home\App\Models\BulletinIssue;
 use Modules\Home\App\Services\HomeService;
+use Modules\Home\App\Services\HomeFeedService;
 use Modules\SEOManager\App\Services\Front\SEOService;
 
 class HomeController extends Controller
@@ -17,16 +20,19 @@ class HomeController extends Controller
     {
         $this->seoService->setHomePageSEO();
 
-        $latest = $this->homeService->baseQuery()->limit(5)->get();
-        $featured = $this->homeService->baseQuery()->editorChoice()->first() ?? $latest->first();
-        $latest = $latest->where('id', '!=', $featured?->id)->take(4);
-        $guides = $this->homeService->baseQuery()
-            ->whereHas('category', fn ($query) => $query->where('slug', 'poradniki')
-                ->orWhereHas('category', fn ($parent) => $parent->active()->where('slug', 'poradniki')))
-            ->limit(3)->get();
+        $feed = app(HomeFeedService::class)->batch();
+        $popular = $this->homeService->popularQuery()->limit(4)->get();
         $bulletinIssues = BulletinIssue::published()->orderByDesc('published_on')->orderByDesc('id')->limit(3)->get();
 
-        return view('home::index', compact('featured', 'latest', 'guides', 'bulletinIssues'));
+        return view('home::index', compact('feed', 'popular', 'bulletinIssues'));
+    }
+
+    public function feed(Request $request): JsonResponse
+    {
+        $data = $request->validate(['cursor' => 'required|string|max:8192']);
+        $feed = app(HomeFeedService::class)->batch($data['cursor']);
+
+        return response()->json(['html' => view('home::feed.items', $feed)->render(), 'nextUrl' => $feed['nextUrl']]);
     }
 
     public function latest(): View

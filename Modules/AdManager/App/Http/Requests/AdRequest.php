@@ -14,11 +14,13 @@ class AdRequest extends FormRequest
         $rules = [
             'title' => 'required|string',
             'image' => 'required'.$imageRules,
-            'link' => 'required|url',
+            'link' => 'required|url:http,https',
             'section' => 'nullable|integer|in:'.$sectionNumbers,
             'published_at' => 'required|date',
             'expired_at' => 'nullable|date|after:published_at',
             'status' => 'nullable|boolean',
+            'card_size' => 'sometimes|in:small,large',
+            'sponsor_name' => 'nullable|string|max:120',
         ];
 
         if (strtolower($this->method()) === 'put') {

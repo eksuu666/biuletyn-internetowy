@@ -30,6 +30,8 @@ class SavedArticlesController
                 'title' => $article->title,
                 'url' => $article->getUrl(),
                 'category' => $article->category->name,
+                'is_sponsored' => $article->is_sponsored,
+                'sponsor_name' => $article->sponsor_name,
             ]);
 
         return response()->json($articles);

@@ -6,101 +6,52 @@
 @endpush
 
 @section('content')
-    @php
-        $formatLabel = \Modules\Category\App\Models\Category::EDITORIAL_FORMATS[$featured?->category->slug][1] ?? null;
-        $featureLabel = match ($featured?->category->slug) {
-            'reportaze', 'reportaz' => 'Reportaż',
-            'aktualnosci' => __('article::types.' . $featured->type),
-            default => $formatLabel ?? $featured?->category->name ?? 'Od redakcji',
-        };
-    @endphp
     <div class="portal-wrap portal-home">
         @include('front::partials.portal-ads', ['placements' => $ads['header']])
-        <div class="home-columns">
-            <section aria-labelledby="home-featured">
-                <h1 class="home-heading" id="home-featured">
-                    <span class="home-section-icon" aria-hidden="true"><i class="fa fa-bookmark-o"></i></span>
-                    Polecane
-                </h1>
-                <article class="home-feature">
-                    <div class="home-feature-media">
-                        <a href="{{ $featured ? $featured->getUrl() : route('about-us.index') }}" tabindex="-1" aria-hidden="true">
-                            <img src="{{ $featured?->image ? asset('storage/' . $featured->image->file_path) : asset('brand/zwierzaki.webp') }}" alt="" width="578" height="296" fetchpriority="high">
-                        </a>
-                        @if($featured)
-                            <span class="home-feature-views" aria-label="Liczba odsłon: {{ $featured->page_view_count }}">
-                                <i class="fa fa-eye" aria-hidden="true"></i>
-                                {{ number_format($featured->page_view_count, 0, ',', ' ') }}
-                            </span>
-                        @endif
+        <div class="home-feed-layout">
+            <section class="home-feed-main" aria-labelledby="home-feed-heading">
+                <header class="home-feed-heading">
+                    <h1 class="home-heading" id="home-feed-heading"><span class="home-section-icon" aria-hidden="true"><i class="fa fa-newspaper-o"></i></span>W portalu</h1>
+                    <a href="{{ route('home.latest') }}">Wszystkie artykuły <span aria-hidden="true">↗</span></a>
+                </header>
+                @if($feed['items'] !== [])
+                    <div class="home-news-grid" data-home-feed>
+                        @include('home::feed.items', $feed)
                     </div>
-                    @if($featured)
-                        <a class="home-label home-label-feature" href="{{ route('categories.show', $featured->category->slug) }}">{{ $featureLabel }}</a>
-                    @else
-                        <span class="home-label home-label-feature">{{ $featureLabel }}</span>
-                    @endif
-                    <h2><a href="{{ $featured ? $featured->getUrl() : route('about-us.index') }}">{{ $featured?->title ?? 'Życie ze zwierzętami' }}</a></h2>
-                    <p>{{ $featured?->bodyText(160) ?? 'Porady dla opiekunów, historie adopcji i wiadomości ze świata zwierząt.' }}</p>
-                </article>
-            </section>
-
-            <section aria-labelledby="home-latest">
-                <h2 class="home-heading" id="home-latest">
-                    <span class="home-section-icon" aria-hidden="true"><i class="fa fa-clock-o"></i></span>
-                    Najnowsze
-                </h2>
-                <div class="home-latest">
-                    @if($latest->isNotEmpty())
-                        <ul>
-                            @foreach($latest as $story)
-                                <li>
-                                    <a href="{{ $story->getUrl() }}">
-                                        @if($loop->index < 3 && $story->image)
-                                            <img src="{{ asset('storage/' . $story->image->file_path) }}" alt="" width="74" height="67" loading="lazy">
-                                        @endif
-                                        <span><small>{{ $story->category->name }}</small>{{ $story->title }}</span>
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    @else
-                        <p>Pierwsze wiadomości pojawią się tutaj po publikacji.</p>
-                    @endif
-                    <div class="home-latest-links">
-                        <a class="home-section-link" href="{{ route('home.latest') }}">Wszystkie artykuły <span aria-hidden="true">→</span></a>
-                        <a class="home-section-link" href="{{ route('home.popular') }}">Najczęściej czytane <span aria-hidden="true">→</span></a>
+                    <div class="home-feed-sentinel" data-feed-sentinel data-next-url="{{ $feed['nextUrl'] }}">
+                        <p data-feed-status role="status" aria-live="polite"></p>
+                        <button class="portal-outline" type="button" data-feed-retry hidden>Spróbuj ponownie</button>
                     </div>
-                </div>
+                    <noscript><p><a href="{{ route('home.latest') }}">Przeglądaj wszystkie artykuły →</a></p></noscript>
+                @else
+                    <p class="portal-empty">Pierwsze artykuły pojawią się tutaj po publikacji.</p>
+                @endif
+                @include('front::partials.portal-ads', ['placements' => $ads['first_section']->concat($ads['second_section'])->concat($ads['third_section'])->concat($ads['fourth_section'])])
             </section>
-
-            <section aria-labelledby="home-print">
-                <h2 class="home-heading" id="home-print">
-                    <span class="home-section-icon" aria-hidden="true"><i class="fa fa-newspaper-o"></i></span>
-                    Z prasy do sieci!
-                </h2>
-                <div class="home-side">
+            <aside class="home-rail" aria-label="Warto zajrzeć">
+                <section aria-labelledby="home-print">
+                    <h2 class="home-heading" id="home-print"><span class="home-section-icon" aria-hidden="true"><i class="fa fa-newspaper-o"></i></span>Z prasy do sieci!</h2>
                     @include('home::bulletins.shelf', ['issues' => $bulletinIssues])
+                </section>
+                <div class="home-rail-follow">
+                    @if($popular->isNotEmpty())
+                        <section class="home-rail-popular" aria-labelledby="home-popular">
+                            <h2 id="home-popular">Najczęściej czytane</h2>
+                            <ol>@foreach($popular as $story)<li><a href="{{ $story->getUrl() }}">{{ $story->title }}</a></li>@endforeach</ol>
+                            <a class="home-rail-more" href="{{ route('home.popular') }}">Zobacz ranking <span aria-hidden="true">→</span></a>
+                        </section>
+                    @endif
+                    <a class="home-rail-forum" href="{{ route('forum.index') }}"><i class="fa fa-comments-o" aria-hidden="true"></i><span><strong>Porozmawiajmy o zwierzakach</strong><small>Dołącz do forum sŁodziaków <span aria-hidden="true">→</span></small></span></a>
+                    @include('front::partials.portal-ads', ['placements' => $ads['first_sidebar']->concat($ads['second_sidebar'])])
+                    <nav class="home-rail-links" aria-label="Przydatne linki">
+                        <a href="{{ route('weather.index') }}">Pogoda</a><a href="{{ route('contact-us.index') }}">Kontakt</a><a href="{{ route('about-us.index') }}">O redakcji</a><a href="{{ url('/feed') }}">RSS</a>
+                    </nav>
                 </div>
-            </section>
+            </aside>
         </div>
-
-        @include('front::partials.portal-ads', ['placements' => $ads['first_section']])
-        @if($guides->isNotEmpty())
-            <section class="home-guides" aria-labelledby="home-guides-heading">
-                <div class="home-guides-header">
-                    <h2 class="home-heading" id="home-guides-heading">
-                        <span class="home-section-icon" aria-hidden="true"><i class="fa fa-compass"></i></span>
-                        Poradniki
-                    </h2>
-                    <a class="home-section-link" href="{{ route('categories.show', 'poradniki') }}">Wszystkie poradniki <span aria-hidden="true">→</span></a>
-                </div>
-                <div class="portal-cards">
-                    @foreach($guides as $story)
-                        @include('front::partials.portal-card', ['compact' => true])
-                    @endforeach
-                </div>
-            </section>
-        @endif
-        @include('front::partials.portal-ads', ['placements' => $ads['second_section']->concat($ads['third_section'])->concat($ads['fourth_section'])->concat($ads['first_sidebar'])->concat($ads['second_sidebar'])])
     </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('home/js/home-feed.js') }}?v={{ filemtime(public_path('home/js/home-feed.js')) }}" defer></script>
+@endpush

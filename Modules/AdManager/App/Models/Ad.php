@@ -27,6 +27,8 @@ class Ad extends Model
 
     public const FOURTH_SECTION = 'fourth_section';
 
+    public const HOMEPAGE_FEED = 'homepage_feed';
+
     public const SECTIONS = [
         self::HEADER,
         self::FIRST_SIDEBAR,
@@ -35,6 +37,7 @@ class Ad extends Model
         self::SECOND_SECTION,
         self::THIRD_SECTION,
         self::FOURTH_SECTION,
+        self::HOMEPAGE_FEED,
     ];
 
     protected $fillable = [
@@ -44,6 +47,8 @@ class Ad extends Model
         'published_at',
         'expired_at',
         'status',
+        'card_size',
+        'sponsor_name',
     ];
 
     protected $casts = ['published_at' => 'datetime', 'expired_at' => 'datetime'];
