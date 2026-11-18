@@ -134,6 +134,7 @@ class NewsroomWorkflowTest extends TestCase
         ])]);
 
         $this->get('/pogoda')->assertOk()->assertSee('3,5 °C');
+        $this->get('/pogoda')->assertSee('weather-map-data')->assertSee('leaflet.js')->assertSee('Pogoda na mapie');
         $this->get('/pogoda?miasto=warszawa')->assertOk()->assertSee('6,2 °C')->assertDontSee('3,5 °C');
         Http::assertSentCount(1);
     }

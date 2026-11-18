@@ -45,5 +45,22 @@
                 <a class="portal-service-link" href="https://meteo.imgw.pl/">Prognoza i ostrzeżenia IMGW <span aria-hidden="true">↗</span></a>
             </aside>
         </div>
+        <section class="service-card portal-weather-map-card" aria-labelledby="weather-map-heading">
+            <h2 id="weather-map-heading">Pogoda na mapie</h2>
+            <p>Wybierz temperaturę przy mieście, aby zobaczyć pomiary.</p>
+            <div id="weather-map" role="region" aria-label="Mapa temperatur w Polsce" tabindex="0"></div>
+            <p class="portal-map-status" role="status" hidden>Mapa jest chwilowo niedostępna. Miejscowość możesz wybrać z listy powyżej.</p>
+            <noscript><p>Włącz JavaScript, aby korzystać z mapy. Pomiary są dostępne powyżej.</p></noscript>
+            <script id="weather-map-data" type="application/json">{!! json_encode($mapCities, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>
+        </section>
     </div>
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('home/vendor/leaflet/leaflet.css') }}">
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('home/vendor/leaflet/leaflet.js') }}" defer></script>
+    <script src="{{ asset('home/js/weather-map.js') }}?v={{ filemtime(public_path('home/js/weather-map.js')) }}" defer></script>
+@endpush

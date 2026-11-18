@@ -84,6 +84,17 @@
 .portal-weather-metrics dd { font-size: clamp(15px, 2.5vw, 21px); }
 .portal-weather-source { padding: 12px var(--service-pad); border-top: 1px solid var(--line); color: var(--muted); }
 .portal-tools-stack { display: grid; margin: 0 0 18px; }
+.portal-weather-map-card { margin-top: 20px; overflow: hidden; padding: var(--service-pad); }
+.portal-weather-map-card h2 { font-size: 24px; margin: 0 0 6px; }
+.portal-weather-map-card > p { color: var(--muted); }
+#weather-map { height: clamp(350px, 48vw, 520px); border-radius: 9px; z-index: 0; background: #ecede8; }
+.weather-map-marker { background: none; border: 0; }
+.weather-map-label { display: grid; place-items: center; min-height: 28px; background: #fff; border: 1px solid #625d72; border-radius: 7px; color: #252336; font: 700 12px/1.2 var(--brand-font); box-shadow: 0 2px 5px #25233630; }
+.weather-map-marker.is-selected .weather-map-label { background: #513b7a; color: white; border-color: #513b7a; }
+.portal-google-search { margin-top: 16px; padding: 12px 16px; }
+.portal-google-search summary { cursor: pointer; color: var(--accent); font-weight: 700; }
+.portal-google-search .portal-tools { margin-bottom: 0; }
+.portal-google-search label { flex: 1 1 220px; }
 .portal-service .portal-newsletter { background: var(--lavender); color: var(--ink); padding: var(--service-pad); }
 .portal-service .portal-newsletter p { color: var(--muted); }
 .portal-service .portal-newsletter .portal-button { background: var(--accent); color: white; }

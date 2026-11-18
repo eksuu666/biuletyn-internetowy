@@ -12,6 +12,17 @@ use Illuminate\View\View;
 
 class WeatherController
 {
+    private const MAP_CITIES = [
+        'lodz' => [51.76, 19.46], 'warszawa' => [52.23, 21.01],
+        'krakow' => [50.06, 19.94], 'wroclaw' => [51.11, 17.04],
+        'poznan' => [52.41, 16.93], 'gdansk' => [54.35, 18.65],
+        'szczecin' => [53.43, 14.55], 'bialystok' => [53.13, 23.16],
+        'lublin' => [51.25, 22.57], 'rzeszow' => [50.04, 22.00],
+        'katowice' => [50.26, 19.02], 'kielce' => [50.87, 20.63],
+        'olsztyn' => [53.78, 20.48], 'torun' => [53.01, 18.60],
+        'opole' => [50.67, 17.93], 'zielona-gora' => [51.94, 15.51],
+    ];
+
     public function __invoke(Request $request): View
     {
         $stations = Cache::remember('portal.weather.stations', now()->addMinutes(10), function () {
@@ -32,11 +43,23 @@ class WeatherController
         $city = $request->query('miasto', 'lodz');
         $station = is_string($city) ? $stations->get($city) : null;
         $station ??= $stations->get('lodz') ?? $stations->first();
+        $mapCities = [];
+        foreach (self::MAP_CITIES as $slug => $coordinates) {
+            $place = $stations->get($slug);
+            if ($place && is_numeric($place['temperatura'] ?? null)) {
+                $mapCities[] = [
+                    'name' => $place['stacja'], 'coordinates' => $coordinates,
+                    'temperature' => str_replace('.', ',', $place['temperatura']).' °C',
+                    'url' => route('weather.index', ['miasto' => $slug]),
+                    'selected' => $station['stacja'] === $place['stacja'],
+                ];
+            }
+        }
 
         SEOTools::setTitle('Pogoda');
         SEOTools::setDescription('Ostatnie pomiary pogody ze stacji IMGW w Polsce.');
         SEOTools::setCanonical(route('weather.index'));
 
-        return view('front::weather.index', compact('station', 'stations'));
+        return view('front::weather.index', compact('station', 'stations', 'mapCities'));
     }
 }

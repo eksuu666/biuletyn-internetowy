@@ -35,4 +35,14 @@
             <a href="{{ route('search.index', ['query' => $searchText]) }}">Wyczyść filtry</a>
         @endif
     </div>
+    <details class="portal-google-search service-card" @if($searchText !== '' && $articles->isEmpty()) open @endif>
+        <summary>Szukaj w Google <span aria-hidden="true">↗</span></summary>
+        <form class="portal-tools" method="get" action="https://www.google.com/search">
+            <input type="hidden" name="hl" value="pl">
+            <label for="google-query">Szukaj w internecie
+                <input id="google-query" type="search" name="q" maxlength="200" required value="{{ $searchText }}">
+            </label>
+            <button class="portal-button">Otwórz wyniki Google <span aria-hidden="true">↗</span></button>
+        </form>
+    </details>
 @endsection
