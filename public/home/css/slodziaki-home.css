@@ -17,7 +17,9 @@
 .home-latest::before, .home-side::before {
     content: ""; position: absolute; top: 0; bottom: 0; left: -15px; border-left: 1px solid var(--line);
 }
-.home-feature > a:first-child { display: block; }
+.home-feature-media { position: relative; }
+.home-feature-media > a { display: block; }
+.home-feature-views { position: absolute; right: 12px; bottom: 12px; display: inline-flex; align-items: center; gap: 6px; padding: 5px 9px; border: 1px solid rgb(255 255 255 / 25%); border-radius: 6px; background: rgb(37 35 54 / 85%); color: #fff; font-size: 12px; font-weight: 600; line-height: 18px; font-variant-numeric: tabular-nums; pointer-events: none; }
 .home-feature img { display: block; width: 100%; height: auto; aspect-ratio: 578 / 296; object-fit: cover; border-radius: 10px; }
 .home-label { display: inline-block; text-transform: uppercase; font-size: 11px; font-weight: 700; line-height: 15px; letter-spacing: .02em; }
 .home-label-feature { background: var(--coral); border: 1px solid var(--ink); box-shadow: 2px 2px var(--ink); padding: 3px 8px; margin-top: 16px; }

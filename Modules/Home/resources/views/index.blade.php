@@ -24,9 +24,17 @@
                     Polecane
                 </h1>
                 <article class="home-feature">
-                    <a href="{{ $featured ? $featured->getUrl() : route('about-us.index') }}" tabindex="-1" aria-hidden="true">
-                        <img src="{{ $featured?->image ? asset('storage/' . $featured->image->file_path) : asset('brand/zwierzaki.webp') }}" alt="" width="578" height="296" fetchpriority="high">
-                    </a>
+                    <div class="home-feature-media">
+                        <a href="{{ $featured ? $featured->getUrl() : route('about-us.index') }}" tabindex="-1" aria-hidden="true">
+                            <img src="{{ $featured?->image ? asset('storage/' . $featured->image->file_path) : asset('brand/zwierzaki.webp') }}" alt="" width="578" height="296" fetchpriority="high">
+                        </a>
+                        @if($featured)
+                            <span class="home-feature-views" aria-label="Liczba odsłon: {{ $featured->page_view_count }}">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                {{ number_format($featured->page_view_count, 0, ',', ' ') }}
+                            </span>
+                        @endif
+                    </div>
                     @if($featured)
                         <a class="home-label home-label-feature" href="{{ route('categories.show', $featured->category->slug) }}">{{ $featureLabel }}</a>
                     @else
