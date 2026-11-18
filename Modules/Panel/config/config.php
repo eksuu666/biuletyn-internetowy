@@ -67,6 +67,17 @@ return [
             ],
         ],
 
+        'bulletins' => [
+            'title' => 'Gazety PDF',
+            'icon' => 'fas fa-newspaper',
+            'url' => route(config('app.panel_prefix', 'panel').'.bulletins.index'),
+            'permissions' => config('permissions_list.PAGE_INDEX', false),
+            'active_routes' => [
+                config('app.panel_prefix', 'panel').'.bulletins.create',
+                config('app.panel_prefix', 'panel').'.bulletins.edit',
+            ],
+        ],
+
         'page_builder' => [
             'title' => 'Kreator stron',
             'icon' => 'fas fa-laptop-file',

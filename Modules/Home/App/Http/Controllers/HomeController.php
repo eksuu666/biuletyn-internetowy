@@ -5,9 +5,8 @@ namespace Modules\Home\App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\View\View;
-use Modules\Category\App\Models\Category;
+use Modules\Home\App\Models\BulletinIssue;
 use Modules\Home\App\Services\HomeService;
-use Modules\PageBuilder\App\Models\Page;
 use Modules\SEOManager\App\Services\Front\SEOService;
 
 class HomeController extends Controller
@@ -25,12 +24,9 @@ class HomeController extends Controller
             ->whereHas('category', fn ($query) => $query->where('slug', 'poradniki')
                 ->orWhereHas('category', fn ($parent) => $parent->active()->where('slug', 'poradniki')))
             ->limit(3)->get();
-        $homeCategories = Category::query()->active()->with('image')
-            ->whereIn('slug', ['adopcje', 'poradniki'])
-            ->get()->keyBy('slug');
-        $bulletin = Page::query()->active()->with('image')->where('slug', 'biuletyn')->first();
+        $bulletinIssues = BulletinIssue::published()->orderByDesc('published_on')->orderByDesc('id')->limit(3)->get();
 
-        return view('home::index', compact('featured', 'latest', 'guides', 'homeCategories', 'bulletin'));
+        return view('home::index', compact('featured', 'latest', 'guides', 'bulletinIssues'));
     }
 
     public function latest(): View

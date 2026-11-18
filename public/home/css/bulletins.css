@@ -1,0 +1,31 @@
+#home-print .home-section-icon { background: #fff1c8; color: #69501b; }
+.print-shelf { border: 1px solid var(--line, #dcd7e4); border-radius: 12px; overflow: hidden; background: #fff; }
+.print-cover-stage { position: relative; display: flex; align-items: center; justify-content: center; min-height: 278px; padding: 28px 30px; background: #f0ebfa; background-image: radial-gradient(#dcd4e9 .8px, transparent .8px); background-size: 12px 12px; }
+.print-cover { display: block; width: min(100%, 176px); height: 249px; object-fit: contain; background: #fff; box-shadow: 5px 6px 0 #d3cade, 0 10px 20px #2523361c; transform: rotate(-4deg); transition: transform .2s ease, box-shadow .2s ease; }
+.print-cover-stage:hover .print-cover, .print-cover-stage:focus-visible .print-cover { transform: rotate(0deg) translateY(-3px); box-shadow: 5px 9px 0 #d3cade, 0 14px 24px #25233624; }
+.print-sticker { position: absolute; z-index: 1; top: 16px; left: 12px; padding: 5px 9px; background: #ffb4a3; border: 1px solid #252336; box-shadow: 2px 2px #252336; font-size: 11px; font-weight: 800; transform: rotate(-5deg); }
+.print-pdf { position: absolute; right: 12px; bottom: 13px; display: inline-flex; align-items: center; gap: 8px; padding: 5px 9px; border: 1px solid #252336; border-radius: 4px; background: #ffe495; color: #252336; font-size: 12px; font-weight: 800; }
+.print-info { padding: 17px 18px; }
+.print-info time { color: #625d72; font-size: 12px; }
+.print-info h3, .print-info h2 { margin: 5px 0 8px; font-size: 21px; line-height: 1.2; letter-spacing: -.025em; overflow-wrap: anywhere; }
+.print-info p { margin: 0 0 14px; color: #625d72; font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
+.print-read { display: inline-flex; align-items: center; gap: 12px; color: #513b7a; font-size: 14px; font-weight: 750; }
+.print-archive { display: flex; justify-content: space-between; gap: 12px; padding: 13px 18px; border-top: 1px solid #dcd7e4; color: #513b7a; font-size: 13px; font-weight: 750; }
+.print-previous { padding: 0 18px 12px; display: grid; gap: 12px; }
+.print-previous a { display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 700; overflow-wrap: anywhere; }
+.print-previous img { width: 40px; height: 57px; object-fit: contain; background: #f0ebfa; border: 1px solid #dcd7e4; }
+.print-previous small { display: block; color: #625d72; font-size: 11px; margin-top: 3px; font-weight: 400; }
+.print-paper { width: 176px; min-height: 240px; padding: 20px 15px; background: #fffdf7; border: 1px solid #252336; box-shadow: 5px 6px #d3cade; transform: rotate(-4deg); text-align: center; color: #252336; }
+.print-paper strong { display: block; font: 700 29px Georgia, serif; border-bottom: 2px solid #252336; padding-bottom: 8px; }
+.print-paper > span { display: block; font-size: 8px; margin-top: 6px; }
+.print-paper i { display: block; margin: 20px auto 12px; color: #c56753; font-size: 48px; }
+.print-paper b { font: 700 25px/1.1 Georgia, serif; }
+.print-library-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+.print-issue { overflow: hidden; border: 1px solid #dcd7e4; border-radius: 12px; background: #fff; }
+.print-library .print-cover-stage { min-height: 350px; }
+.print-library .print-cover { width: 200px; height: 283px; }
+.print-library-empty { max-width: 360px; margin: 0 auto; }
+.print-library-empty .print-archive { display: none; }
+@media (max-width: 850px) { .print-library-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; } }
+@media (max-width: 540px) { .print-library-grid { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .print-cover { transition: none; } }

@@ -1,13 +1,12 @@
 @extends('front::layouts.master')
 
 @push('styles')
+    <link rel="stylesheet" href="{{ asset('home/css/bulletins.css') }}?v={{ filemtime(public_path('home/css/bulletins.css')) }}">
     <link rel="stylesheet" href="{{ asset('home/css/slodziaki-home.css') }}?v={{ filemtime(public_path('home/css/slodziaki-home.css')) }}">
 @endpush
 
 @section('content')
     @php
-        $adoptions = $homeCategories->get('adopcje');
-        $adoptionsUrl = $adoptions ? route('categories.show', $adoptions->slug) : route('search.index', ['query' => 'Adopcje']);
         $formatLabel = \Modules\Category\App\Models\Category::EDITORIAL_FORMATS[$featured?->category->slug][1] ?? null;
         $featureLabel = match ($featured?->category->slug) {
             'reportaze', 'reportaz' => 'Reportaż',
@@ -74,32 +73,13 @@
                 </div>
             </section>
 
-            <section aria-labelledby="home-adoptions">
-                <h2 class="home-heading" id="home-adoptions">
-                    <span class="home-section-icon" aria-hidden="true"><i class="fa fa-paw"></i></span>
-                    Adopcje
+            <section aria-labelledby="home-print">
+                <h2 class="home-heading" id="home-print">
+                    <span class="home-section-icon" aria-hidden="true"><i class="fa fa-newspaper-o"></i></span>
+                    Z prasy do sieci!
                 </h2>
                 <div class="home-side">
-                    <div class="home-adoption">
-                        @if($adoptions?->image)
-                            <img src="{{ asset('storage/' . $adoptions->image->file_path) }}" alt="{{ $adoptions->image->alt_text }}" width="258" height="155" loading="lazy">
-                        @endif
-                        <h3>Szukają domu</h3>
-                        <p>Psy i koty do adopcji</p>
-                        <a class="home-adoption-link" href="{{ $adoptionsUrl }}">{{ $adoptions ? 'Zobacz ogłoszenia' : 'Szukaj materiałów o adopcji' }}</a>
-                    </div>
-                    @if($bulletin)
-                        <div class="home-bulletin">
-                            @if($bulletin->image)
-                                <img src="{{ asset('storage/' . $bulletin->image->file_path) }}" alt="{{ $bulletin->image->alt_text }}" width="74" height="109" loading="lazy">
-                            @endif
-                            <div>
-                                <p class="home-bubble">Z papieru do sieci!</p>
-                                <h3>{{ $bulletin->title }}</h3>
-                                <a class="home-section-link" href="{{ $bulletin->url() }}">Czytaj biuletyn <span aria-hidden="true">→</span></a>
-                            </div>
-                        </div>
-                    @endif
+                    @include('home::bulletins.shelf', ['issues' => $bulletinIssues])
                 </div>
             </section>
         </div>

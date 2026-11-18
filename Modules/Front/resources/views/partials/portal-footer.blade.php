@@ -11,9 +11,7 @@
                 <a href="{{ route('categories.index') }}" @if(request()->routeIs('categories.index')) aria-current="page" @endif>Wszystkie działy</a>
                 <a href="{{ route('about-us.index') }}">O redakcji</a>
                 <a href="{{ url('/contact-us') }}">Kontakt</a>
-                @if($bulletin_page)
-                    <a href="{{ $bulletin_page->url() }}">Biuletyn</a>
-                @endif
+                <a href="{{ route('bulletins.index') }}">Z prasy do sieci!</a>
                 <a href="{{ url('/feed') }}">RSS</a>
                 <a href="{{ route('newsletters.index') }}">Newsletter</a>
                 @guest
