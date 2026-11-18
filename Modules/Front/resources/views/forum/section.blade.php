@@ -4,7 +4,7 @@
     <div class="portal-wrap portal-list portal-service forum">
         <a class="portal-back" href="{{ route('forum.index') }}">← Forum</a>
         <header class="forum-section-heading service-card">
-            <img src="{{ asset('home/forum/'.$section.'.webp') }}" width="640" height="360" alt="">
+            <img src="{{ asset('home/forum/'.$section.'-pastel.webp') }}" width="1280" height="640" alt="">
             <div>
                 <h1>{{ $details['name'] }}</h1>
                 <p>{{ $details['intro'] }}</p>

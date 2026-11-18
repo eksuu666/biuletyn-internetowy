@@ -7,13 +7,13 @@
 .forum-sections a {
     position: relative; display: block; isolation: isolate; overflow: hidden;
     width: 100%; aspect-ratio: 2 / 1; min-height: 180px; border-radius: 14px;
-    color: #fff; background: #292131; box-shadow: 0 4px 16px #25233619;
+    color: var(--ink); background: #fbf3e8; border: 1px solid #e6ddd7; box-shadow: 0 4px 16px #2523360a;
 }
-.forum-sections a:hover { color: #fff; }
+.forum-sections a:hover { color: var(--ink); }
 .forum-sections a:focus-visible { outline-offset: 3px; }
 .forum-sections a::after {
     content: ""; position: absolute; inset: 0; z-index: -1;
-    background: linear-gradient(0deg, #1d1726f5 0%, #1d172699 29%, transparent 66%);
+    background: linear-gradient(90deg, #fffaf17a 0%, #fffaf12e 35%, transparent 55%);
 }
 .forum-sections img, .forum-section-heading img {
     width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover;
@@ -29,10 +29,10 @@
 .forum-card-arrow {
     display: grid; place-items: center; position: absolute; bottom: clamp(16px, 2.5vw, 26px);
     right: clamp(16px, 2.5vw, 26px); width: 40px; height: 40px;
-    border: 1px solid #ffffff9e; border-radius: 50%; background: #17121c70;
+    border: 1px solid #25233640; border-radius: 50%; background: #fffaf1e8;
     font-size: 22px; line-height: 1;
 }
-.forum-sections a:hover .forum-card-arrow { color: var(--ink); background: #fff; }
+.forum-sections a:hover .forum-card-arrow { color: var(--ink); background: var(--yellow, #ffe495); }
 @media (prefers-reduced-motion: no-preference) {
     .forum-sections img { transition: transform .28s ease; }
     .forum-card-arrow { transition: background-color .18s ease, color .18s ease; }

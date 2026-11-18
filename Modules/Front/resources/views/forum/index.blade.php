@@ -10,7 +10,7 @@
             @foreach($sections as $slug => $section)
                 <li>
                     <a href="{{ route('forum.sections.show', $slug) }}">
-                        <img src="{{ asset('home/forum/'.$slug.'.webp') }}" width="640" height="360" alt="">
+                        <img src="{{ asset('home/forum/'.$slug.'-pastel.webp') }}" width="1280" height="640" alt="">
                         <div class="forum-section-copy">
                             <h2>{{ $section['name'] }}</h2>
                             <span class="forum-topic-count">{{ trans_choice('{0} Dołącz do działu|{1} 1 temat|[2,4] :count tematy|[5,*] :count tematów', $counts[$slug] ?? 0) }}</span>
