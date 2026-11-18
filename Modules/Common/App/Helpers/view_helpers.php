@@ -23,7 +23,7 @@ function active_menu($menu, $class = 'current'): string
 function panel_date_format($date, ?string $format = null): string
 {
     if ($date === null) {
-        return '–';
+        return '-';
     }
 
     return Carbon::parse($date)

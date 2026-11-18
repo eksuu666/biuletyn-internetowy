@@ -13,17 +13,17 @@
                             <h2 id="weather-heading">{{ $station['stacja'] }}</h2>
                             <p>Ostatni pomiar{{ isset($station['data_pomiaru'], $station['godzina_pomiaru']) ? ' · '.$station['data_pomiaru'].' · '.str_pad($station['godzina_pomiaru'], 2, '0', STR_PAD_LEFT).':00 UTC' : '' }}</p>
                         </div>
-                        <div class="portal-weather-temp" aria-label="Temperatura">{{ is_numeric($station['temperatura'] ?? null) ? str_replace('.', ',', $station['temperatura']).' °C' : '—' }}</div>
+                        <div class="portal-weather-temp" aria-label="Temperatura">{{ is_numeric($station['temperatura'] ?? null) ? str_replace('.', ',', $station['temperatura']).' °C' : '-' }}</div>
                     </div>
                     <dl class="portal-weather-metrics">
                         @foreach(['predkosc_wiatru' => ['Wiatr', 'm/s'], 'wilgotnosc_wzgledna' => ['Wilgotność', '%'], 'cisnienie' => ['Ciśnienie', 'hPa']] as $key => [$label, $unit])
                             <div>
                                 <dt>{{ $label }}</dt>
-                                <dd>{{ is_numeric($station[$key] ?? null) ? str_replace('.', ',', $station[$key]).' '.$unit : '—' }}</dd>
+                                <dd>{{ is_numeric($station[$key] ?? null) ? str_replace('.', ',', $station[$key]).' '.$unit : '-' }}</dd>
                             </div>
                         @endforeach
                     </dl>
-                    <p class="portal-weather-source">Źródłem pochodzenia danych jest <a href="https://danepubliczne.imgw.pl/apiinfo">Instytut Meteorologii i Gospodarki Wodnej – Państwowy Instytut Badawczy</a>.</p>
+                    <p class="portal-weather-source">Źródłem pochodzenia danych jest <a href="https://danepubliczne.imgw.pl/apiinfo">Instytut Meteorologii i Gospodarki Wodnej - Państwowy Instytut Badawczy</a>.</p>
                 </section>
             @else
                 <p class="service-card portal-service-copy">Pomiary są chwilowo niedostępne.</p>

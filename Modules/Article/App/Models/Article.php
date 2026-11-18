@@ -54,7 +54,7 @@ class Article extends Model implements Feedable
     public const WORKFLOW_LABELS = [
         self::DRAFT => 'Szkic',
         self::SUBMITTED => 'Do korekty sekretarza',
-        self::AWAITING_APPROVAL => 'Po korekcie — do akceptacji naczelnego',
+        self::AWAITING_APPROVAL => 'Po korekcie - do akceptacji naczelnego',
         self::PUBLISHED => 'Zatwierdzony do publikacji',
         self::CHANGES_REQUESTED => 'Zwrócony autorowi',
     ];

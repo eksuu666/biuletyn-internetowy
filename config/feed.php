@@ -20,7 +20,7 @@ return [
              */
             'url' => '/feed',
 
-            'title' => 'sŁodziak — najnowsze wiadomości',
+            'title' => 'sŁodziak - najnowsze wiadomości',
             'description' => 'Najnowsze wiadomości z Łodzi i regionu.',
             'language' => 'pl-PL',
 

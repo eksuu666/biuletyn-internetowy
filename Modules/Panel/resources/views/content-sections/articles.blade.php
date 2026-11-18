@@ -64,8 +64,8 @@
                                 </td>
                                 <td>{{ $article->title }}</td>
                                 <td>{{ $article->slug }}</td>
-                                <td>{{ $article->user?->full_name ?? '—' }}</td>
-                                <td>{{ $article->category?->name ?? '—' }}</td>
+                                <td>{{ $article->user?->full_name ?? '-' }}</td>
+                                <td>{{ $article->category?->name ?? '-' }}</td>
                                 <td class="nowrap">{{ str(nullable_value($article->tagNames()))->limit(50) }}</td>
                                 <td>{{ $article->likeCount }}</td>
                                 <td class="nowrap">{{ panel_date_format($article->published_at) }}</td>

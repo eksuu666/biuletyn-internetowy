@@ -107,13 +107,13 @@ class EditorialWorkflowTest extends TestCase
     public function test_author_profile_and_picture_are_self_managed(): void
     {
         $this->actingAs($this->reporter)->patch(route('panel.profile.update'), [
-            'full_name' => 'Anna — redakcja', 'username' => 'anna-redakcja', 'bio' => 'Piszę o sprawach Łodzi.',
+            'full_name' => 'Anna - redakcja', 'username' => 'anna-redakcja', 'bio' => 'Piszę o sprawach Łodzi.',
             'roles' => [Role::ADMIN], 'picture' => UploadedFile::fake()->image('anna.jpg'),
         ])->assertSessionHasNoErrors()->assertRedirect();
         $user = $this->reporter->fresh();
         $this->assertFalse($user->hasRole(Role::ADMIN));
         Storage::disk('public')->assertExists($user->image->file_path);
-        $this->get(route('author.index', $user->username))->assertOk()->assertSee('Anna — redakcja')->assertSee('Redaktor')->assertSee('Piszę o sprawach Łodzi.');
+        $this->get(route('author.index', $user->username))->assertOk()->assertSee('Anna - redakcja')->assertSee('Redaktor')->assertSee('Piszę o sprawach Łodzi.');
         $user->image()->delete();
         $this->get(route('author.index', $user->username))->assertOk()->assertSee('seeders/images/profile_picture.jpg');
     }

@@ -52,8 +52,8 @@
         Morris.Donut({
             element: 'site-visits-yearly',
             data: [
-                {value: {{ $visitsCount['yearly'] - $visitsCount['monthly'] }}, label: 'Miesiąc–rok temu'},
-                {value: {{ $visitsCount['monthly'] - $visitsCount['weekly'] }}, label: 'Tydzień–miesiąc temu'},
+                {value: {{ $visitsCount['yearly'] - $visitsCount['monthly'] }}, label: 'Miesiąc-rok temu'},
+                {value: {{ $visitsCount['monthly'] - $visitsCount['weekly'] }}, label: 'Tydzień-miesiąc temu'},
                 {value: {{ $visitsCount['weekly'] }}, label: 'Ostatni tydzień'},
             ],
             colors: [
@@ -70,8 +70,8 @@
         Morris.Donut({
             element: 'site-visits-daily',
             data: [
-                {value: {{ $visitsCount['daily'] - $visitsCount['ten_hours'] }}, label: '10–24 godz. temu'},
-                {value: {{ $visitsCount['ten_hours'] - $visitsCount['hourly'] }}, label: '1–10 godz. temu'},
+                {value: {{ $visitsCount['daily'] - $visitsCount['ten_hours'] }}, label: '10-24 godz. temu'},
+                {value: {{ $visitsCount['ten_hours'] - $visitsCount['hourly'] }}, label: '1-10 godz. temu'},
                 {value: {{ $visitsCount['hourly'] }}, label: 'Ostatnia godzina'},
             ],
             colors: [

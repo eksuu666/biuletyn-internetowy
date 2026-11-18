@@ -14,7 +14,7 @@
                     <div class="row">
                         <div class="form-group col-md-8">
                             <label for="issue-title">Tytuł numeru</label>
-                            <input class="form-control" id="issue-title" name="title" required maxlength="160" value="{{ old('title', $issue->title) }}" placeholder="Np. sŁodziaki — numer 1/2026">
+                            <input class="form-control" id="issue-title" name="title" required maxlength="160" value="{{ old('title', $issue->title) }}" placeholder="Np. sŁodziaki - numer 1/2026">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="issue-date">Data wydania</label>

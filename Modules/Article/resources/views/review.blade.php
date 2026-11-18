@@ -22,7 +22,7 @@
         @php
             $actions = [];
             if (in_array($article->workflow_state, ['draft', 'changes_requested']) && ($article->user_id === auth()->id() || auth()->user()->isAdmin())) $actions['submit'] = 'Przekaż do korekty sekretarza';
-            if ($article->workflow_state === 'submitted' && auth()->user()->can('article::correct')) $actions['correct'] = 'Korekta zakończona — przekaż naczelnemu';
+            if ($article->workflow_state === 'submitted' && auth()->user()->can('article::correct')) $actions['correct'] = 'Korekta zakończona - przekaż naczelnemu';
             if ($article->workflow_state === 'awaiting_approval' && auth()->user()->can('article::publish')) $actions['publish'] = 'Zatwierdź i opublikuj / zaplanuj';
             if (in_array($article->workflow_state, ['submitted', 'awaiting_approval']) && app(\Modules\Article\App\Services\EditorialWorkflow::class)->isReviewer(auth()->user())) $actions['return'] = 'Zwróć autorowi z uwagami';
             if ($article->workflow_state === 'published' && auth()->user()->can('article::publish')) $actions['withdraw'] = 'Wycofaj i przekaż ponownie do korekty';

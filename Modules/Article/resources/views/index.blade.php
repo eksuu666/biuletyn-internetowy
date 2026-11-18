@@ -36,7 +36,7 @@
                             <dl class="editorial-details">
                                 <dt>Adres</dt><dd>{{ $article->slug }}</dd>
                                 <dt>Rodzaj</dt><dd>{{ __('article::types.' . $article->type) }}</dd>
-                                <dt>Tagi</dt><dd>{{ $article->tagNames() ?: '—' }}</dd>
+                                <dt>Tagi</dt><dd>{{ $article->tagNames() ?: '-' }}</dd>
                                 <dt>Utworzono</dt><dd>{{ panel_date_format($article->created_at) }}</dd>
                                 <dt>Polubienia</dt><dd>{{ $article->likeCount }}</dd>
                                 <dt>Wybór redakcji</dt><dd>{{ $article->editor_choice ? 'Tak' : 'Nie' }}</dd>

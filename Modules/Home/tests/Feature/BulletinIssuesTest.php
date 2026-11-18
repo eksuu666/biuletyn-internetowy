@@ -87,6 +87,25 @@ class BulletinIssuesTest extends TestCase
         Storage::disk('local')->assertExists($issue->fresh()->pdf_path);
     }
 
+    public function test_punctuation_cleanup_preserves_file_paths_links_and_editorial_dates(): void
+    {
+        $issue = BulletinIssue::create([
+            'title' => "Gazeta \u{2014} numer 1", 'description' => '<p>Czytaj &mdash; tutaj</p><a href="https://example.test/a'."\u{2013}".'b">PDF &#8211; wydanie</a>',
+            'pdf_path' => "bulletins/a\u{2014}b.pdf", 'cover_path' => 'bulletins/cover.webp',
+            'published_on' => today(), 'is_published' => true,
+        ]);
+        $modified = $issue->updated_at;
+        $migration = require module_path('Home', 'Database/migrations/2026_11_18_235000_normalize_display_dashes.php');
+        $migration->up();
+        $issue->refresh();
+        $this->assertSame('Gazeta - numer 1', $issue->title);
+        $this->assertSame('<p>Czytaj - tutaj</p><a href="https://example.test/a'."\u{2013}".'b">PDF - wydanie</a>', $issue->description);
+        $this->assertSame("bulletins/a\u{2014}b.pdf", $issue->pdf_path);
+        $this->assertTrue($modified->equalTo($issue->updated_at));
+        $migration->up();
+        $this->assertSame('Gazeta - numer 1', $issue->fresh()->title);
+    }
+
     public function test_upload_requires_permission_and_rejects_non_pdf_files(): void
     {
         $prefix = config('app.panel_prefix', 'panel');

@@ -44,7 +44,7 @@ return [
     '416'          => 'Żądany zakres jest nieobsługiwany',
     '417'          => 'Oczekiwanie nie powiodło się',
     '418'          => 'Jestem czajnikiem',
-    '419'          => 'Sesja wygasła – wymagane ponowne uwierzytelnienie',
+    '419'          => 'Sesja wygasła - wymagane ponowne uwierzytelnienie',
     '421'          => 'Błędnie skierowane żądanie',
     '422'          => 'Podmiot Nieprzetwarzalny',
     '423'          => 'Zasób zablokowany',

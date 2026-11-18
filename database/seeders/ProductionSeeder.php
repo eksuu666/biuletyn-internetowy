@@ -56,13 +56,13 @@ class ProductionSeeder extends Seeder
         }
 
         $legacyDefaults = [
-            'title' => 'sŁodziak — biuletyn blisko Łodzi',
+            'title' => 'sŁodziak - biuletyn blisko Łodzi',
             'description' => 'Lokalne wiadomości, sprawy mieszkańców, kultura i wydarzenia z Łodzi oraz regionu.',
             'keywords' => 'Łódź, wiadomości lokalne, biuletyn, wydarzenia, kultura, mieszkańcy',
             'footer_text' => 'sŁodziak to niezależny biuletyn tworzony blisko spraw Łodzi i jej mieszkańców.',
         ];
         $defaults = [
-            'title' => 'sŁodziaki — portal o zwierzętach',
+            'title' => 'sŁodziaki - portal o zwierzętach',
             'description' => 'Porady dla opiekunów, historie adopcji i wiadomości ze świata zwierząt.',
             'keywords' => 'zwierzęta, psy, koty, adopcje, opieka nad zwierzętami',
             'footer_text' => 'Porady, adopcje i historie o zwierzętach.',

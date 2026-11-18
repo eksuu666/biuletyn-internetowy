@@ -1,7 +1,7 @@
 @extends('panel::layouts.master', ['title' => 'Wysyłka newslettera'])
 @section('content')
 <div class="container-fluid">
-    <h1>Newsletter — wydania i wysyłka</h1>
+    <h1>Newsletter - wydania i wysyłka</h1>
     <p>Potwierdzeni odbiorcy: {{ $confirmedCount }}. Wysyłamy tylko do aktywnych, potwierdzonych subskrybentów.</p>
     <x-common-error-messages/>
     @if(config('mail.default') === 'log')
