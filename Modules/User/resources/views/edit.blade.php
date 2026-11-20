@@ -90,11 +90,8 @@
                                     <div class="help-block"></div>
                                 </div>
                                 <div class="form-group col-12 text-center">
-                                    <img class="mb-2" src="{{ asset('storage/' . $user->image->file_path) }}" alt="{{ $user->image->alt_text }}" style="max-width: 300px; max-height:
+                                    <img class="mb-2" src="{{ $user->avatarUrl() }}" alt="{{ $user->full_name }}" style="max-width: 300px; max-height:
                                     300px">
-                                    <div>
-                                        {{ asset('storage/' . $user->image->file_path) }}
-                                    </div>
                                 </div>
                             </div>
                             <div class="form-group col-12 row justify-content-center">

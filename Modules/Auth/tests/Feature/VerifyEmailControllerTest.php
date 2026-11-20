@@ -12,6 +12,12 @@ class VerifyEmailControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        config(['auth.email_verification_required' => true]);
+    }
+
     public function test_user_can_view_email_verification_page(): void
     {
         $user = User::factory()->active()->unverified()->create();

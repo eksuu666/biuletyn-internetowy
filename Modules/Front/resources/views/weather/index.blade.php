@@ -4,7 +4,24 @@
     <div class="portal-wrap portal-static portal-service">
         @include('front::partials.page-heading', ['title' => 'Pogoda', 'eyebrow' => 'Na cztery łapy', 'icon' => 'sun-o', 'description' => 'Sprawdź warunki, zanim ruszycie na spacer.', 'headingImage' => 'home/illustrations/pogoda.webp'])
 
-        <div class="portal-service-grid">
+        @if($stations->isNotEmpty())
+            <div class="service-card portal-weather-toolbar">
+                <form class="portal-tools" action="{{ route('weather.index') }}" role="search" aria-label="Wyszukaj pogodę">
+                    <label for="weather-city">Miasto
+                        <input id="weather-city" name="miasto" type="search" list="weather-cities" maxlength="100" placeholder="Wpisz miasto, np. Łódź" value="{{ $cityInput }}" autocomplete="off" @if($cityError) aria-invalid="true" aria-describedby="weather-city-error" @endif>
+                    </label>
+                    <datalist id="weather-cities">@foreach($stations as $place)<option value="{{ $place['stacja'] }}"></option>@endforeach</datalist>
+                    <button class="portal-button">Sprawdź pogodę</button>
+                </form>
+                @if($cityError)<p id="weather-city-error" class="portal-weather-error" role="alert">Nie znaleziono stacji. Wybierz miasto z podpowiedzi.</p>@endif
+                <nav class="portal-weather-shortcuts" aria-label="Popularne miasta">
+                    @foreach(['lodz', 'warszawa', 'krakow', 'wroclaw', 'poznan', 'gdansk'] as $shortcut)
+                        @if($stations->has($shortcut))<a href="{{ route('weather.index', ['miasto' => $shortcut]) }}" @if(($station['stacja'] ?? null) === $stations[$shortcut]['stacja']) aria-current="page" @endif>{{ $stations[$shortcut]['stacja'] }}</a>@endif
+                    @endforeach
+                </nav>
+            </div>
+        @endif
+        <div>
             @if($station)
                 <section class="portal-weather service-card" aria-labelledby="weather-heading">
                     <div class="portal-weather-head">
@@ -25,30 +42,16 @@
                     <p class="portal-weather-source">Źródłem pochodzenia danych jest <a href="https://danepubliczne.imgw.pl/apiinfo">Instytut Meteorologii i Gospodarki Wodnej - Państwowy Instytut Badawczy</a>.</p>
                 </section>
             @else
-                <p class="service-card portal-service-copy">Pomiary są chwilowo niedostępne.</p>
+                @unless($cityError)<p class="service-card portal-service-copy">Pomiary są chwilowo niedostępne.</p>@endunless
             @endif
 
-            <aside class="service-card portal-service-copy">
-                @if($station)
-                    <form class="portal-tools portal-tools-stack" action="{{ route('weather.index') }}">
-                        <label for="weather-city">Miejscowość
-                            <select id="weather-city" name="miasto">
-                                @foreach($stations as $slug => $place)
-                                    <option value="{{ $slug }}" @selected($station['stacja'] === $place['stacja'])>{{ $place['stacja'] }}</option>
-                                @endforeach
-                            </select>
-                        </label>
-                        <button class="portal-button">Sprawdź pogodę</button>
-                    </form>
-                @endif
-                <a class="portal-service-link" href="https://meteo.imgw.pl/">Prognoza i ostrzeżenia IMGW <span aria-hidden="true">↗</span></a>
-            </aside>
+            <p class="portal-weather-forecast"><a class="portal-service-link" href="https://meteo.imgw.pl/">Prognoza i ostrzeżenia IMGW <span aria-hidden="true">↗</span></a></p>
         </div>
         <section class="service-card portal-weather-map-card" aria-labelledby="weather-map-heading">
             <h2 id="weather-map-heading">Pogoda na mapie</h2>
             <p>Wybierz temperaturę przy mieście, aby zobaczyć pomiary.</p>
             <div id="weather-map" role="region" aria-label="Mapa temperatur w Polsce" tabindex="0"></div>
-            <p class="portal-map-status" role="status" hidden>Mapa jest chwilowo niedostępna. Miejscowość możesz wybrać z listy powyżej.</p>
+            <p class="portal-map-status" role="status" hidden>Mapa jest chwilowo niedostępna. Miasto możesz wyszukać powyżej.</p>
             <noscript><p>Włącz JavaScript, aby korzystać z mapy. Pomiary są dostępne powyżej.</p></noscript>
             <script id="weather-map-data" type="application/json">{!! json_encode($mapCities, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>
         </section>

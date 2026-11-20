@@ -3,12 +3,12 @@
 @section('content')
     <h1 id="account-heading">Zarejestruj się</h1>
 
-    @if(config('mail.default') === 'log')
+    @if(! config('auth.registration_enabled'))
         <p class="account-intro">Rejestracja jest obecnie zamknięta.</p>
     @else
         <form class="account-form" action="{{ route('register') }}" method="post">
             @csrf
-            <label for="full_name">Nazwa użytkownika</label>
+            <label for="full_name">Imię i nazwisko lub nazwa</label>
             <input id="full_name" name="full_name" value="{{ old('full_name') }}" required autocomplete="name">
 
             <label for="email">Adres e-mail</label>

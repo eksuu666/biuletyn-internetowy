@@ -50,6 +50,16 @@
 .portal-weather-temp { color: var(--ink); letter-spacing: -.04em; }
 .portal-weather-head h2 { font-family: var(--serif); }
 .portal-weather-metrics { margin: 0; }
+.portal-weather-toolbar { padding: 20px 24px; margin-bottom: 22px; }
+.portal-weather-toolbar .portal-tools { margin: 0 0 14px; }
+.portal-weather-toolbar label { flex: 1 1 250px; max-width: 420px; }
+.portal-weather-toolbar input { min-height: 44px; }
+.portal-weather-shortcuts { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 14px; }
+.portal-weather-shortcuts a { color: var(--muted); }
+.portal-weather-shortcuts a[aria-current] { color: var(--accent); font-weight: 700; }
+.portal-weather-shortcuts a:hover { text-decoration: underline; }
+.portal-weather-error { color: #9e2929; margin: 0 0 14px; font-size: 14px; }
+.portal-weather-forecast { margin: 16px 0 0; font-size: 14px; }
 .portal-service .portal-newsletter { background: white; border: 1px solid var(--line); border-radius: 12px; margin-top: 0; gap: 30px; padding: 32px; }
 .portal-service .portal-newsletter h2 { font-family: var(--serif); font-size: 32px; }
 .portal-service .portal-newsletter .portal-kicker { color: var(--accent); }
@@ -94,7 +104,6 @@
 .portal-footer .portal-footer-bottom { padding: 18px 0 22px; font-size: 12px; }
 .news-portal h2, .news-portal h3 { font-weight: 600; letter-spacing: -.015em; }
 .portal-text-page { max-width: 850px; }
-.portal-main > .forum { max-width: 1064px; }
 .forum .portal-page-content:has(.forum-post), .forum .portal-page-content:has(> .forum-form) { max-width: 850px; }
 .slodziaki-home .home-heading, .slodziaki-home .home-feed-title, .slodziaki-home .home-feed-card-large .home-feed-title { font-weight: 600; letter-spacing: -.015em; }
 @media (max-width: 1050px) {

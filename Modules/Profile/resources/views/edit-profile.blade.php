@@ -1,6 +1,9 @@
 @extends('panel::layouts.master', ['title' => 'Edytuj profil autora'])
 
 @section('content')
+    @cannot('article::index')
+        <p class="alert alert-info">Konto jest gotowe. Dostęp do redakcji nadaje administrator.</p>
+    @endcannot
     <x-common-breadcrumbs>
         <li><a>Profil</a></li>
         <li><a>Edytuj profil autora</a></li>

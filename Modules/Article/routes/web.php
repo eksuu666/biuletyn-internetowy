@@ -12,7 +12,7 @@ Route::prefix(config('app.panel_prefix', 'panel'))
         Route::get('articles/{article}/review', [EditorialController::class, 'show'])->middleware(['auth', 'verified'])->name('articles.review');
         Route::post('articles/{article}/workflow', [EditorialController::class, 'transition'])->middleware(['auth', 'verified'])->name('articles.workflow');
         Route::post('articles/{article}/restore', [EditorialController::class, 'restore'])->middleware(['auth', 'verified'])->name('articles.restore');
-        Route::resource('articles', ArticleController::class)->except('show')->names('articles')->middleware('auth');
+        Route::resource('articles', ArticleController::class)->except('show')->names('articles')->middleware(['auth', 'verified']);
         Route::get('articles/seo-settings/{article}', [ArticleController::class, 'SEOSettings'])->name('articles.seo-settings');
     });
 

@@ -40,9 +40,14 @@ class WeatherController
             ->filter(fn ($row) => is_array($row) && is_string($row['stacja'] ?? null))
             ->keyBy(fn ($row) => Str::slug($row['stacja']))
             ->sortBy(fn ($row) => Str::ascii($row['stacja']), SORT_NATURAL | SORT_FLAG_CASE);
-        $city = $request->query('miasto', 'lodz');
-        $station = is_string($city) ? $stations->get($city) : null;
-        $station ??= $stations->get('lodz') ?? $stations->first();
+        $input = $request->query('miasto', '');
+        $cityInput = is_string($input) ? mb_substr(trim($input), 0, 100) : '';
+        $city = Str::slug($cityInput ?: 'lodz');
+        $station = $stations->get($city);
+        if ($cityInput === '') {
+            $station ??= $stations->first();
+        }
+        $cityError = $cityInput !== '' && ! $station && $stations->isNotEmpty();
         $mapCities = [];
         foreach (self::MAP_CITIES as $slug => $coordinates) {
             $place = $stations->get($slug);
@@ -51,7 +56,7 @@ class WeatherController
                     'name' => $place['stacja'], 'coordinates' => $coordinates,
                     'temperature' => str_replace('.', ',', $place['temperatura']).' °C',
                     'url' => route('weather.index', ['miasto' => $slug]),
-                    'selected' => $station['stacja'] === $place['stacja'],
+                    'selected' => ($station['stacja'] ?? null) === $place['stacja'],
                 ];
             }
         }
@@ -60,6 +65,6 @@ class WeatherController
         SEOTools::setDescription('Ostatnie pomiary pogody ze stacji IMGW w Polsce.');
         SEOTools::setCanonical(route('weather.index'));
 
-        return view('front::weather.index', compact('station', 'stations', 'mapCities'));
+        return view('front::weather.index', compact('station', 'stations', 'mapCities', 'cityInput', 'cityError'));
     }
 }

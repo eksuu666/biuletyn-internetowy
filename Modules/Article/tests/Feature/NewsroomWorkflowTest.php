@@ -154,6 +154,8 @@ class NewsroomWorkflowTest extends TestCase
         $this->get('/pogoda')->assertOk()->assertSee('3,5 °C');
         $this->get('/pogoda')->assertSee('weather-map-data')->assertSee('leaflet.js')->assertSee('Pogoda na mapie');
         $this->get('/pogoda?miasto=warszawa')->assertOk()->assertSee('6,2 °C')->assertDontSee('3,5 °C');
+        $this->get('/pogoda?miasto='.urlencode('  Łódź  '))->assertOk()->assertSee('3,5 °C')->assertSee('list="weather-cities"', false)->assertDontSee('<select id="weather-city"', false);
+        $this->get('/pogoda?miasto=nieistniejaca')->assertOk()->assertSee('Nie znaleziono stacji.')->assertDontSee('id="weather-heading"', false);
         Http::assertSentCount(1);
     }
 

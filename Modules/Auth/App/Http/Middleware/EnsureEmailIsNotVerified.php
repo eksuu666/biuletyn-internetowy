@@ -32,6 +32,10 @@ class EnsureEmailIsNotVerified
      */
     public function handle($request, Closure $next, $redirectToRoute = null)
     {
+        if (! config('auth.email_verification_required')) {
+            return to_route('home.index');
+        }
+
         if (! $request->user() ||
             ($request->user() instanceof MustVerifyEmail &&
                 $request->user()->hasVerifiedEmail())) {

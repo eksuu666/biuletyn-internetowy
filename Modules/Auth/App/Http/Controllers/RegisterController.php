@@ -17,12 +17,13 @@ class RegisterController extends Controller
 
     public function register(RegisterRequest $request, RegisterService $registerService): RedirectResponse
     {
-        if (config('mail.default') === 'log') {
+        if (! config('auth.registration_enabled')) {
             return to_route('register')->withErrors('Rejestracja jest obecnie zamknięta.');
         }
 
         $success = $registerService->register($request);
         if ($success) {
+            $request->session()->regenerate();
             return to_route('home.index')->with('success', __('auth::messages.user_created'));
         }
 

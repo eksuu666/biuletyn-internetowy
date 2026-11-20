@@ -122,6 +122,13 @@ class User extends Authenticatable implements MustVerifyEmail
         ])->save();
     }
 
+    public function sendEmailVerificationNotification(): void
+    {
+        if (config('auth.email_verification_required')) {
+            parent::sendEmailVerificationNotification();
+        }
+    }
+
     public function getRoleLocalNames(): Collection
     {
         return $this->roles()->latest()->get()->pluck('local_name');
