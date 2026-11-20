@@ -30,7 +30,7 @@ class NewsroomRegistrationTest extends TestCase
         $this->assertTrue($user->hasRole(Role::SUBSCRIBER));
         $this->assertFalse($user->can('article::store'));
         Notification::assertNothingSent();
-        $this->get(route('panel.profile.edit'))->assertOk()->assertSee('Dostęp do redakcji nadaje administrator.');
+        $this->get(route('panel.profile.edit'))->assertOk()->assertViewIs('profile::account')->assertSee('Moje konto')->assertDontSee('PANEL REDAKCJI');
         $this->get(route('panel.articles.create'))->assertForbidden();
         $this->get(route('forum.topics.create', 'psy'))->assertOk();
 

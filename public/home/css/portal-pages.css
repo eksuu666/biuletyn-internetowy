@@ -72,6 +72,10 @@
 .portal-reading-aside .portal-brief h2 { font-size: 22px; }
 .portal-reading-aside .portal-brief li { padding-block: 14px; }
 .portal-author { border-radius: 12px; }
+.portal-member-profile .portal-author { max-width: 760px; align-items: center; gap: 20px; margin-top: 22px; }
+.portal-member-profile .portal-author > img { flex: none; }
+.news-portal .portal-member-profile h1 { font: 600 clamp(26px, 4vw, 34px)/1.2 var(--brand-font); margin: 0; letter-spacing: -.02em; overflow-wrap: anywhere; }
+.portal-member-profile .portal-author > div { min-width: 0; }
 .portal-list-header > .portal-author { margin-top: 0; margin-bottom: 28px; padding: 26px; }
 .portal-list-header > .portal-author h1 { font-size: 40px; }
 .print-library-grid { gap: 24px; }

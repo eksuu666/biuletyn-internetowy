@@ -19,7 +19,7 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
 
-        return view('profile::edit-profile', compact('user'));
+        return view($user->isEditorialStaff() ? 'profile::edit-profile' : 'profile::account', compact('user'));
     }
 
     public function update(ProfileRequest $request): RedirectResponse

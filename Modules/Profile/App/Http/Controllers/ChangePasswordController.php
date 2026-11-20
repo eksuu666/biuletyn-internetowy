@@ -20,7 +20,7 @@ class ChangePasswordController extends Controller
     {
         $user = auth()->user();
 
-        return view('profile::change-password', compact('user'));
+        return view($user->isEditorialStaff() ? 'profile::change-password' : 'profile::account', compact('user') + ['accountSection' => 'password']);
     }
 
     public function changePassword(ChangePasswordRequest $request): RedirectResponse

@@ -144,6 +144,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->image?->url() ?? asset('seeders/images/profile_picture.jpg');
     }
 
+    public function isEditorialStaff(): bool
+    {
+        return $this->isAdmin() || $this->can('article::index');
+    }
+
     public function publicRoleName(): string
     {
         foreach ([Role::ADMIN => 'Administrator', Role::EDITOR_IN_CHIEF => 'Redaktor naczelny', Role::SECRETARY => 'Sekretarz redakcji', Role::EDITOR => 'Redaktor', Role::AUTHOR => 'Redaktor'] as $role => $label) {
@@ -152,7 +157,7 @@ class User extends Authenticatable implements MustVerifyEmail
             }
         }
 
-        return 'Autor';
+        return 'Użytkownik';
     }
 
     public function role(): \Spatie\Permission\Models\Role

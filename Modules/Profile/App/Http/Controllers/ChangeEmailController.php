@@ -20,7 +20,7 @@ class ChangeEmailController extends Controller
     {
         $user = auth()->user();
 
-        return view('profile::change-email', compact('user'));
+        return view($user->isEditorialStaff() ? 'profile::change-email' : 'profile::account', compact('user') + ['accountSection' => 'email']);
     }
 
     public function sendChangeEmailVerification(ChangeEmailRequest $request): RedirectResponse

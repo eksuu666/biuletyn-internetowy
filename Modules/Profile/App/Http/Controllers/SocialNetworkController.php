@@ -16,8 +16,11 @@ class SocialNetworkController extends Controller
         $this->middleware('can:'.config('permissions_list.PROFILE_SOCIAL_NETWORKS', false));
     }
 
-    public function edit(): View
+    public function edit(): View|RedirectResponse
     {
+        if (! Auth::user()->isEditorialStaff()) {
+            return to_route(config('app.panel_prefix').'.profile.edit');
+        }
         $userSocialNetworks = $this->socialNetworkService->getUserSocialNetworks(Auth::user());
         $socialNetworksList = SocialNetworkService::SOCIAL_NETWORKS;
 

@@ -23,7 +23,11 @@
         @yield('content')
     </main>
     @include('front::partials.portal-footer')
-    @include('sweetalert::alert')
+    @unless(request()->routeIs(config('app.panel_prefix').'.profile.*'))
+        @include('sweetalert::alert')
+    @else
+        @php(session()->forget('alert'))
+    @endunless
     <script src="{{ asset('home/js/portal-menu.js') }}?v={{ filemtime(public_path('home/js/portal-menu.js')) }}" defer></script>
     @stack('scripts')
 </body>

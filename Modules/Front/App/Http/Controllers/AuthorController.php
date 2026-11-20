@@ -15,6 +15,9 @@ class AuthorController extends Controller
     {
         $this->SEOService->setAuthorPageSEO($user);
         $articlesCount = $user->articles()->publiclyVisible()->count();
+        if (! $user->isEditorialStaff() && $articlesCount === 0) {
+            return view('front::user-profile', ['profile' => $user]);
+        }
         $articles = $user->articles()->publiclyVisible()->with(['category', 'image', 'approvedComments'])->latest('published_at')->paginate(10);
         $commentsCount = $user->approvedComments()->count();
 

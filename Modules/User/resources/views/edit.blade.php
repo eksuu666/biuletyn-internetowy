@@ -77,7 +77,7 @@
                             </div>
                             <div class="col-12 d-flex flex-column align-items-center">
                                 <div class="form-group relative col-lg-6">
-                                    <label>Zdjęcie użytkownika (opcjonalne) <small>(wymagane)</small></label>
+                                    <label>Zdjęcie użytkownika (opcjonalne)</label>
                                     <div class="input-group round">
                                         <input type="text" class="form-control file-input" placeholder="Wybierz plik">
                                         <span class="input-group-btn">
@@ -86,11 +86,12 @@
                                             Wgraj zdjęcie</button>
                                     </span>
                                     </div>
-                                    <input type="file" class="form-control" name="picture">
+                                    <input type="file" class="form-control" name="picture" accept="image/*" data-avatar-input>
+                                    <p class="text-danger" data-avatar-error role="status"></p>
                                     <div class="help-block"></div>
                                 </div>
                                 <div class="form-group col-12 text-center">
-                                    <img class="mb-2" src="{{ $user->avatarUrl() }}" alt="{{ $user->full_name }}" style="max-width: 300px; max-height:
+                                    <img class="mb-2" src="{{ $user->avatarUrl() }}" alt="{{ $user->full_name }}" data-avatar-preview style="max-width: 300px; max-height:
                                     300px">
                                 </div>
                             </div>
@@ -125,6 +126,7 @@
 @endsection
 
 @push('scripts')
+    <script src="{{ asset('home/js/avatar-preview.js') }}?v={{ filemtime(public_path('home/js/avatar-preview.js')) }}" defer></script>
     <script>
         $.validator.setDefaults({
             highlight: function (element) {
