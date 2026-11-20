@@ -7,10 +7,9 @@
             @unless($__env->hasSection('list-heading'))
                 @include('front::partials.page-heading', ['title' => $heading, 'eyebrow' => request()->routeIs('search.index') ? 'Szukaj w sŁodziakach' : 'Czytaj sŁodziaki', 'icon' => request()->routeIs('search.index') ? 'search' : 'newspaper-o', 'description' => $intro ?? null])
             @endunless
-            @include('front::partials.section-nav')
             @yield('list-intro')
         </div>
-        <div class="portal-page-grid"><div>
+        <div class="portal-page-content">
 
         @if($articles->isNotEmpty())
             <div class="portal-cards">
@@ -23,6 +22,6 @@
         @endif
 
         <x-front-listing-page-pagination :paginator="$articles"/>
-        </div>@include('front::partials.discover-sidebar')</div>
+        </div>
     </div>
 @endsection

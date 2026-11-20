@@ -1,13 +1,9 @@
 <footer class="portal-footer">
     <div class="portal-wrap">
-        <div class="portal-footer-lead">
-            <div><span class="portal-page-eyebrow">sŁodziaki</span><h2>Zwierzęta. Ludzie. Historie.</h2><p>Spotkajmy się w portalu, na forum i na papierze.</p></div>
-            <a class="portal-footer-invite" href="{{ route('contact-us.index') }}"><span>Masz historię do opowiedzenia?<strong>Napisz do redakcji <i class="fa fa-angle-right" aria-hidden="true"></i></strong></span><img src="{{ asset('brand/konto-rysunek.webp') }}" width="96" height="120" alt="" loading="lazy"></a>
-        </div>
         <div class="portal-footer-grid">
             <div class="portal-footer-brand">
                 <a href="{{ route('home.index') }}" aria-label="sŁodziaki, strona główna"><x-public-wordmark/></a>
-                <p>Biuletyn o tych, którzy mają łapy,<br>i tych, którzy podają im rękę.</p>
+                <p>Portal i biuletyn o zwierzętach.</p>
                 <a class="portal-footer-contact" href="{{ route('about-us.index') }}">Poznaj redakcję <i class="fa fa-angle-right" aria-hidden="true"></i></a>
             </div>
             <nav aria-label="Portal - stopka"><h2>Portal</h2><a href="{{ route('home.latest') }}">Najnowsze artykuły</a><a href="{{ route('home.popular') }}">Najczęściej czytane</a><a href="{{ route('categories.index') }}">Działy i tematy</a><a href="{{ route('bulletins.index') }}">Z prasy do sieci!</a></nav>

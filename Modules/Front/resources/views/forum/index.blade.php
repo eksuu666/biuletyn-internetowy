@@ -3,8 +3,7 @@
 @section('content')
     <div class="portal-wrap portal-list portal-service forum">
         @include('front::partials.page-heading', ['title' => 'Forum sŁodziaków', 'eyebrow' => 'Miejsce na rozmowę', 'icon' => 'comments-o', 'description' => 'Wybierz dział, zadaj pytanie albo podziel się swoim doświadczeniem.'])
-        @include('front::partials.section-nav', ['forumNav' => true])
-        <div class="portal-page-grid"><div>
+        <div class="portal-page-content">
         <ul class="forum-sections" id="forum-sections" aria-label="Działy forum">
             @foreach($sections as $slug => $section)
                 <li>
@@ -26,6 +25,6 @@
                 @include('front::forum.topic-list', ['topics' => $latest, 'showSection' => true])
             </section>
         @endif
-        </div>@include('front::partials.discover-sidebar')</div>
+        </div>
     </div>
 @endsection

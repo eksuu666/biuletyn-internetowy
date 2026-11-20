@@ -7,7 +7,6 @@
 @section('content')
     <div class="portal-wrap portal-list print-library">
         @include('front::partials.page-heading', ['title' => 'Z prasy do sieci!', 'eyebrow' => 'Na papierze i w sieci', 'icon' => 'newspaper-o', 'description' => 'sŁodziaki w papierowym wydaniu. Wybierz numer i czytaj bezpłatnie w PDF.'])
-        @include('front::partials.section-nav')
         @if($issues->isNotEmpty())
             <div class="print-library-grid">
                 @foreach($issues as $issue)

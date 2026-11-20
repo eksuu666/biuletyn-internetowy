@@ -6,17 +6,10 @@
 .portal-breadcrumbs { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; margin-bottom: 24px; color: var(--muted); font-size: 13px; line-height: 1.5; }
 .portal-breadcrumbs > span { overflow-wrap: anywhere; }
 .portal-breadcrumbs a:hover { text-decoration: underline; }
-.portal-page-eyebrow { display: inline-flex; align-items: center; gap: 7px; color: var(--accent); font: 750 12px/1.4 var(--brand-font); }
-.portal-page-eyebrow > i { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 7px; background: var(--lavender); font-size: 14px; }
-.news-portal .portal-page-heading h1 { margin: 10px 0 12px; font: 700 clamp(34px, 4.4vw, 52px)/1.08 var(--serif); letter-spacing: -.02em; overflow-wrap: anywhere; text-wrap: balance; }
+.news-portal .portal-page-heading h1 { margin: 0 0 12px; font: 600 clamp(30px, 3.4vw, 40px)/1.18 var(--brand-font); letter-spacing: -.02em; overflow-wrap: anywhere; text-wrap: balance; }
 .portal-page-heading p { max-width: 64ch; margin: 0; color: var(--muted); font-size: 16px; }
-.portal-page-heading-art { flex: none; width: 210px; height: 150px; border-radius: 12px; object-fit: contain; mix-blend-mode: multiply; }
-.portal-section-nav { display: flex; gap: 6px; align-items: center; max-width: 100%; overflow-x: auto; padding: 0 0 14px; margin: 0 0 28px; border-bottom: 1px solid var(--line); scrollbar-width: thin; }
-.portal-section-nav > a { flex: none; display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; color: var(--muted); font-size: 14px; font-weight: 650; border-radius: 7px; white-space: nowrap; }
-.portal-section-nav > a:hover { background: #eeebf2; color: var(--ink); }
-.portal-section-nav > a[aria-current] { background: var(--yellow); color: var(--ink); }
-.portal-page-grid, .portal-service-grid { display: grid; grid-template-columns: minmax(0, 1fr) 282px; gap: 28px; align-items: start; }
-.portal-page-grid > *, .portal-service-grid > * { min-width: 0; }
+.portal-service-grid { display: grid; grid-template-columns: minmax(0, 1fr) 282px; gap: 28px; align-items: start; }
+.portal-page-content, .portal-service-grid > * { min-width: 0; }
 .portal-list-header { margin-bottom: 0; }
 .portal-list-header:has(.portal-search-filters) { margin-bottom: 26px; }
 .portal-content-heading { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 18px; }
@@ -35,28 +28,11 @@
 .contact-info-box + .contact-info-box { border-top: 1px solid var(--line); padding-top: 20px; margin-top: 20px; }
 .contact-info-box h2 { font: 750 13px/1.4 var(--brand-font); color: var(--muted); margin-bottom: 6px; }
 .contact-info-box p { font-size: 15px; overflow-wrap: anywhere; }
-.portal-discover { display: grid; gap: 20px; }
-.portal-discover-account { padding: 24px; border: 1px solid var(--line); background: white; border-radius: 12px; }
-.portal-discover-account h2 { font: 700 26px/1.15 var(--serif); letter-spacing: -.015em; margin: 14px 0 10px; }
-.portal-discover-account p { color: var(--muted); font-size: 14px; margin-bottom: 18px; overflow-wrap: anywhere; }
-.portal-discover-card { overflow: hidden; border: 1px solid var(--line); background: white; border-radius: 12px; }
-.portal-discover-card > img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
-.portal-discover-card > span { display: block; padding: 18px; }
-.portal-discover-card small { display: inline-block; padding: 3px 7px; background: var(--yellow); color: var(--ink); font-size: 11px; font-weight: 750; }
-.portal-discover-card strong { display: block; font: 700 25px/1.15 var(--serif); margin: 10px 0; }
-.portal-discover-card > span > span { display: flex; justify-content: space-between; align-items: center; color: var(--accent); font-size: 13px; }
-.portal-discover-contact { display: flex; gap: 12px; align-items: center; padding: 20px; background: var(--lavender); border-radius: 12px; }
-.portal-discover-contact > i:first-child { font-size: 22px; color: var(--accent); }
-.portal-discover-contact > i:last-child { margin-left: auto; }
-.portal-discover-contact strong, .portal-discover-contact small { display: block; }
-.portal-discover-contact strong { font-size: 14px; line-height: 1.4; }
-.portal-discover-contact small { color: var(--accent); font-size: 12px; margin-top: 4px; }
-.portal-discover a:hover { box-shadow: 0 4px 18px #2523360b; }
 .portal-cards { gap: 24px 20px; }
 .news-portal .portal-card { border: 0; background: transparent; border-radius: 0; box-shadow: none; }
 .portal-card-media { border-radius: 9px; background: #fff; }
 .news-portal .portal-card-content { padding: 14px 0 0; }
-.news-portal .portal-card h3 { font: 750 23px/1.18 var(--brand-font); letter-spacing: -.025em; margin: 12px 0 9px; }
+.news-portal .portal-card h3 { font: 600 22px/1.25 var(--brand-font); letter-spacing: -.015em; margin: 12px 0 9px; }
 .news-portal .portal-card .portal-kicker { border: 1px solid var(--ink); border-radius: 0; background: var(--lavender); box-shadow: 2px 2px var(--ink); color: var(--ink); padding: 2px 6px; font-size: 10px; letter-spacing: .02em; }
 .news-portal .portal-card .portal-label-coral { background: var(--coral); }
 .news-portal .portal-card .portal-label-yellow { background: var(--yellow); }
@@ -82,7 +58,6 @@
 .portal-reading .portal-breadcrumbs { margin-bottom: 24px; }
 .portal-reading .portal-story-heading { margin-bottom: 30px; }
 .portal-reading-aside { display: grid; align-content: start; gap: 20px; }
-.portal-reading-aside .portal-discover { margin-top: 0; }
 .portal-reading-aside .portal-brief { border-radius: 12px; padding: 22px; }
 .portal-reading-aside .portal-brief h2 { font-size: 22px; }
 .portal-reading-aside .portal-brief li { padding-block: 14px; }
@@ -99,7 +74,7 @@
 .forum-sections a::after { display: none; }
 .forum-sections img { position: static; width: 100%; height: auto; aspect-ratio: 2 / 1; object-fit: cover; z-index: auto; border-bottom: 1px solid var(--line); }
 .forum-section-copy { position: static; padding: 19px 62px 20px 20px; }
-.forum-section-copy h2 { font: 700 28px/1.1 var(--serif); margin: 0 0 7px; }
+.forum-section-copy h2 { font: 600 25px/1.2 var(--brand-font); margin: 0 0 7px; }
 .forum-section-copy p { color: var(--muted); font-size: 13px; line-height: 1.5; margin: 0 0 10px; }
 .forum-topic-count { display: inline-block; font-size: 11px; line-height: 1.4; padding: 4px 8px; border-radius: 4px; background: var(--lavender); color: var(--accent); }
 .forum-card-arrow { right: 19px; bottom: 21px; width: 32px; height: 32px; font-size: 18px; background: #fff; border-color: var(--line); }
@@ -118,13 +93,6 @@
 .forum-form textarea { resize: vertical; }
 .forum-recent { margin-top: 32px; }
 .portal-footer { background: #fff; border-top: 1px solid var(--line); }
-.portal-footer-lead { display: flex; justify-content: space-between; align-items: center; gap: 32px; padding: 34px 0; border-bottom: 1px solid var(--line); }
-.portal-footer-lead h2 { font: 700 clamp(26px, 3vw, 36px)/1.15 var(--serif); letter-spacing: -.02em; margin: 8px 0; }
-.portal-footer-lead p { color: var(--muted); font-size: 14px; margin: 0; }
-.portal-footer-invite { display: flex; gap: 24px; align-items: center; padding: 12px 22px; border: 1px solid #e6dfef; border-radius: 12px; background: #faf8fd; }
-.portal-footer-invite > span { font-size: 13px; color: var(--muted); }
-.portal-footer-invite strong { display: flex; align-items: center; gap: 18px; font-size: 16px; color: var(--ink); margin-top: 5px; }
-.portal-footer-invite img { display: block; width: 72px; height: 90px; object-fit: contain; mix-blend-mode: multiply; }
 .portal-footer-grid { gap: 40px; padding: 36px 0; grid-template-columns: minmax(240px, 1.4fr) repeat(3, minmax(0, 1fr)); }
 .portal-footer .public-wordmark { font-size: 32px; }
 .portal-footer-brand p { margin-top: 12px; font-size: 13px; }
@@ -132,9 +100,14 @@
 .portal-footer-grid nav h2 { font-size: 14px; margin-bottom: 7px; }
 .portal-footer-grid nav a, .portal-footer-grid nav button { font-size: 14px; }
 .portal-footer .portal-footer-bottom { padding: 18px 0 22px; font-size: 12px; }
+.news-portal h2, .news-portal h3 { font-weight: 600; letter-spacing: -.015em; }
+.portal-text-page { max-width: 850px; }
+.portal-main > .forum { max-width: 1064px; }
+.forum .portal-page-content:has(.forum-post), .forum .portal-page-content:has(> .forum-form) { max-width: 850px; }
+.slodziaki-home .home-heading, .slodziaki-home .home-feed-title, .slodziaki-home .home-feed-card-large .home-feed-title { font-weight: 600; letter-spacing: -.015em; }
 @media (max-width: 1050px) {
-    .portal-page-grid, .portal-service-grid { grid-template-columns: minmax(0, 1fr) 250px; gap: 22px; }
-    .portal-page-grid .portal-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .portal-service-grid { grid-template-columns: minmax(0, 1fr) 250px; gap: 22px; }
+    .portal-page-content .portal-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .forum-sections { gap: 16px; }
     .forum-section-copy { padding: 16px 46px 16px 16px; }
     .forum-card-arrow { width: 26px; height: 26px; right: 13px; bottom: 16px; }
@@ -144,30 +117,15 @@
 @media (max-width: 760px) {
     .portal-main > .portal-service { width: calc(100% - 32px); }
     .portal-main > :is(.portal-list, .portal-static, .portal-reading) { padding-block: 24px 40px; }
-    .portal-page-grid, .portal-service-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
-    .portal-discover { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .portal-discover-contact { grid-column: 1 / -1; }
+    .portal-service-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
     .portal-page-heading { gap: 14px; margin-bottom: 24px; }
-    .portal-page-heading-art { width: 125px; height: 115px; }
     .portal-breadcrumbs { margin-bottom: 19px; }
-    .portal-section-nav { margin-bottom: 24px; }
-    .portal-section-nav { scrollbar-width: none; }
-    .portal-section-nav::-webkit-scrollbar { display: none; }
-    .portal-section-nav > a { padding-inline: 12px; }
-    .portal-footer-lead { align-items: flex-start; flex-direction: column; gap: 22px; padding: 28px 0; }
-    .portal-footer-invite { width: 100%; justify-content: space-between; }
     .portal-category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 480px) {
     .portal-service-copy form .row { grid-template-columns: minmax(0, 1fr); }
-    .portal-page-heading-art { display: none; }
     .portal-page-heading p { font-size: 15px; }
-    .portal-discover { grid-template-columns: minmax(0, 1fr); }
-    .portal-discover-card { display: grid; grid-template-columns: 108px minmax(0, 1fr); align-items: stretch; }
-    .portal-discover-card > img { height: 100%; aspect-ratio: auto; }
-    .portal-discover-card > span { padding: 16px; }
-    .portal-discover-card strong { font-size: 23px; }
-    .portal-page-grid .portal-cards { grid-template-columns: minmax(0, 1fr); }
+    .portal-page-content .portal-cards { grid-template-columns: minmax(0, 1fr); }
     .portal-category-grid { grid-template-columns: minmax(0, 1fr); }
     .forum-sections { grid-template-columns: minmax(0, 1fr); }
     .forum-section-copy { padding: 18px 58px 18px 18px; }

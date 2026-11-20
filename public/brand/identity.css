@@ -15,7 +15,7 @@
     --brand-muted: #625852;
     --brand-paper: #faf6ef;
     --brand-line: #e9dfd4;
-    --brand-font: "DM Sans", "Segoe UI", Arial, sans-serif;
+    --brand-font: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 .brand-logo {
     display: inline-block;
@@ -101,6 +101,7 @@
     letter-spacing: 0;
 }
 .account-intro { margin: 0 0 22px; color: var(--public-muted); }
+.account-card h1 { font-family: var(--brand-font); font-weight: 600; font-size: clamp(30px, 4vw, 38px); }
 .account-photo {
     background: #faf9f6 url('/brand/konto-rysunek.webp') center / cover no-repeat;
 }

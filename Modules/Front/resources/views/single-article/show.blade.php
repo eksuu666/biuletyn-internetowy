@@ -104,7 +104,6 @@
                         </section>
                     @endif
                     @include('front::partials.portal-ads', ['placements' => $ads['first_sidebar']->concat($ads['second_sidebar'])])
-                    @include('front::partials.discover-sidebar')
                 </aside>
             </div>
         </article>
