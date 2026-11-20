@@ -11,7 +11,6 @@
                         <img src="{{ asset('home/forum/'.$slug.'-rysunek.webp') }}" width="1280" height="640" alt="">
                         <div class="forum-section-copy">
                             <h2>{{ $section['name'] }}</h2>
-                            <p>{{ $section['intro'] }}</p>
                             <span class="forum-topic-count">{{ trans_choice('{0} Dołącz do działu|{1} 1 temat|[2,4] :count tematy|[5,*] :count tematów', $counts[$slug] ?? 0) }}</span>
                         </div>
                         <span class="forum-card-arrow" aria-hidden="true">→</span>
