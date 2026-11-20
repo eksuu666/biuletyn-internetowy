@@ -7,6 +7,7 @@ use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Modules\Home\App\Models\BulletinIssue;
 use Modules\Home\App\Services\HomeService;
 use Modules\Home\App\Services\HomeFeedService;
@@ -53,12 +54,13 @@ class HomeController extends Controller
     {
         $heading = 'Najczęściej czytane';
         SEOTools::setTitle($heading);
-        $articles = $this->homeService->popularQuery()->paginate(12);
-        SEOTools::setCanonical($articles->url($articles->currentPage()));
+        $top = $this->homeService->popularQuery()->limit(10)->get();
+        $articles = new LengthAwarePaginator($top, $top->count(), 10, 1, ['path' => route('home.popular')]);
+        SEOTools::setCanonical(route('home.popular'));
 
         return view('front::article-list', [
             'heading' => $heading,
-            'intro' => 'Z ostatnich 7 dni',
+            'intro' => 'Top 10 - Z ostatnich 7 dni',
             'articles' => $articles,
             'emptyMessage' => 'Ranking pojawi się po zebraniu pierwszych odsłon.',
         ]);

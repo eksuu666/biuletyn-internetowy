@@ -36,15 +36,23 @@
                 <div class="home-rail-follow">
                     @if($popular->isNotEmpty())
                         <section class="home-rail-popular" aria-labelledby="home-popular">
-                            <h2 id="home-popular">Najczęściej czytane</h2>
+                            <h2 id="home-popular">Najczęściej czytane <span>TOP 10</span></h2>
                             <ol>@foreach($popular as $story)<li><a href="{{ $story->getUrl() }}">{{ $story->title }}</a></li>@endforeach</ol>
-                            <a class="home-rail-more" href="{{ route('home.popular') }}">Zobacz ranking <span aria-hidden="true">→</span></a>
+                            <a class="home-rail-more" href="{{ route('home.popular') }}">Zobacz Top 10 <span aria-hidden="true">→</span></a>
                         </section>
                     @endif
                     <a class="home-rail-forum" href="{{ route('forum.index') }}"><i class="fa fa-comments-o" aria-hidden="true"></i><span><strong>Porozmawiajmy o zwierzakach</strong><small>Dołącz do forum sŁodziaków <span aria-hidden="true">→</span></small></span></a>
+                    <a class="home-rail-feature home-rail-weather" href="{{ route('weather.index') }}">
+                        <img src="{{ asset('home/illustrations/pogoda.webp') }}" alt="" width="564" height="282" loading="lazy">
+                        <span class="home-rail-feature-copy"><small>Na cztery łapy</small><strong>Pogoda na spacer</strong><span>Sprawdź prognozę i mapę <i class="fa fa-angle-right" aria-hidden="true"></i></span></span>
+                    </a>
+                    <a class="home-rail-feature home-rail-contact" href="{{ route('contact-us.index') }}">
+                        <img src="{{ asset('brand/konto-rysunek.webp') }}" alt="" width="564" height="282" loading="lazy">
+                        <span class="home-rail-feature-copy"><small>Od Was do redakcji</small><strong>Masz nosa do historii?</strong><span>Napisz do sŁodziaków <i class="fa fa-angle-right" aria-hidden="true"></i></span></span>
+                    </a>
                     @include('front::partials.portal-ads', ['placements' => $ads['first_sidebar']->concat($ads['second_sidebar'])])
                     <nav class="home-rail-links" aria-label="Przydatne linki">
-                        <a href="{{ route('weather.index') }}">Pogoda</a><a href="{{ route('contact-us.index') }}">Kontakt</a><a href="{{ route('about-us.index') }}">O redakcji</a><a href="{{ url('/feed') }}">RSS</a>
+                        <a href="{{ route('about-us.index') }}">O redakcji</a><a href="{{ url('/feed') }}">RSS</a>
                     </nav>
                 </div>
             </aside>

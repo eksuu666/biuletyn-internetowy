@@ -22,6 +22,27 @@ class HomeFeedTest extends TestCase
         return Article::factory()->create(array_merge(['user_id' => User::getFirstAdmin()->id, 'category_id' => Category::firstOrFail()->id, 'status' => true, 'published_at' => now()->subMinute()], $data));
     }
 
+    public function test_popular_ranking_contains_only_ten_public_articles_even_with_a_page_parameter(): void
+    {
+        $visitor = \Modules\UserActivity\App\Models\UserTrack::create(['ip' => '192.0.2.90']);
+        $expected = [];
+        for ($index = 0; $index < 12; $index++) {
+            $story = $this->article(['published_at' => now()->subMinutes($index + 1)]);
+            \Modules\UserActivity\App\Models\RequestTrack::create([
+                'user_track_id' => $visitor->id, 'article_id' => $story->id,
+                'url' => $story->getUrl(), 'tag' => \Modules\UserActivity\App\Models\RequestTrack::PAGE_VIEW,
+            ]);
+            $expected[] = $story->id;
+        }
+        foreach (['', '?page=2'] as $query) {
+            $response = $this->get(route('home.popular').$query)->assertOk()->assertSee('Top 10');
+            $articles = $response->viewData('articles');
+            $this->assertSame(array_slice($expected, 0, 10), $articles->pluck('id')->all());
+            $this->assertFalse($articles->hasMorePages());
+        }
+        $this->get('/')->assertOk()->assertSee('Pogoda na spacer')->assertSee('Masz nosa do historii?');
+    }
+
     public function test_feed_pages_are_complete_do_not_repeat_and_exclude_private_or_newer_content(): void
     {
         $stories = collect();
