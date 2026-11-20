@@ -2,11 +2,8 @@
 
 @section('content')
     <div class="portal-wrap portal-list portal-service">
-        <header class="portal-list-header">
-            <a class="portal-back" href="{{ route('home.index') }}">← Strona główna</a>
-            <h1>Zapisane artykuły</h1>
-            <p>Twoja lista w tej przeglądarce.</p>
-        </header>
+        @include('front::partials.page-heading', ['title' => 'Zapisane artykuły', 'eyebrow' => 'Do przeczytania', 'icon' => 'bookmark-o', 'description' => 'Twoja lista w tej przeglądarce.'])
+        @include('front::partials.section-nav')
         <div data-saved-list="{{ route('saved.data') }}">
             <p class="portal-empty" role="status">Wczytuję listę…</p>
             <ul class="portal-forum-list service-card" hidden></ul>

@@ -2,8 +2,9 @@
 
 @section('content')
     <div class="portal-wrap portal-list portal-service forum">
-        <a class="portal-back" href="{{ route('forum.sections.show', $topic->section) }}">← {{ $details['name'] }}</a>
-        <h1>{{ $topic->title }}</h1>
+        @include('front::partials.page-heading', ['title' => $topic->title, 'parentLabel' => 'Forum', 'parentUrl' => route('forum.index'), 'eyebrow' => $details['name'], 'icon' => 'comments-o'])
+        @include('front::partials.section-nav', ['forumNav' => true])
+        <div class="portal-page-grid"><div>
         @include('front::forum.post', ['post' => $topic, 'removeUrl' => route('forum.topics.destroy', $topic)])
 
         <section class="forum-recent" aria-labelledby="forum-replies-heading">
@@ -25,5 +26,6 @@
                 <a class="portal-button" href="{{ route('forum.topics.reply-form', $topic) }}">Zaloguj się, aby odpowiedzieć</a>
             @endauth
         </section>
+        </div>@include('front::partials.discover-sidebar')</div>
     </div>
 @endsection

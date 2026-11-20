@@ -2,8 +2,7 @@
 
 @section('content')
     <div class="portal-wrap portal-static portal-service">
-        <a class="portal-back" href="{{ route('home.index') }}">← Strona główna</a>
-        <h1>Pogoda</h1>
+        @include('front::partials.page-heading', ['title' => 'Pogoda', 'eyebrow' => 'Na cztery łapy', 'icon' => 'sun-o', 'description' => 'Sprawdź warunki, zanim ruszycie na spacer.', 'headingImage' => 'home/illustrations/pogoda.webp'])
 
         <div class="portal-service-grid">
             @if($station)

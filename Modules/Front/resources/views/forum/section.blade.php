@@ -2,20 +2,16 @@
 
 @section('content')
     <div class="portal-wrap portal-list portal-service forum">
-        <a class="portal-back" href="{{ route('forum.index') }}">← Forum</a>
-        <header class="forum-section-heading service-card">
-            <img src="{{ asset('home/forum/'.$section.'-rysunek.webp') }}" width="1280" height="640" alt="">
-            <div>
-                <h1>{{ $details['name'] }}</h1>
-                <p>{{ $details['intro'] }}</p>
-                <a class="portal-button" href="{{ route('forum.topics.create', $section) }}">Załóż temat</a>
-            </div>
-        </header>
+        @include('front::partials.page-heading', ['title' => $details['name'], 'parentLabel' => 'Forum', 'parentUrl' => route('forum.index'), 'description' => $details['intro'], 'eyebrow' => 'Forum sŁodziaków', 'icon' => 'comments-o', 'headingImage' => 'home/forum/'.$section.'-rysunek.webp'])
+        @include('front::partials.section-nav', ['forumNav' => true])
+        <div class="portal-page-grid"><div>
+        <div class="portal-content-heading"><h2>Tematy w dziale</h2><a class="portal-button" href="{{ route('forum.topics.create', $section) }}"><i class="fa fa-plus" aria-hidden="true"></i>Załóż temat</a></div>
         @if($topics->isNotEmpty())
             @include('front::forum.topic-list')
             <x-front-listing-page-pagination :paginator="$topics"/>
         @else
             <p class="service-card portal-service-copy">W tym dziale nie ma jeszcze tematów. Możesz założyć pierwszy.</p>
         @endif
+        </div>@include('front::partials.discover-sidebar')</div>
     </div>
 @endsection

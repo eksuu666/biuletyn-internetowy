@@ -2,8 +2,9 @@
 
 @section('content')
     <div class="portal-wrap portal-static portal-service forum">
-        <a class="portal-back" href="{{ route('forum.sections.show', $section) }}">← {{ $details['name'] }}</a>
-        <h1>Nowy temat</h1>
+        @include('front::partials.page-heading', ['title' => 'Nowy temat', 'parentLabel' => $details['name'], 'parentUrl' => route('forum.sections.show', $section), 'eyebrow' => 'Forum sŁodziaków', 'icon' => 'pencil'])
+        @include('front::partials.section-nav', ['forumNav' => true])
+        <div class="portal-page-grid"><div>
         <form class="service-card portal-service-copy forum-form" method="post" action="{{ route('forum.topics.store', $section) }}">
             @csrf
             <x-common-error-messages/>
@@ -13,5 +14,6 @@
             <textarea class="form-control" id="forum-body" name="body" rows="8" maxlength="5000" required>{{ old('body') }}</textarea>
             <button class="portal-button">Opublikuj temat</button>
         </form>
+        </div>@include('front::partials.discover-sidebar')</div>
     </div>
 @endsection

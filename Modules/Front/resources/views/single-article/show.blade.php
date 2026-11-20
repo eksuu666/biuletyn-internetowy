@@ -5,6 +5,7 @@
 @section('content')
     @php($commentCount = $threads->sum(fn ($thread) => 1 + $thread['replies']->count()))
     <div class="portal-wrap portal-reading">
+        <nav class="portal-breadcrumbs" aria-label="Ścieżka artykułu"><a href="{{ route('home.index') }}">Portal</a><i class="fa fa-angle-right" aria-hidden="true"></i><a href="{{ route('categories.show', $article->category->slug) }}">{{ $article->category->name }}</a></nav>
         <article>
             <header class="portal-story-heading">
                 @if($article->is_sponsored)<p class="portal-sponsored-disclosure">Materiał sponsorowany{{ $article->sponsor_name ? ' · '.$article->sponsor_name : '' }}</p>@endif
@@ -103,6 +104,7 @@
                         </section>
                     @endif
                     @include('front::partials.portal-ads', ['placements' => $ads['first_sidebar']->concat($ads['second_sidebar'])])
+                    @include('front::partials.discover-sidebar')
                 </aside>
             </div>
         </article>

@@ -2,8 +2,7 @@
 
 @section('content')
     <div class="portal-wrap portal-static portal-service">
-        <a class="portal-back" href="{{ route('home.index') }}">← Strona główna</a>
-        <h1>Newsletter</h1>
+        @include('front::partials.page-heading', ['title' => 'Newsletter', 'eyebrow' => 'Bądźmy w kontakcie', 'icon' => 'paper-plane-o', 'description' => 'Nowe historie sŁodziaków prosto do Twojej skrzynki.', 'headingImage' => 'brand/konto-rysunek.webp'])
         @if(session('newsletter_status'))
             <p class="discussion-status" role="status">{{ session('newsletter_status') }}</p>
         @endif

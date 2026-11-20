@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="{{ asset('home/forum/forum.css') }}?v={{ filemtime(public_path('home/forum/forum.css')) }}">
     @endif
     @stack('styles')
+    <link rel="stylesheet" href="{{ asset('home/css/portal-pages.css') }}?v={{ filemtime(public_path('home/css/portal-pages.css')) }}">
 </head>
 <body @class(['news-portal', 'slodziaki-home' => request()->routeIs('home.index')])>
     <a class="portal-skip" href="#main-content">Przejdź do treści</a>

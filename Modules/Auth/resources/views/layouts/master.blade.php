@@ -30,6 +30,6 @@
         </section>
         <div class="account-photo" aria-hidden="true"></div>
     </main>
-    <footer class="account-footer">© {{ now()->year }} sŁodziaki</footer>
+    <footer class="account-footer"><span>© {{ now()->year }} sŁodziaki</span><nav aria-label="Przydatne linki"><a href="{{ route('home.index') }}">Portal</a><a href="{{ route('forum.index') }}">Forum</a><a href="{{ route('contact-us.index') }}">Kontakt</a></nav></footer>
 </body>
 </html>

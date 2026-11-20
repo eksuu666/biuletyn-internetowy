@@ -2,15 +2,15 @@
 
 @section('content')
     <div @class(['portal-wrap', 'portal-list', 'portal-service' => request()->routeIs('search.index'), 'portal-news-list' => ! request()->routeIs('search.index')])>
-        <header class="portal-list-header">
-            <a class="portal-back" href="{{ route('home.index') }}">← Strona główna</a>
+        <div class="portal-list-header">
             @yield('list-heading', '')
             @unless($__env->hasSection('list-heading'))
-                <h1>{{ $heading }}</h1>
+                @include('front::partials.page-heading', ['title' => $heading, 'eyebrow' => request()->routeIs('search.index') ? 'Szukaj w sŁodziakach' : 'Czytaj sŁodziaki', 'icon' => request()->routeIs('search.index') ? 'search' : 'newspaper-o', 'description' => $intro ?? null])
             @endunless
-            @isset($intro)<p>{{ $intro }}</p>@endisset
+            @include('front::partials.section-nav')
             @yield('list-intro')
-        </header>
+        </div>
+        <div class="portal-page-grid"><div>
 
         @if($articles->isNotEmpty())
             <div class="portal-cards">
@@ -23,5 +23,6 @@
         @endif
 
         <x-front-listing-page-pagination :paginator="$articles"/>
+        </div>@include('front::partials.discover-sidebar')</div>
     </div>
 @endsection

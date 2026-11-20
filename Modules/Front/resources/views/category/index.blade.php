@@ -2,10 +2,8 @@
 
 @section('content')
     <div class="portal-wrap portal-list portal-service">
-        <header class="portal-list-header">
-            <a class="portal-back" href="{{ route('home.index') }}">← Strona główna</a>
-            <h1>Wszystkie działy</h1>
-        </header>
+        @include('front::partials.page-heading', ['title' => 'Działy i tematy', 'eyebrow' => 'Odkrywaj sŁodziaki', 'icon' => 'th-large', 'description' => 'Reportaże, porady i historie. Znajdź coś dla siebie.'])
+        @include('front::partials.section-nav')
         <div class="portal-category-grid">
             @forelse($categories as $category)
                 <a class="portal-category service-card" href="{{ route('categories.show', $category->slug) }}">

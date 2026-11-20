@@ -2,8 +2,7 @@
 
 @section('content')
     <div class="portal-wrap portal-static">
-        <h1>Newsletter sŁodziaka</h1>
-        <p>{{ $message }}</p>
+        @include('front::partials.page-heading', ['title' => 'Newsletter sŁodziaka', 'description' => $message, 'eyebrow' => 'Bądźmy w kontakcie', 'icon' => 'paper-plane-o'])
         @if($confirmUnsubscribe ?? false)
             <form method="post" action="{{ request()->fullUrl() }}">
                 @csrf

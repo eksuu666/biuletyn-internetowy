@@ -147,7 +147,8 @@
 .account-errors, .account-status { border-radius: 0; margin: 0 0 16px; }
 .account-errors { background: #ffedec; color: #801b1e; padding: 11px 12px 11px 28px; }
 .account-status { background: #edf4e8; color: #355329; padding: 11px 12px; }
-.account-footer { text-align: center; color: var(--public-muted); font-size: 13px; padding: 20px; }
+.account-footer { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; width: min(1000px, calc(100% - 40px)); margin-inline: auto; color: var(--public-muted); font-size: 13px; padding: 20px 0; border-top: 1px solid var(--public-line); }
+.account-footer nav { display: flex; gap: 22px; }
 .account-error { max-width: 650px; margin: 10vh auto; padding: 0 22px; text-align: center; }
 .account-error-code { color: var(--public-accent); font-size: clamp(44px, 12vw, 100px); font-weight: 900; line-height: 1; margin: 0 0 12px; }
 .account-error .account-button { margin-top: 14px; }
