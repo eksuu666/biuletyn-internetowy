@@ -5,6 +5,9 @@ use Modules\Comment\App\Http\Controllers\CommentController;
 use Modules\Comment\App\Http\Controllers\Front\CommentController as FrontCommentController;
 use Spatie\Honeypot\ProtectAgainstSpam;
 
+Route::patch('comments/{comment}/reaction', \Modules\Comment\App\Http\Controllers\Front\CommentReactionController::class)
+    ->middleware('throttle:60,1')->block(10, 10)->name('comments.react');
+
 Route::prefix(config('app.panel_prefix', 'panel').'/comments')
     ->name(config('app.panel_prefix', 'panel').'.comments.')
     ->controller(CommentController::class)

@@ -12,6 +12,7 @@ function animateFeedback(element, className) {
 function enhanceForms(container, status, onSuccess) {
     container.addEventListener('submit', async (event) => {
         const form = event.target;
+        if (form.matches('[data-comment-reactions]')) return;
         event.preventDefault();
         if (container.getAttribute('aria-busy') === 'true') return;
 
@@ -79,6 +80,40 @@ if (reactionForm) {
 
 const discussion = document.querySelector('#comments');
 if (discussion) {
+    discussion.addEventListener('submit', async (event) => {
+        const form = event.target;
+        if (!form.matches('[data-comment-reactions]')) return;
+        event.preventDefault();
+        if (form.getAttribute('aria-busy') === 'true') return;
+        const status = form.querySelector('[data-comment-reaction-status]');
+        const button = event.submitter;
+        if (!button) return;
+        const body = new FormData(form);
+        body.append(button.name, button.value);
+        form.setAttribute('aria-busy', 'true');
+        status.textContent = '';
+        try {
+            const response = await fetch(form.action, {method: 'POST', body, headers: {Accept: 'application/json'}, signal: AbortSignal.timeout(15000)});
+            if (!response.ok) {
+                status.textContent = response.status === 429 ? 'Spróbuj ponownie za chwilę.' : response.status === 419 ? 'Sesja wygasła. Odśwież stronę.' : 'Nie udało się zapisać reakcji.';
+                return;
+            }
+            const {counts, selected} = await response.json();
+            for (const option of form.querySelectorAll('[data-comment-reaction]')) {
+                const key = option.dataset.commentReaction;
+                const active = selected === key;
+                option.setAttribute('aria-pressed', String(active));
+                option.setAttribute('aria-label', `${option.title} (${counts[key] ?? 0})`);
+                option.value = active ? '' : key;
+                option.querySelector('[data-comment-reaction-count]').textContent = counts[key] ?? 0;
+            }
+            animateFeedback(button, 'reaction-pop');
+        } catch {
+            status.textContent = 'Nie udało się połączyć z serwerem.';
+        } finally {
+            form.removeAttribute('aria-busy');
+        }
+    });
     const status = discussion.querySelector('[data-discussion-status]');
     const threads = discussion.querySelector('[data-comment-threads]');
     enhanceForms(discussion, status, ({html, count, commentId, message}, form) => {

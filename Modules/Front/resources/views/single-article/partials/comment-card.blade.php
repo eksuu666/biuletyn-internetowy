@@ -36,4 +36,12 @@
             </details>
         @endcan
     </div>
+    @php($commentReaction = $commentReactions[$comment->id])
+    <form class="comment-reactions" data-comment-reactions action="{{ route('comments.react', $comment) }}" method="post" aria-label="Reakcje na komentarz użytkownika {{ $comment->commenterName() }}">
+        @csrf @method('PATCH')
+        @foreach(\Modules\Comment\App\Services\Front\CommentReactionService::OPTIONS as $key => [$emoji, $label])
+            <button type="submit" name="reaction" value="{{ $commentReaction['selected'] === $key ? '' : $key }}" data-comment-reaction="{{ $key }}" title="{{ $label }}" aria-label="{{ $label }} ({{ $commentReaction['counts'][$key] }})" aria-pressed="{{ $commentReaction['selected'] === $key ? 'true' : 'false' }}"><span aria-hidden="true">{{ $emoji }}</span><span data-comment-reaction-count>{{ $commentReaction['counts'][$key] }}</span></button>
+        @endforeach
+        <span data-comment-reaction-status role="status"></span>
+    </form>
 </article>

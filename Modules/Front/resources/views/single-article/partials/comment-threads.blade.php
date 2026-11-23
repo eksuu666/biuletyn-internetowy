@@ -1,3 +1,7 @@
+@php
+    $reactionComments = $threads->flatMap(fn ($thread) => collect([$thread['root']])->merge($thread['replies']->pluck('comment')));
+    $commentReactions = app(\Modules\Comment\App\Services\Front\CommentReactionService::class)->summaries($reactionComments, request());
+@endphp
 @forelse($threads as $thread)
     <div class="discussion-thread">
         @include('front::single-article.partials.comment-card', ['comment' => $thread['root'], 'parent' => null])
